@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.5.33516.290
+VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Game", "src\HeavenlyWind.Game\HeavenlyWind.Game.csproj", "{9263590F-63A1-4586-B478-A12D7D67B622}"
 EndProject
@@ -19,7 +19,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.UserInterface", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Extensibility", "src\HeavenlyWind.Extensibility\HeavenlyWind.Extensibility.csproj", "{2541487F-D8DB-4CA5-9B41-DF6243B259B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind.Extensibility.Browser", "src\HeavenlyWind.Extensibility.Browser\HeavenlyWind.Extensibility.Browser.csproj", "{CE0057B3-D995-4093-8C47-71C1FC8244D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Extensibility.Browser", "src\HeavenlyWind.Extensibility.Browser\HeavenlyWind.Extensibility.Browser.csproj", "{CE0057B3-D995-4093-8C47-71C1FC8244D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{76495C31-6169-4378-85DE-8B2E856AA213}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImprovementArsenal", "src\Plugins\ImprovementArsenal\ImprovementArsenal.csproj", "{E3CFE817-C1FF-4B07-B8E4-8973876AF1A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +63,10 @@ Global
 		{CE0057B3-D995-4093-8C47-71C1FC8244D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE0057B3-D995-4093-8C47-71C1FC8244D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE0057B3-D995-4093-8C47-71C1FC8244D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3CFE817-C1FF-4B07-B8E4-8973876AF1A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3CFE817-C1FF-4B07-B8E4-8973876AF1A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3CFE817-C1FF-4B07-B8E4-8973876AF1A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3CFE817-C1FF-4B07-B8E4-8973876AF1A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,5 +75,6 @@ Global
 		{85FE16EB-F999-445C-872E-B8181C67031C} = {C061BBB9-7802-4BCF-B411-C852DAA1C217}
 		{3CD66841-054E-409B-8653-F846216061AA} = {C061BBB9-7802-4BCF-B411-C852DAA1C217}
 		{DBA4B269-E3EC-43BE-83E6-EE9DEDFA21F8} = {C061BBB9-7802-4BCF-B411-C852DAA1C217}
+		{E3CFE817-C1FF-4B07-B8E4-8973876AF1A1} = {76495C31-6169-4378-85DE-8B2E856AA213}
 	EndGlobalSection
 EndGlobal

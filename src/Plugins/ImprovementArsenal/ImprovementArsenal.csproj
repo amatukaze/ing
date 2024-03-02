@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
+
+  <PropertyGroup>
+    <AssemblyName>HeavenlyWind.Plugin.ImprovementArsenal</AssemblyName>
+    <RootNamespace>Sakuno.KanColle.Amatsukaze.Plugin.ImprovementArsenal</RootNamespace>
+    <Description>Equipment improvement information for Intelligent Naval Gun</Description>
+      <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Strings\English.xml" />
+    <None Remove="Resources\Strings\Japanese.xml" />
+    <None Remove="Resources\Strings\SimplifiedChinese.xml" />
+    <None Remove="Resources\Strings\TraditionalChinese.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Strings\English.xml" />
+    <EmbeddedResource Include="Resources\Strings\Japanese.xml" />
+    <EmbeddedResource Include="Resources\Strings\SimplifiedChinese.xml" />
+    <EmbeddedResource Include="Resources\Strings\TraditionalChinese.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.Composition" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)src\HeavenlyWind.Base\HeavenlyWind.Base.csproj" />
+    <ProjectReference Include="$(SolutionDir)src\HeavenlyWind.Extensibility\HeavenlyWind.Extensibility.csproj" />
+    <ProjectReference Include="$(SolutionDir)src\HeavenlyWind\HeavenlyWind.csproj" />
+  </ItemGroup>
+
+</Project>

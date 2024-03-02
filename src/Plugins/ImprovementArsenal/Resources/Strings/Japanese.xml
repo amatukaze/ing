@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Strings Name="Japanese" Version="0.1.9">
+  <String Key="Name">改修工廠</String>
+
+  <String Key="Today">今日</String>
+
+  <String Key="MaterialConsumption">必要資材</String>
+  <String Key="EquipmentConsumption">消費装備</String>
+
+  <String Key="Exception">問題があります</String>
+  <String Key="Retry">再試行</String>
+
+  <String Key="NewVersionAvailable">データが更新されました</String>
+  <String Key="Reload">リロード</String>
+  <String Key="Ignore">無視</String>
+</Strings>

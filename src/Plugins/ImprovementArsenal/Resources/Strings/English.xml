@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Strings Name="English" Version="1.0">
+  <String Key="Name">Equipment Improvement</String>
+
+  <String Key="Today">Today</String>
+
+  <String Key="MaterialConsumption">Materials</String>
+  <String Key="EquipmentConsumption">Equipment</String>
+
+  <String Key="Exception">There's some problem...</String>
+  <String Key="Retry">Retry</String>
+
+  <String Key="NewVersionAvailable">The data has been updated</String>
+  <String Key="Reload">Reload</String>
+  <String Key="Ignore">Ignore</String>
+</Strings>

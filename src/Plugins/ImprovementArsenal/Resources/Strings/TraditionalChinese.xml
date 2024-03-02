@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Strings Name="TraditionalChinese" Version="1.0">
+  <String Key="Name">明石改修工廠</String>
+
+  <String Key="Today">今天</String>
+
+  <String Key="MaterialConsumption">必要資材</String>
+  <String Key="EquipmentConsumption">消耗裝備</String>
+
+  <String Key="Exception">遇到了個問題</String>
+  <String Key="Retry">重試</String>
+
+  <String Key="NewVersionAvailable">改修數據已更新</String>
+  <String Key="Reload">重新加載</String>
+  <String Key="Ignore">忽略</String>
+</Strings>
