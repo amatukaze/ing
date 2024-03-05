@@ -645,7 +645,7 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="SortieMap_UnderConstruction">出撃地図未実装</String>
 
   <String Key="CompositionSharing_Instruction">共有したい艦隊を選びます</String>
-  <String Key="CompositionSharing_Note">※ 今は[url=http://kancolle-calc.net/deckbuilder.html][b]艦載機厨さん[/b][/url]のデッキビルダーのコピーに対応します</String>
+  <String Key="CompositionSharing_Note">※ 今は[url=https://noro6.github.io][b]noro6[/b][/url]のデッキビルダーのコピーに対応します</String>
   <String Key="CompositionSharing_TakeScreenshot">スクリーンショットをする</String>
   <String Key="CompositionSharing_TakeScreenshot_Clipboard_Message">スクリーンショットがクリップボードに保存しました。</String>
   <String Key="CompositionSharing_TakeScreenshot_File_Message">スクリーンショットがファイルに保存しました。</String>

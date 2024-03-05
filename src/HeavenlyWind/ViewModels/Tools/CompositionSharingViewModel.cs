@@ -110,7 +110,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
 
             if (Preference.Instance.Game.CompositionSharing_AutoOpenBrowser.Value)
             {
-                Process.Start("http://kancolle-calc.net/deckbuilder.html?predeck=" + rText);
+                Process.Start("https://noro6.github.io/kc-web?predeck=" + rText);
                 return;
             }
 

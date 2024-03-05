@@ -646,7 +646,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="SortieMap_UnderConstruction">地图功能仍未实现</String>
 
   <String Key="CompositionSharing_Instruction">请选择要分享的舰队</String>
-  <String Key="CompositionSharing_Note">※ 仅支持[url=http://kancolle-calc.net/deckbuilder.html][b]舰载机厨[/b][/url]和[url=http://fleet.moe/][b]谁在呼叫舰队[/b][/url]通用代码的相互导入导出</String>
+  <String Key="CompositionSharing_Note">※ 仅支持[url=https://noro6.github.io][b]noro6[/b][/url]的相互导入导出</String>
   <String Key="CompositionSharing_TakeScreenshot">截图</String>
   <String Key="CompositionSharing_TakeScreenshot_Clipboard_Message">截图已复制到剪贴板。</String>
   <String Key="CompositionSharing_TakeScreenshot_File_Message">截图已保存。</String>
