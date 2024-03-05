@@ -24,6 +24,7 @@ namespace Sakuno.KanColle.Amatsukaze.Browser.Blink
 
             r_Settings = new CefSettings()
             {
+                LogSeverity = LogSeverity.Fatal,
                 BrowserSubprocessPath = Path.Combine(CoreDirectory, "CefSharp.BrowserSubprocess.exe"),
                 CachePath = Path.Combine(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory), "Browser Cache", "Blink"),
                 
@@ -33,7 +34,6 @@ namespace Sakuno.KanColle.Amatsukaze.Browser.Blink
 
             commandLines.Add("proxy-server", "localhost:" + port);
             commandLines.Add("disable-features", "HardwareMediaKeyHandling,MediaSessionService");
-            commandLines.Add("log-severity", "fatal");
 
             if (disableHWA)
             {
