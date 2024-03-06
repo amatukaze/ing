@@ -646,7 +646,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="SortieMap_UnderConstruction">地圖功能仍未實現</String>
 
   <String Key="CompositionSharing_Instruction">請選擇要分享的艦隊</String>
-  <String Key="CompositionSharing_Note">※ 僅支持[url=https://noro6.github.io][b]noro6[/b][/url]的相互導入導出</String>
+  <String Key="CompositionSharing_Note">※ 僅支持[url=https://noro6.github.io/kc-web/][b]noro6[/b][/url]的相互導入導出</String>
   <String Key="CompositionSharing_TakeScreenshot">截圖</String>
   <String Key="CompositionSharing_TakeScreenshot_Clipboard_Message">截圖已複製到剪貼簿。</String>
   <String Key="CompositionSharing_TakeScreenshot_File_Message">截圖已保存。</String>
