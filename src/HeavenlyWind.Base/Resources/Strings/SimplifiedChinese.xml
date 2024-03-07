@@ -147,6 +147,7 @@
   <String Key="Overview_ActiveQuest_NotLoaded">未获取执行中的任务</String>
 
   <String Key="Fleet_TotalStatus">总属性值</String>
+  <String Key="Fleet_TotalStatus_Note">※ 面板值总和，不算改修</String>
   <String Key="Fleet_Total_Level">总等级</String>
   <String Key="Fleet_Total_Firepower">总火力</String>
   <String Key="Fleet_Total_AA">总对空</String>

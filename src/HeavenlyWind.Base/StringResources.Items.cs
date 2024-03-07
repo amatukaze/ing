@@ -149,6 +149,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Overview_ActiveQuest_NotLoaded => GetString(nameof(Overview_ActiveQuest_NotLoaded));
 
         public string Fleet_TotalStatus => GetString(nameof(Fleet_TotalStatus));
+        public string Fleet_TotalStatus_Note => GetString(nameof(Fleet_TotalStatus_Note));
         public string Fleet_Total_Level => GetString(nameof(Fleet_Total_Level));
         public string Fleet_Total_Firepower => GetString(nameof(Fleet_Total_Firepower));
         public string Fleet_Total_AA => GetString(nameof(Fleet_Total_AA));

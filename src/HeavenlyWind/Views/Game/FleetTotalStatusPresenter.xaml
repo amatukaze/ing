@@ -25,7 +25,11 @@
                             </ruic:DropDownButton.Header>
 
                             <Border Background="{DynamicResource BackgroundBrushKey}">
-                                <ItemsPresenter />
+                                <StackPanel>
+                                    <ItemsPresenter />
+
+                                    <TextBlock Text="{rb:StringResource Main.Fleet_TotalStatus_Note}" FontWeight="Bold" Margin="4, 2"  />
+                                </StackPanel>
                             </Border>
                         </ruic:DropDownButton>
                     </ControlTemplate>

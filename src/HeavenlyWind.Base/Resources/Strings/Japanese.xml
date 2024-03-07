@@ -146,6 +146,7 @@
   <String Key="Overview_ActiveQuest_NotLoaded">遂行中の任務未取得</String>
 
   <String Key="Fleet_TotalStatus">合計値</String>
+  <String Key="Fleet_TotalStatus_Note">※ 改装でステータス表示の合計値</String>
   <String Key="Fleet_Total_Level">Lv合計</String>
   <String Key="Fleet_Total_Firepower">火力合計</String>
   <String Key="Fleet_Total_AA">対空合計</String>
