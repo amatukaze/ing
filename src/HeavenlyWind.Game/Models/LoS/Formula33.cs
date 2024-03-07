@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Models;
 using System;
+using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.LoS
 {
@@ -48,7 +49,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.LoS
 
                 var rShipLoSBase = rShip.Status.LoS;
 
-                foreach (var rSlot in rShip.Slots)
+                foreach (var rSlot in EnumerateSlots(rShip))
                 {
                     if (!rSlot.HasEquipment)
                         continue;
@@ -115,6 +116,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.LoS
             var rAdmiralLoS = Math.Ceiling(rpFleet.Port.Admiral.Level * .4);
 
             return rShipLoS + rEquipmentLoS * r_NodeFactor - rAdmiralLoS + rEmptyShipSlotBonus;
+        }
+
+        IEnumerable<ShipSlot> EnumerateSlots(Ship ship)
+        {
+            foreach (var slot in ship.Slots)
+            {
+                if (!slot.HasEquipment)
+                    continue;
+
+                yield return slot;
+            }
+
+            if (ship.ExtraSlot is not null)
+                yield return ship.ExtraSlot;
         }
     }
 }
