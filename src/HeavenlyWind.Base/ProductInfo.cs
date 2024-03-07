@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public static string Version => AssemblyVersionString;
         public static string ReleaseCodeName => "Braindrive";
-        public static string ReleaseDate => "2024.03.02";
+        public static string ReleaseDate => "2024.03.07";
         public static string ReleaseType => "Beta";
 
         public const string UserAgent = "ING/" + AssemblyVersionString;
