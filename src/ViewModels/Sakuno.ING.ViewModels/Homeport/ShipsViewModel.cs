@@ -9,6 +9,6 @@ public class ShipsViewModel : ReactiveObject
     {
         _count = playerDataService.Ships.ToObservableChangeSet()
             .Count()
-            .ToProperty(this, nameof(Count), deferSubscription: true, scheduler: RxApp.MainThreadScheduler);
+            .BindProperty(this, nameof(Count));
     }
 }
