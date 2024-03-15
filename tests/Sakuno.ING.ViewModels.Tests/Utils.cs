@@ -1,19 +1,25 @@
-﻿using Sakuno.ING.Game.Events;
-using Sakuno.ING.Game.Models;
+﻿using Sakuno.ING.Game;
 
 namespace Sakuno.ING.ViewModels.Tests;
 
 public static class Utils
 {
-    public static IEnumerable<IShipUpdated> GenerateShips(int fromId, int count)
+    public static T GenerateMock<T, TId>(int id)
+        where T : class, IIdentifiable<TId>
+        where TId : IIdentifier<TId, int>
+    {
+        var result = Substitute.For<T>();
+
+        result.Id.Returns(TId.From(id));
+
+        return result;
+    }
+
+    public static IEnumerable<T> GenerateMocks<T, TId>(int fromId, int count)
+        where T : class, IIdentifiable<TId>
+        where TId : IIdentifier<TId, int>
     {
         for (var i = fromId; i < fromId + count; i++)
-        {
-            var ship = Substitute.For<IShipUpdated>();
-
-            ship.Id.Returns((ShipId)i);
-
-            yield return ship;
-        }
+            yield return GenerateMock<T, TId>(i);
     }
 }

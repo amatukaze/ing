@@ -1,6 +1,3 @@
-using Sakuno.ING.Game.Events;
-using Sakuno.ING.Game.Provider;
-using Sakuno.ING.Game.Services;
 using Sakuno.ING.ViewModels.Homeport;
 
 namespace Sakuno.ING.ViewModels.Tests;
@@ -20,11 +17,11 @@ public class ShipsTests
 
         Assert.Equal(0, vm.Count);
 
-        shipsUpdatedSubject.OnNext(Utils.GenerateShips(1, 3).ToArray());
+        shipsUpdatedSubject.OnNext(Utils.GenerateMocks<IShipUpdated, ShipId>(1, 3).ToArray());
 
         Assert.Equal(3, vm.Count);
 
-        partialShipsUpdatedSubject.OnNext(Utils.GenerateShips(4, 2).ToArray());
+        partialShipsUpdatedSubject.OnNext(Utils.GenerateMocks<IShipUpdated, ShipId>(4, 2).ToArray());
 
         Assert.Equal(5, vm.Count);
     }
