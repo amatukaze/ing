@@ -1,7 +1,4 @@
-﻿using DynamicData;
-using Sakuno.ING.Game.Models;
-
-namespace Sakuno.ING.ViewModels.Homeport;
+﻿namespace Sakuno.ING.ViewModels.Homeport;
 
 public class ConstructionDocksViewModel : ReactiveObject
 {

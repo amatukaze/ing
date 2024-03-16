@@ -1,5 +1,4 @@
-﻿using DynamicData;
-using Sakuno.ING.Game;
+﻿using Sakuno.ING.Game;
 
 namespace Sakuno.ING.ViewModels;
 
