@@ -1,4 +1,4 @@
-namespace Sakuno.ING.ViewModels.Tests;
+namespace Sakuno.ING.ViewModels.Tests.Homeport;
 
 public class RepairDocksTests
 {
