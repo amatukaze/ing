@@ -13,7 +13,7 @@
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
     <PackageVersion Include="NSubstitute" Version="5.1.0" />
     <PackageVersion Include="NSubstitute.Analyzers.CSharp" Version="1.0.17" />
-    <PackageVersion Include="ReactiveUI" Version="19.5.72" />
+    <PackageVersion Include="ReactiveUI" Version="19.6.1" />
     <PackageVersion Include="System.Reactive" Version="6.0.0" />
     <PackageVersion Include="xunit" Version="2.7.0" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.7">
