@@ -12,10 +12,10 @@ public class GameProviderGenerator : IIncrementalGenerator
     {
         var provider = context.SyntaxProvider.CreateSyntaxProvider(
             static (node, _) => node is PropertyDeclarationSyntax
-                {
-                    Parent: InterfaceDeclarationSyntax { Identifier.Text: "IGameProvider" },
-                    Type: GenericNameSyntax { Identifier.Text: "IObservable" },
-                },
+            {
+                Parent: InterfaceDeclarationSyntax { Identifier.Text: "IGameProvider" },
+                Type: GenericNameSyntax { Identifier.Text: "IObservable" },
+            },
             static (context, cancellationToken) =>
             {
                 var property = (PropertyDeclarationSyntax)context.Node;

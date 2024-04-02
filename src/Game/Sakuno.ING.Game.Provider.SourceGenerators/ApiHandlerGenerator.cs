@@ -52,7 +52,7 @@ public class ApiHandlerGenerator : IIncrementalGenerator
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         var provider = context.SyntaxProvider.ForAttributeWithMetadataName("Sakuno.ING.Game.Provider.ApiAttribute",
-            static (node, _) => node is MethodDeclarationSyntax { Parent: ClassDeclarationSyntax { Identifier.Text: "GameProvider" } } ,
+            static (node, _) => node is MethodDeclarationSyntax { Parent: ClassDeclarationSyntax { Identifier.Text: "GameProvider" } },
             static (context, _) =>
             {
                 var apis = ImmutableArray.CreateRange(context.Attributes
