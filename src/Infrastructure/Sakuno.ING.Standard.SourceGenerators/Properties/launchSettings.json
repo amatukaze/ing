@@ -1,0 +1,9 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "Roslyn": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "../Sakuno.ING.Standard.SourceGenerators.Sample/Sakuno.ING.Standard.SourceGenerators.Sample.csproj"
+    }
+  }
+}
