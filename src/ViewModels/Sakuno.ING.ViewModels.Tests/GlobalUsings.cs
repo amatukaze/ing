@@ -1,4 +1,4 @@
-global using NSubstitute;
+﻿global using NSubstitute;
 global using Sakuno.ING.Game.Events;
 global using Sakuno.ING.Game.Models;
 global using Sakuno.ING.Game.Provider;

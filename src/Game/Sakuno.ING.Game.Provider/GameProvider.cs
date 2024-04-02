@@ -1,4 +1,4 @@
-using Sakuno.ING.Composition;
+﻿using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Provider.Json.Converters;
 using Sakuno.ING.Messaging;
 using System.Collections.Specialized;
