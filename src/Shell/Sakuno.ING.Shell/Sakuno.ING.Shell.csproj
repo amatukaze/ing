@@ -1,22 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
         <TargetFramework>net8.0-windows10.0.19041</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="DryIoc.dll" />
-        <PackageReference Include="DryIoc.Microsoft.DependencyInjection" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" />
         <PackageReference Include="ReactiveUI.WPF" />
-        <PackageReference Include="Splat.DryIoc" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell\Sakuno.ING.Shell.csproj" />
         <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Hosting\Sakuno.ING.Shell.Hosting.csproj" />
     </ItemGroup>
 
