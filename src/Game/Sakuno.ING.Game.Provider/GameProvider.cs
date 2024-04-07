@@ -1,7 +1,8 @@
 ﻿using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Provider.Json.Converters;
-using Sakuno.ING.Messaging;
+using System.Buffers;
 using System.Collections.Specialized;
+using System.Text;
 using System.Text.Json;
 using System.Web;
 
@@ -28,7 +29,8 @@ public sealed partial class GameProvider : IGameProvider
 
     private partial bool HandleApiMessageCore(ApiMessage message);
 
-    private NameValueCollection ParseRequest(string request) => HttpUtility.ParseQueryString(request);
+    private NameValueCollection ParseRequest(ReadOnlySequence<byte> buffer) =>
+        HttpUtility.ParseQueryString(Encoding.UTF8.GetString(buffer));
 
     private void CheckResultCode(int code)
     {

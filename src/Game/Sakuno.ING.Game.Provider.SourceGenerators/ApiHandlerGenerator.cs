@@ -14,7 +14,7 @@ public class ApiHandlerGenerator : IIncrementalGenerator
         public ExpressionSyntax GenerateInitializer()
         {
             var deserializeMethod = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("JsonSerializer"), SyntaxFactory.IdentifierName("Deserialize"));
-            var messageResponse = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("message"), SyntaxFactory.IdentifierName("Response"));
+            var messageResponse = SyntaxFactory.RefExpression(SyntaxFactory.Token(SyntaxKind.RefKeyword), SyntaxFactory.IdentifierName("reader"));
             var responseTypeName = ParameterKinds.Any(parameter => parameter is ParameterKind.ResponseData) ?
                 ("SvData" + (ResponseDataType is not IArrayTypeSymbol arrayTypeSymbol ? ResponseDataType.Name : arrayTypeSymbol.ElementType.Name + "Array")) :
                 "SvData";
@@ -96,6 +96,11 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                 var labels = SyntaxFactory.List<SwitchLabelSyntax>(info.Apis.Select(api => SyntaxFactory.CaseSwitchLabel(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(api)))));
                 var statements = SyntaxFactory.SingletonList<StatementSyntax>(SyntaxFactory.Block(
                     SyntaxFactory.LocalDeclarationStatement(SyntaxFactory.VariableDeclaration(SyntaxFactory.IdentifierName("var"),
+                        SyntaxFactory.SingletonSeparatedList(SyntaxFactory.VariableDeclarator("reader")
+                        .WithInitializer(SyntaxFactory.EqualsValueClause(SyntaxFactory.ObjectCreationExpression(SyntaxFactory.ParseTypeName("Utf8JsonReader"),
+                            SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("message"), SyntaxFactory.IdentifierName("Response"))))),
+                            null)))))),
+                    SyntaxFactory.LocalDeclarationStatement(SyntaxFactory.VariableDeclaration(SyntaxFactory.IdentifierName("var"),
                         SyntaxFactory.SingletonSeparatedList(SyntaxFactory.VariableDeclarator("response")
                         .WithInitializer(SyntaxFactory.EqualsValueClause(info.GenerateInitializer()))))),
                     SyntaxFactory.ExpressionStatement(SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName("CheckResultCode"),
@@ -127,7 +132,7 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                 .AddUsings(
                     SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System")),
                     SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Text.Json")),
-                    SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("Sakuno.ING.Messaging"))
+                    SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("Sakuno.ING.Game"))
                 )
                 .WithLeadingTrivia(SyntaxFactory.Trivia(SyntaxFactory.NullableDirectiveTrivia(SyntaxFactory.Token(SyntaxKind.EnableKeyword), true)))
                 .NormalizeWhitespace();
