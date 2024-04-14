@@ -8,6 +8,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="DynamicData" />
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj" />
         <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Core.SourceGenerators\Sakuno.ING.Game.Core.SourceGenerators.csproj">
             <OutputItemType>Analyzer</OutputItemType>

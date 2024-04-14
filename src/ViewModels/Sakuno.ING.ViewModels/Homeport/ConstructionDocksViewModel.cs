@@ -1,4 +1,4 @@
-﻿namespace Sakuno.ING.ViewModels.Homeport;
+namespace Sakuno.ING.ViewModels.Homeport;
 
 public class ConstructionDocksViewModel : ReactiveObject
 {
@@ -7,7 +7,7 @@ public class ConstructionDocksViewModel : ReactiveObject
 
     public ConstructionDocksViewModel(PlayerDataService playerDataService)
     {
-        playerDataService.ConstructionDocks.ToObservableChangeSet()
+        playerDataService.ConstructionDocks.Connect()
             .Transform(dock => dock.Id)
             .ObserveOn(RxApp.MainThreadScheduler)
             .Bind(out _constructionDocks)

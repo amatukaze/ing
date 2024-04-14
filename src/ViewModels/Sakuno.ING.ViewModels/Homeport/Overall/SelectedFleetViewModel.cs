@@ -1,4 +1,4 @@
-﻿namespace Sakuno.ING.ViewModels.Homeport.Overall;
+namespace Sakuno.ING.ViewModels.Homeport.Overall;
 
 public class SelectedFleetViewModel : ReactiveObject
 {
@@ -8,7 +8,7 @@ public class SelectedFleetViewModel : ReactiveObject
     public SelectedFleetViewModel(PlayerDataService playerDataService, ISelectedFleetStateProvider selectedFleetStateProvider)
     {
         var selectedId = Observable.Merge([
-            playerDataService.Fleets.ToObservableChangeSet().Take(1).Select(_ => (FleetId)1),
+            playerDataService.Fleets.Connect().Take(1).Select(_ => (FleetId)1),
             selectedFleetStateProvider.SelectedFleetId,
         ]);
 

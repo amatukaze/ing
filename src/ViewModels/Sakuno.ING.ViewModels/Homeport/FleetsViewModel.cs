@@ -1,4 +1,4 @@
-﻿namespace Sakuno.ING.ViewModels.Homeport;
+namespace Sakuno.ING.ViewModels.Homeport;
 
 public class FleetsViewModel : ReactiveObject
 {
@@ -7,7 +7,7 @@ public class FleetsViewModel : ReactiveObject
 
     public FleetsViewModel(PlayerDataService playerDataService)
     {
-        playerDataService.Fleets.ToObservableChangeSet()
+        playerDataService.Fleets.Connect()
             .Transform(fleet => fleet.Id)
             .ObserveOn(RxApp.MainThreadScheduler)
             .Bind(out _fleets)

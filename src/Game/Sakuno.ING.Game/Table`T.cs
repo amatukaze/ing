@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using DynamicData;
+using DynamicData.Binding;
+using System.Collections;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
+using System.Reactive.Linq;
 
 namespace Sakuno.ING.Game;
 
@@ -9,11 +12,14 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
     where TId : struct, IEquatable<TId>, IComparable<TId>
     where TRaw : IIdentifiable<TId>
 {
-    private readonly List<T> _list = new();
+    private readonly List<T> _list = [];
 
     private readonly IDisposable _fullUpdateSubscription;
     private readonly IDisposable? _partialUpdateSubscription;
     private readonly IDisposable? _removeSubscription;
+
+    private readonly IObservable<IChangeSet<T>> _changes;
+    private readonly IDisposable _changesSubscription;
 
     public int Count => _list.Count;
 
@@ -71,9 +77,16 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
                 RemoveItem(index);
             }
         });
+
+        var changes = this.ToObservableChangeSet<ITable<T, TId>, T>().Publish();
+
+        _changes = changes.AsObservable();
+        _changesSubscription = changes.Connect();
     }
 
-    public List<T>.Enumerator GetEnumerator() => _list.GetEnumerator();
+    public IObservable<IChangeSet<T>> Connect() => _changes;
+
+    List<T>.Enumerator GetEnumerator() => _list.GetEnumerator();
 
     public bool TryGetValue(TId id, [MaybeNullWhen(false)] out T value)
     {
@@ -130,6 +143,7 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
         _fullUpdateSubscription.Dispose();
         _partialUpdateSubscription?.Dispose();
         _removeSubscription?.Dispose();
+        _changesSubscription.Dispose();
     }
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

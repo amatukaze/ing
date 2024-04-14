@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using DynamicData;
+using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Sakuno.ING.Game;
@@ -7,6 +8,8 @@ public interface ITable<T, TId> : IReadOnlyCollection<T>, INotifyCollectionChang
     where T : IIdentifiable<TId>
 {
     T? this[TId id] { get; }
+
+    IObservable<IChangeSet<T>> Connect();
 
     bool TryGetValue(TId id, [MaybeNullWhen(false)] out T value);
 }

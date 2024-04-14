@@ -1,4 +1,4 @@
-﻿namespace Sakuno.ING.ViewModels.Homeport;
+namespace Sakuno.ING.ViewModels.Homeport;
 
 public class ShipsViewModel : ReactiveObject
 {
@@ -7,7 +7,7 @@ public class ShipsViewModel : ReactiveObject
 
     public ShipsViewModel(PlayerDataService playerDataService)
     {
-        _count = playerDataService.Ships.ToObservableChangeSet()
+        _count = playerDataService.Ships.Connect()
             .Count()
             .BindProperty(this, nameof(Count));
     }
