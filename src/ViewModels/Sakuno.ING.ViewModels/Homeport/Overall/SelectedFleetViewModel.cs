@@ -15,7 +15,7 @@ public class SelectedFleetViewModel : ReactiveObject
         ObservableChangeSet.Create<ShipId>(list => selectedId
                 .Select(id => playerDataService.Fleets[id]!.WhenAnyValue(f => f.Ships))
                 .Switch()
-                .Subscribe(items => list.EditDiff(items)))
+                .Subscribe(items => list.EditDiff(items.Where(id => id > 0))))
             .ObserveOn(RxApp.MainThreadScheduler)
             .Bind(out _ships)
             .Subscribe();
