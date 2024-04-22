@@ -1,4 +1,4 @@
-namespace Sakuno.ING.ViewModels.Homeport.Overall;
+﻿namespace Sakuno.ING.ViewModels.Homeport.Overall;
 
 public class TabsViewModel : ReactiveObject, ISelectedFleetStateProvider
 {
@@ -17,7 +17,7 @@ public class TabsViewModel : ReactiveObject, ISelectedFleetStateProvider
 
         SelectedFleetId = _fleets.ToObservableChangeSet()
             .MergeMany(vm => vm.SelectCommand.Select(_ => vm.Id))
-            .StartWith((FleetId)1)
+            .Merge(playerDataService.Fleets.Connect().Take(1).Select(_ => (FleetId)1))
             .DistinctUntilChanged();
     }
 }

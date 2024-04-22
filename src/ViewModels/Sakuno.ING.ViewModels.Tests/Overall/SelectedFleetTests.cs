@@ -5,6 +5,7 @@ namespace Sakuno.ING.ViewModels.Tests.Overall;
 
 public class SelectedFleetTests
 {
+    private readonly Subject<IReadOnlyList<IShipUpdated>> _shipsUpdatedSubject = new();
     private readonly Subject<IReadOnlyList<IFleetUpdated>> _fleetsUpdatedSubject = new();
     private readonly SelectedFleetViewModel _vm;
 
@@ -13,8 +14,7 @@ public class SelectedFleetTests
     public SelectedFleetTests()
     {
         var gameProvider = Substitute.For<IGameProvider>();
-        gameProvider.ShipsUpdated.Returns(_ => Observable.Return<IReadOnlyList<IShipUpdated>>(
-            Utils.GenerateMocks<IShipUpdated, ShipId>(1, 10).ToArray()));
+        gameProvider.ShipsUpdated.Returns(_shipsUpdatedSubject);
         gameProvider.FleetsUpdated.Returns(_fleetsUpdatedSubject);
 
         var selectedFleetStateProvider = Substitute.For<ISelectedFleetStateProvider>();
@@ -26,6 +26,8 @@ public class SelectedFleetTests
     [Fact]
     public void Test()
     {
+        _shipsUpdatedSubject.OnNext(Utils.GenerateMocks<IShipUpdated, ShipId>(1, 4).ToArray());
+
         var fleet1 = Utils.GenerateMock<IFleetUpdated, FleetId>(1);
         fleet1.Ships.Returns([(ShipId)1, (ShipId)2, (ShipId)3], [(ShipId)1, (ShipId)2, (ShipId)4]);
 
@@ -33,6 +35,7 @@ public class SelectedFleetTests
         fleet2.Ships.Returns([(ShipId)5]);
 
         _fleetsUpdatedSubject.OnNext([fleet1, fleet2]);
+        _selectedId.OnNext((FleetId)1);
 
         Assert.Equal([(ShipId)1, (ShipId)2, (ShipId)3], (IReadOnlyList<ShipId>)_vm.Ships);
 

@@ -22,9 +22,9 @@ public class TabsTests
         FleetId fleetId = default;
         _vm.SelectedFleetId.Subscribe(value => fleetId = value);
 
-        Assert.Equal((FleetId)1, fleetId);
-
         _fleetsUpdatedSubject.OnNext(Utils.GenerateMocks<IFleetUpdated, FleetId>(1, 4).ToArray());
+
+        Assert.Equal((FleetId)1, fleetId);
 
         for (var i = 0; i < _vm.Fleets.Count; i++)
         {
