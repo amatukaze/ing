@@ -13,7 +13,7 @@ public sealed partial class GameProvider : IGameProvider
 {
     private readonly JsonModelContext _jsonModelContext;
 
-    public GameProvider()
+    public GameProvider(IApiMessageProvider messageProvider)
     {
         var options = new JsonSerializerOptions()
         {
@@ -25,6 +25,11 @@ public sealed partial class GameProvider : IGameProvider
         };
 
         _jsonModelContext = new(options);
+
+        messageProvider.ApiMessages.Subscribe(message =>
+        {
+            HandleApiMessageCore(message);
+        });
     }
 
     private partial bool HandleApiMessageCore(ApiMessage message);
