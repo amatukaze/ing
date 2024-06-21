@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="Metadata\**\*.txt" />
+        <AdditionalFiles Include="Metadata\**\*.jsondesc" />
     </ItemGroup>
 
 </Project>

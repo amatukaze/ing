@@ -18,7 +18,7 @@ public class GameModelGenerator : IIncrementalGenerator
             throw new InvalidOperationException("Missing build build_property.ProjectDir");
         });
         var modelDescriptionFileProvider = context.AdditionalTextsProvider.
-            Where(static file => string.Equals(Path.GetExtension(file.Path), ".txt", StringComparison.OrdinalIgnoreCase));
+            Where(static file => string.Equals(Path.GetExtension(file.Path), ".modeldesc", StringComparison.OrdinalIgnoreCase));
 
         var modelInfoProvider = modelDescriptionFileProvider.Combine(modelDescriptionDirectoryProvider).Select(static (tuple, cancellationToken) =>
         {

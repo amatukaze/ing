@@ -45,4 +45,3 @@ public sealed partial class GameProvider
     private void HandleUnequippedSlotItemsUpdated(RawUnequippedSlotItems[] response) =>
         _unequippedSlotItemsUpdated.OnNext(response);
 }
-

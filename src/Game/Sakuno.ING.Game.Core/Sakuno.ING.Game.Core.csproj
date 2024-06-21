@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="Models\Metadata\**\*.txt" />
+        <AdditionalFiles Include="Models\Metadata\**\*.modeldesc" />
     </ItemGroup>
 
 </Project>
