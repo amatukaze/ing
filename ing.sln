@@ -50,6 +50,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Shell.Hosting", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Shell", "src\Shell\Sakuno.ING.Shell\Sakuno.ING.Shell.csproj", "{20C06C78-8E83-4456-B00F-15D2C29FEF36}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Shell.Common", "src\Shell\Sakuno.ING.Shell.Common\Sakuno.ING.Shell.Common.csproj", "{79B9552E-D8BA-4C47-913E-F6A213FC1FF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,6 +122,10 @@ Global
 		{20C06C78-8E83-4456-B00F-15D2C29FEF36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20C06C78-8E83-4456-B00F-15D2C29FEF36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20C06C78-8E83-4456-B00F-15D2C29FEF36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79B9552E-D8BA-4C47-913E-F6A213FC1FF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79B9552E-D8BA-4C47-913E-F6A213FC1FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79B9552E-D8BA-4C47-913E-F6A213FC1FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79B9552E-D8BA-4C47-913E-F6A213FC1FF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -141,6 +147,7 @@ Global
 		{B7C66748-3561-4EB5-8A44-45AEDD89C7CD} = {5A4B55E7-5D35-4275-AC49-11FD72920F78}
 		{7C736DAB-F648-472E-9582-B34C16D6D7C5} = {5A4B55E7-5D35-4275-AC49-11FD72920F78}
 		{20C06C78-8E83-4456-B00F-15D2C29FEF36} = {5A4B55E7-5D35-4275-AC49-11FD72920F78}
+		{79B9552E-D8BA-4C47-913E-F6A213FC1FF2} = {5A4B55E7-5D35-4275-AC49-11FD72920F78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA44D8F6-C8F3-4AEB-A375-A2FA10EDC3F8}

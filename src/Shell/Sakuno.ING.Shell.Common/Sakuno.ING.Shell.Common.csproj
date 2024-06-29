@@ -2,10 +2,10 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0-windows10.0.19041</TargetFramework>
+        <RootNamespace>Sakuno.ING.Shell</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
-        <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,8 +13,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Common\Sakuno.ING.Shell.Common.csproj" />
-        <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Hosting\Sakuno.ING.Shell.Hosting.csproj" />
+        <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj" />
+        <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game\Sakuno.ING.Game.csproj" />
     </ItemGroup>
 
 </Project>
