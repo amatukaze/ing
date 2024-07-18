@@ -9,7 +9,7 @@
     </PackageVersion>
     <PackageVersion Include="DryIoc.dll" Version="6.0.0-preview-07" />
     <PackageVersion Include="DryIoc.Microsoft.DependencyInjection" Version="8.0.0-preview-02" />
-    <PackageVersion Include="DynamicData" Version="8.4.1" />
+    <PackageVersion Include="DynamicData" Version="9.0.1" />
     <PackageVersion Include="IsExternalInit" Version="1.0.3" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" />
@@ -23,8 +23,8 @@
     <PackageVersion Include="Splat.DryIoc" Version="15.1.1" />
     <PackageVersion Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.8.12" />
     <PackageVersion Include="System.Reactive" Version="6.0.1" />
-    <PackageVersion Include="xunit" Version="2.8.1" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.1">
+    <PackageVersion Include="xunit" Version="2.9.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
