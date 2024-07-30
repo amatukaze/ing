@@ -9,7 +9,7 @@
     <ItemGroup>
         <PackageReference Include="ReactiveUI" />
     </ItemGroup>
-    
+
     <ItemGroup>
         <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game\Sakuno.ING.Game.csproj" />
     </ItemGroup>

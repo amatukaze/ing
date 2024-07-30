@@ -1,16 +1,18 @@
-﻿using System.Windows.Controls;
-using System.Windows;
-using ReactiveUI;
-using Splat;
-using System.Reactive.Linq;
+﻿using Splat;
 using System.Reactive.Disposables;
 
 namespace Sakuno.ING.Shell.Controls;
 
 public sealed class ViewModelViewHost : ContentControl, IViewFor, IEnableLogger
 {
-    public static readonly DependencyProperty ViewModelProperty =
-        DependencyProperty.Register(nameof(ViewModel), typeof(object), typeof(ViewModelViewHost), new PropertyMetadata(null));
+    public static readonly AvaloniaProperty<object?> ViewModelProperty =
+        AvaloniaProperty.Register<ViewModelViewHost, object?>(nameof(ViewModel));
+
+    public static readonly StyledProperty<string?> ViewContractProperty =
+        AvaloniaProperty.Register<ViewModelViewHost, string?>(nameof(ViewContract));
+
+    public static readonly StyledProperty<object?> DefaultContentProperty =
+        AvaloniaProperty.Register<ViewModelViewHost, object?>(nameof(DefaultContent));
 
     public object? ViewModel
     {
@@ -18,8 +20,11 @@ public sealed class ViewModelViewHost : ContentControl, IViewFor, IEnableLogger
         set => SetValue(ViewModelProperty, value);
     }
 
-    public static readonly DependencyProperty DefaultContentProperty =
-        DependencyProperty.Register(nameof(DefaultContent), typeof(object), typeof(ViewModelViewHost), new PropertyMetadata(null));
+    public string? ViewContract
+    {
+        get => GetValue(ViewContractProperty);
+        set => SetValue(ViewContractProperty, value);
+    }
 
     public object? DefaultContent
     {
@@ -27,24 +32,17 @@ public sealed class ViewModelViewHost : ContentControl, IViewFor, IEnableLogger
         set => SetValue(DefaultContentProperty, value);
     }
 
+    public IViewLocator? ViewLocator { get; set; }
+
+    protected override Type StyleKeyOverride => typeof(ContentControl);
+
     public ViewModelViewHost()
     {
-        var viewModelChanged = this.WhenAnyValue(r => r.ViewModel).StartWith(ViewModel);
-        var contractChanged = this.WhenAnyValue(r => r.ViewModel).Select(vm =>
+        this.WhenActivated(disposables =>
         {
-            if (vm is not IViewContractObservable viewContractObservable)
-                return Observable.Return<string?>(null);
-
-            return viewContractObservable.ViewContractObservable.ObserveOn(RxApp.MainThreadScheduler);
-        }).Switch();
-        var vmAndContract = viewModelChanged
-            .CombineLatest(contractChanged, (vm, contract) => (ViewModel: vm, Contract: contract));
-
-        this.WhenActivated(disposable =>
-        {
-            vmAndContract.DistinctUntilChanged()
-                .Subscribe(x => ResolveViewForViewModel(x.ViewModel, x.Contract))
-                .DisposeWith(disposable);
+            this.WhenAnyValue(x => x.ViewModel, x => x.ViewContract)
+                .Subscribe(tuple => ResolveViewForViewModel(tuple.Item1, tuple.Item2))
+                .DisposeWith(disposables);
         });
     }
 
@@ -52,20 +50,33 @@ public sealed class ViewModelViewHost : ContentControl, IViewFor, IEnableLogger
     {
         if (viewModel is null)
         {
+            this.Log().Info("ViewModel is null. Falling back to default content.");
+
             Content = DefaultContent;
             return;
         }
 
-        var viewInstance = ViewLocator.Current.ResolveView(viewModel, contract);
-
+        var viewLocator = ViewLocator ?? ReactiveUI.ViewLocator.Current;
+        var viewInstance = viewLocator.ResolveView(viewModel, contract);
         if (viewInstance is null)
         {
+            this.Log().Warn(
+                contract is null
+                    ? $"Couldn't find view for '{viewModel}'. Is it registered? Falling back to default content."
+                    : $"Couldn't find view with contract '{contract}' for '{viewModel}'. Is it registered? Falling back to default content.");
+
             Content = DefaultContent;
-            this.Log().Warn($"The {nameof(ViewModelViewHost)} could not find a valid view for the view model of type {viewModel.GetType()} and value {viewModel}.");
             return;
         }
 
+        this.Log().Info(contract is null
+            ? $"Ready to show {viewInstance} with autowired {viewModel}."
+            : $"Ready to show {viewInstance} with autowired {viewModel} and contract '{contract}'.");
+
         viewInstance.ViewModel = viewModel;
+
+        if (viewInstance is StyledElement styled)
+            styled.DataContext = viewModel;
 
         Content = viewInstance;
     }

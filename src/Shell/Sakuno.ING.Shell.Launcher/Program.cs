@@ -1,30 +1,18 @@
-﻿using DryIoc;
-using DryIoc.Microsoft.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using ReactiveUI;
-using Sakuno.ING.Shell;
-using Sakuno.ING.Shell.Hosting;
-using Splat;
-using Splat.DryIoc;
+﻿using System;
 
-var host = Host.CreateDefaultBuilder(args)
-    .UseServiceProviderFactory(new DryIocServiceProviderFactory())
-    .ConfigureShell(builder =>
-    {
-        builder.UseApplication<App>();
-        builder.UseMainWindow<MainWindow>();
-    })
-    .ConfigureServices(services =>
-    {
-    })
-    .Build();
+namespace Sakuno.ING.Shell.Launcher;
 
-var container = host.Services.GetRequiredService<IContainer>();
-container.UseDryIocDependencyResolver();
+internal sealed class Program
+{
+    [STAThread]
+    public static void Main(string[] args) =>
+        BuildAvaloniaApp()
+            .StartWithClassicDesktopLifetime(args);
 
-var resolver = Locator.CurrentMutable;
-resolver.InitializeSplat();
-resolver.InitializeReactiveUI();
-
-host.Run();
+    public static AppBuilder BuildAvaloniaApp() =>
+        AppBuilder.Configure<App>()
+            .UsePlatformDetect()
+            .WithInterFont()
+            .UseReactiveUI()
+            .LogToTrace();
+}

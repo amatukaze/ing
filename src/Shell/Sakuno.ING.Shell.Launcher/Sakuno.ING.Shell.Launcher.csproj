@@ -1,23 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
-        <TargetFramework>net8.0-windows10.0.19041</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Avalonia" />
+        <PackageReference Include="Avalonia.Desktop" />
+        <PackageReference Include="Avalonia.ReactiveUI" />
+        <PackageReference Include="Avalonia.Themes.Fluent" />
+        <PackageReference Include="Avalonia.Fonts.Inter" />
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
         <PackageReference Include="DryIoc.dll" />
         <PackageReference Include="DryIoc.Microsoft.DependencyInjection" />
         <PackageReference Include="Microsoft.Extensions.Hosting" />
-        <PackageReference Include="ReactiveUI.WPF" />
         <PackageReference Include="Splat.DryIoc" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell\Sakuno.ING.Shell.csproj" />
-        <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Hosting\Sakuno.ING.Shell.Hosting.csproj" />
+        <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Common\Sakuno.ING.Shell.Common.csproj" />
     </ItemGroup>
 
 </Project>
