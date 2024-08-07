@@ -2,6 +2,7 @@ using System;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
 using DryIoc;
 using DryIoc.Microsoft.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,7 +34,11 @@ internal partial class App : Application
 
         var resolver = Locator.CurrentMutable;
         resolver.InitializeSplat();
-        resolver.InitializeReactiveUI();
+        resolver.InitializeReactiveUI(RegistrationNamespace.Avalonia);
+        resolver.RegisterConstant(new AvaloniaActivationForViewFetcher(), typeof(IActivationForViewFetcher));
+        resolver.RegisterConstant(new DataTemplateBindingHook(), typeof(IPropertyBindingHook));
+
+        RxApp.MainThreadScheduler = AvaloniaScheduler.Instance;
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
