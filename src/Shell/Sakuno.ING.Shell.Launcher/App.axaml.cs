@@ -11,7 +11,6 @@ using ReactiveUI;
 using Sakuno.ING.Game;
 using Sakuno.ING.ViewModels;
 using Splat;
-using Splat.DryIoc;
 
 namespace Sakuno.ING.Shell.Launcher;
 
@@ -28,9 +27,9 @@ internal partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         _host = BuildHost();
-
         _container = _host.Services.GetRequiredService<IContainer>();
-        _container.UseDryIocDependencyResolver();
+
+        Locator.SetLocator(new SplatAdapter(_container));
 
         var resolver = Locator.CurrentMutable;
         resolver.InitializeSplat();
