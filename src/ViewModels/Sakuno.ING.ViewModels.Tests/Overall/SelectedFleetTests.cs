@@ -1,5 +1,4 @@
 ﻿using Sakuno.ING.ViewModels.Homeport.Overall;
-using System.Reactive.Linq;
 
 namespace Sakuno.ING.ViewModels.Tests.Overall;
 
@@ -37,14 +36,14 @@ public class SelectedFleetTests
         _fleetsUpdatedSubject.OnNext([fleet1, fleet2]);
         _selectedId.OnNext((FleetId)1);
 
-        Assert.Equal([(ShipId)1, (ShipId)2, (ShipId)3], (IReadOnlyList<ShipId>)_vm.Ships.Select(ship => ship.Id).ToArray());
+        Assert.Equal([(ShipId)1, (ShipId)2, (ShipId)3], (IReadOnlyList<ShipId>)_vm.Ships.ToArray());
 
         _fleetsUpdatedSubject.OnNext([fleet1, fleet2]);
 
-        Assert.Equal([(ShipId)1, (ShipId)2, (ShipId)4], (IReadOnlyList<ShipId>)_vm.Ships.Select(ship => ship.Id).ToArray());
+        Assert.Equal([(ShipId)1, (ShipId)2, (ShipId)4], (IReadOnlyList<ShipId>)_vm.Ships.ToArray());
 
         _selectedId.OnNext((FleetId)2);
 
-        Assert.Equal([(ShipId)5], (IReadOnlyList<ShipId>)_vm.Ships.Select(ship => ship.Id).ToArray());
+        Assert.Equal([(ShipId)5], (IReadOnlyList<ShipId>)_vm.Ships.ToArray());
     }
 }
