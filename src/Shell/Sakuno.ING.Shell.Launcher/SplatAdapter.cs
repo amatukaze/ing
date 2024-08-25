@@ -8,11 +8,16 @@ namespace Sakuno.ING.Shell.Launcher;
 
 public class SplatAdapter(IContainer container) : IDependencyResolver
 {
+    private static readonly ISet<Type> FactoryTypes = new HashSet<Type>([
+        typeof(Func<,>),
+        typeof(Func<,,>),
+    ]);
+
     private readonly DryIocDependencyResolver _innerAdapter = new(container);
 
     public object? GetService(Type? serviceType, string? contract = null)
     {
-        if (serviceType is { IsGenericType: true } && serviceType.GetGenericTypeDefinition() == typeof(Func<,>))
+        if (serviceType is { IsGenericType: true } && FactoryTypes.Contains(serviceType.GetGenericTypeDefinition()))
             return container.Resolve(serviceType);
 
         return _innerAdapter.GetService(serviceType, contract);
