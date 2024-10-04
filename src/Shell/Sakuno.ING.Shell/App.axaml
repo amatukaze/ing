@@ -1,7 +1,6 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="Sakuno.ING.Shell.Launcher.App"
-             x:ClassModifier="internal"
+             x:Class="Sakuno.ING.Shell.App"
              RequestedThemeVariant="Default">
     <Application.Styles>
         <FluentTheme />

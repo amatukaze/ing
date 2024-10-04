@@ -1,20 +1,18 @@
-using System;
+using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
 using DryIoc;
 using DryIoc.Microsoft.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ReactiveUI;
 using Sakuno.ING.Game;
 using Sakuno.ING.ViewModels;
 using Splat;
 
-namespace Sakuno.ING.Shell.Launcher;
+namespace Sakuno.ING.Shell;
 
-internal partial class App : Application
+public partial class App : Application
 {
     private IHost _host = default!;
     private IContainer _container = default!;

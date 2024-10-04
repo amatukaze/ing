@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using DryIoc;
+﻿using DryIoc;
 using Splat;
 using Splat.DryIoc;
 
-namespace Sakuno.ING.Shell.Launcher;
+namespace Sakuno.ING.Shell;
 
 public class SplatAdapter(IContainer container) : IDependencyResolver
 {

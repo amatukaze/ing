@@ -18,10 +18,15 @@
         <PackageReference Include="Avalonia.Themes.Fluent" />
         <PackageReference Include="Avalonia.Fonts.Inter" />
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
+        <PackageReference Include="DryIoc.dll" />
+        <PackageReference Include="DryIoc.Microsoft.DependencyInjection" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" />
+        <PackageReference Include="Splat.DryIoc" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="$(BasePath)src\ViewModels\Sakuno.ING.ViewModels\Sakuno.ING.ViewModels.csproj" />
+        <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Common\Sakuno.ING.Shell.Common.csproj" />
     </ItemGroup>
 
 </Project>
