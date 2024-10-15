@@ -1,17 +1,9 @@
-using Sakuno.ING.ViewModels;
-
 namespace Sakuno.ING.Shell;
 
-public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
+public partial class MainWindow : Window
 {
-    public MainWindow(MainWindowViewModel vm)
+    public MainWindow()
     {
-        ViewModel = vm;
-
         InitializeComponent();
-
-        this.WhenActivated(disposables =>
-        {
-        });
     }
 }

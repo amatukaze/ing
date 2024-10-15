@@ -46,7 +46,7 @@ public partial class App : Application
                 _host.StopAsync().GetAwaiter().GetResult();
             };
 
-            desktop.MainWindow = _container.Resolve<MainWindow>();
+            desktop.MainWindow = new MainWindow();
         }
 
         base.OnFrameworkInitializationCompleted();
@@ -62,7 +62,6 @@ public partial class App : Application
         hostBuilder.Services.AddGameServices();
 
         hostBuilder.Services.AddSingleton<MainWindowViewModel>();
-        hostBuilder.Services.AddSingleton<MainWindow>();
 
         return hostBuilder.Build();
     }
