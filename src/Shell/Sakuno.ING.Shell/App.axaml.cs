@@ -41,6 +41,10 @@ public partial class App : Application
         {
             BindingPlugins.DataValidators.RemoveAt(0);
 
+            desktop.Startup += (sender, args) =>
+            {
+                _ = _host.StartAsync();
+            };
             desktop.Exit += (sender, e) =>
             {
                 _host.StopAsync().GetAwaiter().GetResult();
@@ -50,8 +54,6 @@ public partial class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
-
-        _ = _host.StartAsync();
     }
 
     private IHost BuildHost()
