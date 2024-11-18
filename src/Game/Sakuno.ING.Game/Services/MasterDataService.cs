@@ -1,7 +1,7 @@
-﻿using Sakuno.ING.Game.Events.MasterData;
+﻿using System.Reactive.Linq;
+using Sakuno.ING.Game.Events.MasterData;
 using Sakuno.ING.Game.Models.MasterData;
 using Sakuno.ING.Game.Provider;
-using System.Reactive.Linq;
 
 namespace Sakuno.ING.Game.Services;
 

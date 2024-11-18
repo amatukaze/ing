@@ -1,6 +1,6 @@
-﻿using Common;
+﻿using System;
+using Common;
 using Sakuno.ING.Composition;
-using System;
 
 namespace Common
 {
