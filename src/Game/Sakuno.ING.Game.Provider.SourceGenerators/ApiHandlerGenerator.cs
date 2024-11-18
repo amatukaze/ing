@@ -18,12 +18,13 @@ public class ApiHandlerGenerator : IIncrementalGenerator
             var responseTypeName = ParameterKinds.Any(parameter => parameter is ParameterKind.ResponseData) ?
                 ("SvData" + (ResponseDataType is not IArrayTypeSymbol arrayTypeSymbol ? ResponseDataType.Name : arrayTypeSymbol.ElementType.Name + "Array")) :
                 "SvData";
-            var context = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("_jsonModelContext"), SyntaxFactory.IdentifierName(responseTypeName));
+            var context = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("JsonModelContext"), SyntaxFactory.IdentifierName("Default"));
+            var typeInfo = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, context, SyntaxFactory.IdentifierName(responseTypeName));
 
             return SyntaxFactory.PostfixUnaryExpression(SyntaxKind.SuppressNullableWarningExpression, SyntaxFactory.InvocationExpression(deserializeMethod, SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[]
             {
                 SyntaxFactory.Argument(messageResponse),
-                SyntaxFactory.Argument(context),
+                SyntaxFactory.Argument(typeInfo),
             }))));
         }
 

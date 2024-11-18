@@ -1,9 +1,6 @@
-﻿using Sakuno.ING.Composition;
-using Sakuno.ING.Game.Provider.Json.Converters;
-using System.Buffers;
+﻿using System.Buffers;
 using System.Collections.Specialized;
 using System.Text;
-using System.Text.Json;
 using System.Web;
 
 namespace Sakuno.ING.Game.Provider;
@@ -11,21 +8,8 @@ namespace Sakuno.ING.Game.Provider;
 [Export]
 public sealed partial class GameProvider : IGameProvider
 {
-    private readonly JsonModelContext _jsonModelContext;
-
     public GameProvider(IApiMessageProvider messageProvider)
     {
-        var options = new JsonSerializerOptions()
-        {
-            Converters =
-            {
-                new IdentifierConverterFactory(),
-                new UnequippedSlotItemGroupConverter(),
-            },
-        };
-
-        _jsonModelContext = new(options);
-
         messageProvider.ApiMessages.Subscribe(message =>
         {
             HandleApiMessageCore(message);

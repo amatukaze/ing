@@ -1,9 +1,11 @@
-﻿using Sakuno.ING.Game.Provider.Json;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using Sakuno.ING.Game.Provider.Json;
+using Sakuno.ING.Game.Provider.Json.Converters;
 
 namespace Sakuno.ING.Game.Provider;
 
-[JsonSourceGenerationOptions(GenerationMode = JsonSourceGenerationMode.Metadata)]
+[JsonSourceGenerationOptions(GenerationMode = JsonSourceGenerationMode.Metadata,
+    Converters = [typeof(IdentifierConverterFactory), typeof(UnequippedSlotItemGroupConverter)])]
 [JsonSerializable(typeof(SvData))]
 [JsonSerializable(typeof(SvData<MasterDataJson>))]
 [JsonSerializable(typeof(SvData<PreHomeportJson>))]
@@ -15,6 +17,4 @@ namespace Sakuno.ING.Game.Provider;
 [JsonSerializable(typeof(SvData<RawRepairDock[]>))]
 [JsonSerializable(typeof(SvData<RawUseItemCount[]>))]
 [JsonSerializable(typeof(SvData<RawUnequippedSlotItems[]>))]
-public partial class JsonModelContext : JsonSerializerContext
-{
-}
+public partial class JsonModelContext : JsonSerializerContext;
