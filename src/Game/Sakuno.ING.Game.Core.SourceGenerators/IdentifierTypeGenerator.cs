@@ -36,6 +36,8 @@ public readonly partial struct {typeName} : IIdentifier<{typeName}, int>, IEquat
 {{
     private readonly int _value;
 
+    public bool IsValid => _value > 0;
+
     public {typeName}(int value) => _value = value;
 
     public int CompareTo({typeName} other) => _value - other._value;
