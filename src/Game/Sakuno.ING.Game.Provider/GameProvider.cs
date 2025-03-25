@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Text;
 using System.Web;
+using Sakuno.ING.Composition;
 
 namespace Sakuno.ING.Game.Provider;
 
