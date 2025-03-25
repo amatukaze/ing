@@ -1,5 +1,5 @@
-﻿using Splat;
-using System.Reactive.Disposables;
+﻿using System.Reactive.Disposables;
+using Splat;
 
 namespace Sakuno.ING.Shell.Controls;
 
