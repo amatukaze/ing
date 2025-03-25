@@ -6,10 +6,11 @@ namespace Sakuno.ING.Shell;
 
 public class SplatAdapter(IContainer container) : IDependencyResolver
 {
-    private static readonly ISet<Type> FactoryTypes = new HashSet<Type>([
+    private static readonly HashSet<Type> FactoryTypes =
+    [
         typeof(Func<,>),
         typeof(Func<,,>),
-    ]);
+    ];
 
     private readonly DryIocDependencyResolver _innerAdapter = new(container);
 
