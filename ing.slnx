@@ -1,0 +1,32 @@
+<Solution>
+  <Folder Name="/Game/">
+    <Project Path="src/Game/Sakuno.ING.Game.Core.SourceGenerators/Sakuno.ING.Game.Core.SourceGenerators.csproj" />
+    <Project Path="src/Game/Sakuno.ING.Game.Core/Sakuno.ING.Game.Core.csproj" />
+    <Project Path="src/Game/Sakuno.ING.Game.Provider.Json.SourceGenerators/Sakuno.ING.Game.Provider.Json.SourceGenerators.csproj" />
+    <Project Path="src/Game/Sakuno.ING.Game.Provider.Json/Sakuno.ING.Game.Provider.Json.csproj" />
+    <Project Path="src/Game/Sakuno.ING.Game.Provider.SourceGenerators/Sakuno.ING.Game.Provider.SourceGenerators.csproj" />
+    <Project Path="src/Game/Sakuno.ING.Game.Provider/Sakuno.ING.Game.Provider.csproj" />
+    <Project Path="src/Game/Sakuno.ING.Game.Tests/Sakuno.ING.Game.Tests.csproj" />
+    <Project Path="src/Game/Sakuno.ING.Game/Sakuno.ING.Game.csproj" />
+  </Folder>
+  <Folder Name="/Infrastructure/">
+    <Project Path="src/Infrastructure/Sakuno.ING.Standard.SourceGenerators.Sample/Sakuno.ING.Standard.SourceGenerators.Sample.csproj" />
+    <Project Path="src/Infrastructure/Sakuno.ING.Standard.SourceGenerators/Sakuno.ING.Standard.SourceGenerators.csproj" />
+    <Project Path="src/Infrastructure/Sakuno.ING.Standard/Sakuno.ING.Standard.csproj" />
+  </Folder>
+  <Folder Name="/Shell/">
+    <Project Path="src/Shell/Sakuno.ING.Shell.Common/Sakuno.ING.Shell.Common.csproj" />
+    <Project Path="src/Shell/Sakuno.ING.Shell.Launcher/Sakuno.ING.Shell.Launcher.csproj" />
+    <Project Path="src/Shell/Sakuno.ING.Shell/Sakuno.ING.Shell.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/ViewModels/">
+    <Project Path="src/ViewModels/Sakuno.ING.ViewModels.Tests/Sakuno.ING.ViewModels.Tests.csproj" />
+    <Project Path="src/ViewModels/Sakuno.ING.ViewModels/Sakuno.ING.ViewModels.csproj" />
+  </Folder>
+</Solution>
