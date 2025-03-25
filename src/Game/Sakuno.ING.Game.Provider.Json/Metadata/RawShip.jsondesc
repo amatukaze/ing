@@ -13,8 +13,8 @@ int maxhp
 int soku
 int leng
 
-SlotItemId?[] slot
-int[] onslot
+SlotItemId[] slot IShipUpdated.SlotItems
+int[] onslot IShipUpdated.PlaneCount
 
 int slot_ex
 

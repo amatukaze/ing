@@ -12,6 +12,9 @@ public interface IShipUpdated : IIdentifiable<ShipId>
     int Fuel { get; }
     int Bullet { get; }
 
+    IReadOnlyList<SlotItemId> SlotItems { get; }
+    IReadOnlyList<int> PlaneCount { get; }
+
     int Morale { get; }
 
     bool IsLocked { get; }

@@ -5,6 +5,9 @@
 
 ShipInfoId MasterId
 
+IReadOnlyList<SlotItemId> SlotItems
+IReadOnlyList<int> PlaneCount
+
 int Morale
 
 bool IsLocked
