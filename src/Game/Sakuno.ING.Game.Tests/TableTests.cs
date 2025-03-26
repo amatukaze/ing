@@ -13,34 +13,31 @@ public class TableTests
 
         Assert.Empty(table);
 
-        fullUpdateSubject.OnNext(new RawTestItem[]
-        {
+        fullUpdateSubject.OnNext([
             (1, 2),
             (2, 3),
             (7, 4),
             (9, 5),
             (10, 6),
-        });
-        fullUpdateSubject.OnNext(new RawTestItem[]
-        {
+        ]);
+        fullUpdateSubject.OnNext([
             (1, 2),
             (2, 3),
             (4, 1),
             (9, 5),
             (10, 6),
             (11, 7),
-        });
+        ]);
 
         Assert.Equal(6, table.Count);
-        Assert.Equal(new TestItem[]
-        {
+        Assert.Equal([
             (1, 2),
             (2, 3),
             (4, 1),
             (9, 5),
             (10, 6),
             (11, 7),
-        }, table);
+        ], table);
     }
 
     [Fact]
@@ -53,25 +50,22 @@ public class TableTests
 
         Assert.Empty(table);
 
-        fullUpdateSubject.OnNext(new RawTestItem[]
-        {
+        fullUpdateSubject.OnNext([
             (1, 2),
             (2, 3),
             (7, 4),
             (9, 5),
             (10, 6),
-        });
-        partialUpdateSubject.OnNext(new RawTestItem[]
-        {
+        ]);
+        partialUpdateSubject.OnNext([
             (2, 30),
             (7, 40),
             (5, 1),
             (13, 401),
-        });
+        ]);
 
         Assert.Equal(7, table.Count);
-        Assert.Equal(new TestItem[]
-        {
+        Assert.Equal([
             (1, 2),
             (2, 30),
             (5, 1),
@@ -79,7 +73,7 @@ public class TableTests
             (9, 5),
             (10, 6),
             (13, 401),
-        }, table);
+        ], table);
     }
 
     [Fact]
@@ -92,22 +86,20 @@ public class TableTests
 
         Assert.Empty(table);
 
-        fullUpdateSubject.OnNext(new RawTestItem[]
-        {
+        fullUpdateSubject.OnNext([
             (1, 2),
             (2, 3),
             (7, 4),
             (9, 5),
             (10, 6),
-        });
-        removeSubject.OnNext(new[] { 2, 10, 111 });
+        ]);
+        removeSubject.OnNext([2, 10, 111]);
 
         Assert.Equal(3, table.Count);
-        Assert.Equal(new TestItem[]
-        {
+        Assert.Equal([
             (1, 2),
             (7, 4),
             (9, 5),
-        }, table);
+        ], table);
     }
 }
