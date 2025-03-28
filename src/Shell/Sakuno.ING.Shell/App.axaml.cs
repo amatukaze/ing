@@ -51,6 +51,8 @@ public partial class App : Application
             };
 
             desktop.MainWindow = new MainWindow();
+
+            DependencyInjection.SetContainer(desktop.MainWindow, _container);
         }
 
         base.OnFrameworkInitializationCompleted();
