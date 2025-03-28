@@ -18,6 +18,7 @@
     <Project Path="src/Shell/Sakuno.ING.Shell.Common/Sakuno.ING.Shell.Common.csproj" />
     <Project Path="src/Shell/Sakuno.ING.Shell.Launcher/Sakuno.ING.Shell.Launcher.csproj" />
     <Project Path="src/Shell/Sakuno.ING.Shell/Sakuno.ING.Shell.csproj" />
+    <Project Path="src/Shell/Sakuno.ING.Shell.Views.Overall/Sakuno.ING.Shell.Views.Overall.csproj" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
