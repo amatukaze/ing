@@ -3,6 +3,6 @@
 public enum RepairDockState
 {
     Locked = -1,
-    Empty = 0,
+    Idle = 0,
     Repairing = 1,
 }
