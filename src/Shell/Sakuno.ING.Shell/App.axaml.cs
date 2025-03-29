@@ -7,7 +7,6 @@ using DryIoc.Microsoft.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sakuno.ING.Game;
-using Sakuno.ING.ViewModels;
 using Splat;
 
 namespace Sakuno.ING.Shell;
@@ -64,8 +63,7 @@ public partial class App : Application
         hostBuilder.ConfigureContainer(new DryIocServiceProviderFactory());
 
         hostBuilder.Services.AddGameServices();
-
-        hostBuilder.Services.AddSingleton<MainWindowViewModel>();
+        hostBuilder.Services.AddViewModels();
 
         return hostBuilder.Build();
     }

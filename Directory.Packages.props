@@ -16,6 +16,7 @@
     <PackageVersion Include="DryIoc.dll" Version="6.0.0-preview-09" />
     <PackageVersion Include="DryIoc.Microsoft.DependencyInjection" Version="8.0.0-preview-04" />
     <PackageVersion Include="DynamicData" Version="9.2.1" />
+    <PackageVersion Include="Injectio" Version="4.1.0" />
     <PackageVersion Include="IsExternalInit" Version="1.0.3" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0">
       <PrivateAssets>all</PrivateAssets>

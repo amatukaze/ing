@@ -1,10 +1,12 @@
 ﻿using System.Reactive.Linq;
+using Injectio.Attributes;
 using Sakuno.ING.Game.Events.MasterData;
 using Sakuno.ING.Game.Models.MasterData;
 using Sakuno.ING.Game.Provider;
 
 namespace Sakuno.ING.Game.Services;
 
+[RegisterSingleton]
 public class MasterDataService
 {
     public ITable<ShipInfo, ShipInfoId> Ships { get; }

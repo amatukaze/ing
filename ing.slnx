@@ -10,8 +10,6 @@
     <Project Path="src/Game/Sakuno.ING.Game/Sakuno.ING.Game.csproj" />
   </Folder>
   <Folder Name="/Infrastructure/">
-    <Project Path="src/Infrastructure/Sakuno.ING.Standard.SourceGenerators.Sample/Sakuno.ING.Standard.SourceGenerators.Sample.csproj" />
-    <Project Path="src/Infrastructure/Sakuno.ING.Standard.SourceGenerators/Sakuno.ING.Standard.SourceGenerators.csproj" />
     <Project Path="src/Infrastructure/Sakuno.ING.Standard/Sakuno.ING.Standard.csproj" />
   </Folder>
   <Folder Name="/Shell/">

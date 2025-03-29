@@ -4,10 +4,16 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <InjectioName>GameServices</InjectioName>
     </PropertyGroup>
 
     <ItemGroup>
+        <CompilerVisibleProperty Include="InjectioName" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="DynamicData" />
+        <PackageReference Include="Injectio" />
         <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
     </ItemGroup>
 

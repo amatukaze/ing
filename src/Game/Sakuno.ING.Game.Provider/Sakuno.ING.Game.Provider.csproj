@@ -4,9 +4,15 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <InjectioName>GameProvider</InjectioName>
     </PropertyGroup>
 
     <ItemGroup>
+        <CompilerVisibleProperty Include="InjectioName" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Injectio" />
         <PackageReference Include="System.Reactive" />
     </ItemGroup>
 

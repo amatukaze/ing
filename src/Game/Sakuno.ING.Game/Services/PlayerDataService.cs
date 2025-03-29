@@ -1,4 +1,5 @@
 ﻿using System.Reactive.Subjects;
+using Injectio.Attributes;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
@@ -6,6 +7,7 @@ using Sakuno.ING.Game.Provider;
 
 namespace Sakuno.ING.Game.Services;
 
+[RegisterSingleton]
 public class PlayerDataService
 {
     public ITable<Ship, ShipId> Ships { get; }

@@ -5,11 +5,17 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <InjectioName>OverallViews</InjectioName>
     </PropertyGroup>
+
+    <ItemGroup>
+        <CompilerVisibleProperty Include="InjectioName" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Avalonia" />
         <PackageReference Include="Avalonia.ReactiveUI" />
+        <PackageReference Include="Injectio" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
     </ItemGroup>
 

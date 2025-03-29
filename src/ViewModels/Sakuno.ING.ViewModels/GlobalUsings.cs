@@ -4,6 +4,7 @@ global using System.Reactive.Linq;
 global using DynamicData;
 global using DynamicData.Aggregation;
 global using DynamicData.Binding;
+global using Injectio.Attributes;
 global using ReactiveUI;
 global using Sakuno.ING.Game.Models;
 global using Sakuno.ING.Game.Models.MasterData;

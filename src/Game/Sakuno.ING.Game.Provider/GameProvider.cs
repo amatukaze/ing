@@ -2,11 +2,11 @@
 using System.Collections.Specialized;
 using System.Text;
 using System.Web;
-using Sakuno.ING.Composition;
+using Injectio.Attributes;
 
 namespace Sakuno.ING.Game.Provider;
 
-[Export]
+[RegisterSingleton<IGameProvider>]
 public sealed partial class GameProvider : IGameProvider
 {
     public GameProvider(IApiMessageProvider messageProvider)
