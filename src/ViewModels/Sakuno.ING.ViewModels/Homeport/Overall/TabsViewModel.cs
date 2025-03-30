@@ -1,5 +1,6 @@
 ﻿namespace Sakuno.ING.ViewModels.Homeport.Overall;
 
+[RegisterScoped]
 public class TabsViewModel : ReactiveObject
 {
     private readonly ReadOnlyObservableCollection<FleetTabViewModel> _fleets;

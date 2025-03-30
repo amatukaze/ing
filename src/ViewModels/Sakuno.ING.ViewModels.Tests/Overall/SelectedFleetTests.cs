@@ -35,14 +35,14 @@ public class SelectedFleetTests
         _fleetsUpdatedSubject.OnNext([fleet1, fleet2]);
         _state.Select((FleetId)1);
 
-        Assert.Equal([(ShipId)1, (ShipId)2, (ShipId)3], (IReadOnlyList<ShipId>)_vm.Ships.ToArray());
+        Assert.Equal([(ShipId)1, (ShipId)2, (ShipId)3], (IReadOnlyList<ShipId>)_vm.Ships.Select(s => s.Id).ToArray());
 
         _fleetsUpdatedSubject.OnNext([fleet1, fleet2]);
 
-        Assert.Equal([(ShipId)1, (ShipId)2, (ShipId)4], (IReadOnlyList<ShipId>)_vm.Ships.ToArray());
+        Assert.Equal([(ShipId)1, (ShipId)2, (ShipId)4], (IReadOnlyList<ShipId>)_vm.Ships.Select(s => s.Id).ToArray());
 
         _state.Select((FleetId)2);
 
-        Assert.Equal([(ShipId)5], (IReadOnlyList<ShipId>)_vm.Ships.ToArray());
+        Assert.Equal([(ShipId)5], (IReadOnlyList<ShipId>)_vm.Ships.Select(s => s.Id).ToArray());
     }
 }

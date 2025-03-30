@@ -1,0 +1,14 @@
+<rxui:ReactiveUserControl xmlns="https://github.com/avaloniaui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                          xmlns:rxui="http://reactiveui.net"
+                          xmlns:vm="clr-namespace:Sakuno.ING.ViewModels.Homeport.Overall;assembly=Sakuno.ING.ViewModels"
+                          mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                          x:Class="Sakuno.ING.Shell.Views.Overall.FleetTab"
+                          x:TypeArguments="vm:FleetTabViewModel"
+                          x:DataType="vm:FleetTabViewModel">
+    <Button Width="32" Command="{Binding SelectCommand}">
+        <TextBlock Text="{Binding Id}" />
+    </Button>
+</rxui:ReactiveUserControl>
