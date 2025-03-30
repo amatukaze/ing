@@ -1,5 +1,6 @@
 namespace Sakuno.ING.ViewModels.Homeport;
 
+[RegisterScoped]
 public class ConstructionDocksViewModel : ReactiveObject
 {
     private readonly ReadOnlyObservableCollection<ConstructionDockId> _constructionDocks;

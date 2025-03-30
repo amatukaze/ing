@@ -27,6 +27,7 @@
     <ItemGroup>
         <ProjectReference Include="$(BasePath)src\ViewModels\Sakuno.ING.ViewModels\Sakuno.ING.ViewModels.csproj" />
         <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Common\Sakuno.ING.Shell.Common.csproj" />
+        <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Views.Overall\Sakuno.ING.Shell.Views.Overall.csproj" />
     </ItemGroup>
 
 </Project>

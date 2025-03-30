@@ -1,5 +1,6 @@
 namespace Sakuno.ING.ViewModels.Homeport;
 
+[RegisterScoped]
 public class RepairDocksViewModel : ReactiveObject
 {
     private readonly ReadOnlyObservableCollection<RepairDockId> _repairDocks;

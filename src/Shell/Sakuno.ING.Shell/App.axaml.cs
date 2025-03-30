@@ -64,6 +64,7 @@ public partial class App : Application
 
         hostBuilder.Services.AddGameServices();
         hostBuilder.Services.AddViewModels();
+        hostBuilder.Services.AddOverallViews();
 
         return hostBuilder.Build();
     }
