@@ -6,20 +6,23 @@ public class TabsTests
 {
     private readonly Subject<IReadOnlyList<IFleetUpdated>> _fleetsUpdatedSubject = new();
     private readonly TabsViewModel _vm;
+    private readonly FleetSelectionState _fleetSelectionState;
 
     public TabsTests()
     {
         var gameProvider = Substitute.For<IGameProvider>();
         gameProvider.FleetsUpdated.Returns(_fleetsUpdatedSubject);
 
-        _vm = new TabsViewModel(new PlayerDataService(gameProvider));
+        var playerDataService = new PlayerDataService(gameProvider);
+        _fleetSelectionState = new(playerDataService);
+        _vm = new TabsViewModel(playerDataService, _fleetSelectionState);
     }
 
     [Fact]
     public void SelectFleet()
     {
         FleetId fleetId = default;
-        _vm.SelectedFleetId.Subscribe(value => fleetId = value);
+        _fleetSelectionState.SelectedId.Subscribe(value => fleetId = value);
 
         _fleetsUpdatedSubject.OnNext(Utils.GenerateMocks<IFleetUpdated, FleetId>(1, 4).ToArray());
 

@@ -8,7 +8,7 @@ public class SelectedFleetTests
     private readonly Subject<IReadOnlyList<IFleetUpdated>> _fleetsUpdatedSubject = new();
     private readonly SelectedFleetViewModel _vm;
 
-    private readonly Subject<FleetId> _selectedId = new();
+    private readonly FleetSelectionState _state;
 
     public SelectedFleetTests()
     {
@@ -16,10 +16,9 @@ public class SelectedFleetTests
         gameProvider.ShipsUpdated.Returns(_shipsUpdatedSubject);
         gameProvider.FleetsUpdated.Returns(_fleetsUpdatedSubject);
 
-        var selectedFleetStateProvider = Substitute.For<ISelectedFleetStateProvider>();
-        selectedFleetStateProvider.SelectedFleetId.Returns(_selectedId);
-
-        _vm = new SelectedFleetViewModel(new PlayerDataService(gameProvider), selectedFleetStateProvider);
+        var playerDataService = new PlayerDataService(gameProvider);
+        _state = new FleetSelectionState(playerDataService);
+        _vm = new SelectedFleetViewModel(playerDataService, _state);
     }
 
     [Fact]
@@ -34,7 +33,7 @@ public class SelectedFleetTests
         fleet2.Ships.Returns([(ShipId)5]);
 
         _fleetsUpdatedSubject.OnNext([fleet1, fleet2]);
-        _selectedId.OnNext((FleetId)1);
+        _state.Select((FleetId)1);
 
         Assert.Equal([(ShipId)1, (ShipId)2, (ShipId)3], (IReadOnlyList<ShipId>)_vm.Ships.ToArray());
 
@@ -42,7 +41,7 @@ public class SelectedFleetTests
 
         Assert.Equal([(ShipId)1, (ShipId)2, (ShipId)4], (IReadOnlyList<ShipId>)_vm.Ships.ToArray());
 
-        _selectedId.OnNext((FleetId)2);
+        _state.Select((FleetId)2);
 
         Assert.Equal([(ShipId)5], (IReadOnlyList<ShipId>)_vm.Ships.ToArray());
     }

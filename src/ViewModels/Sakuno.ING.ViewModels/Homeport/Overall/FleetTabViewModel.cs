@@ -9,12 +9,13 @@ public class FleetTabViewModel : ReactiveObject
     private readonly ObservableAsPropertyHelper<bool> _isSelected;
     public bool IsSelected => _isSelected.Value;
 
-    public ReactiveCommand<Unit, Unit> SelectCommand { get; } = ReactiveCommand.Create(() => { });
+    public ReactiveCommand<Unit, Unit> SelectCommand { get; }
 
-    public FleetTabViewModel(FleetId id, ISelectedFleetStateProvider selectedFleetStateProvider)
+    public FleetTabViewModel(FleetId id, FleetSelectionState fleetSelectionState)
     {
         Id = id;
+        SelectCommand = ReactiveCommand.Create(() => fleetSelectionState.Select(Id));
 
-        _isSelected = selectedFleetStateProvider.SelectedFleetId.Select(selectedId => Id == selectedId).BindProperty(this, nameof(IsSelected));
+        _isSelected = fleetSelectionState.SelectedId.Select(selectedId => Id == selectedId).BindProperty(this, nameof(IsSelected));
     }
 }
