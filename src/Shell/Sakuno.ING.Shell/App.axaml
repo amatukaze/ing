@@ -4,5 +4,6 @@
              RequestedThemeVariant="Default">
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://Sakuno.ING.Shell.Common/Themes/Generic.axaml" />
     </Application.Styles>
 </Application>
