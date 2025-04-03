@@ -9,10 +9,8 @@ public partial class Ships : ReactiveUserControl<SelectedFleetViewModel>
         InitializeComponent();
     }
 
-    protected override void OnLoaded(RoutedEventArgs e)
+    protected override void OnInitialized()
     {
         ViewModel = DependencyInjection.GetContainer(this).GetRequiredService<SelectedFleetViewModel>();
-
-        base.OnLoaded(e);
     }
 }

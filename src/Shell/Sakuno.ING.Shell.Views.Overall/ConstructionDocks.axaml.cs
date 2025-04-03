@@ -7,7 +7,7 @@ public partial class ConstructionDocks : ReactiveUserControl<ConstructionDocksVi
         InitializeComponent();
     }
 
-    protected override void OnLoaded(RoutedEventArgs e)
+    protected override void OnInitialized()
     {
         ViewModel = DependencyInjection.GetContainer(this).GetRequiredService<ConstructionDocksViewModel>();
     }

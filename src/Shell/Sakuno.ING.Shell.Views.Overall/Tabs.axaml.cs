@@ -9,10 +9,8 @@ public partial class Tabs : ReactiveUserControl<TabsViewModel>
         InitializeComponent();
     }
 
-    protected override void OnLoaded(RoutedEventArgs e)
+    protected override void OnInitialized()
     {
         ViewModel = DependencyInjection.GetContainer(this).GetRequiredService<TabsViewModel>();
-
-        base.OnLoaded(e);
     }
 }
