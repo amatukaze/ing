@@ -1,0 +1,9 @@
+@using Sakuno.ING.Game.Events
+@using Sakuno.ING.Game.Models.MasterData
+@id AirForceGroupId
+@raw IAirForceGroupUpdated
+
+string Name
+int BaseCombatRadius
+int ExtraCombatRadius
+AirForceGroupAction Action

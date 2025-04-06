@@ -22,4 +22,6 @@ public interface IGameProvider
     IObservable<IReadOnlyList<IUseItemUpdated>> UseItemsUpdated { get; }
 
     IObservable<IReadOnlyList<IUnequippedSlotItemsUpdated>> UnequippedSlotItemsUpdated { get; }
+
+    IObservable<IReadOnlyList<IAirForceGroupUpdated>> AirForceGroupsUpdated { get; }
 }

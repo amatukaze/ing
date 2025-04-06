@@ -1,0 +1,9 @@
+@using Sakuno.ING.Game.Events
+@implements IAirForceSquadronUpdated
+
+AirForceSquadronId squadron_id
+int state
+SlotItemId slotid IAirForceSquadronUpdated.SlotItemId
+int count IAirForceSquadronUpdated.Count
+int max_count IAirForceSquadronUpdated.Capacity
+AirForceSquadronMorale cond IAirForceSquadronUpdated.Morale

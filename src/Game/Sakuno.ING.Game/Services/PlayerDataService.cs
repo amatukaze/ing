@@ -20,6 +20,8 @@ public class PlayerDataService
 
     public ITable<UseItem, UseItemId> UseItems { get; }
 
+    public ITable<AirForceGroup, AirForceGroupId> AirForceGroups { get; }
+
     public PlayerDataService(IGameProvider gameProvider)
     {
         var removeShipsSubject = new Subject<ShipId[]>();
@@ -36,5 +38,7 @@ public class PlayerDataService
         RepairDocks = new Table<RepairDock, RepairDockId, IRepairDockUpdated>(gameProvider.RepairDocksUpdated);
 
         UseItems = new Table<UseItem, UseItemId, IUseItemUpdated>(gameProvider.UseItemsUpdated);
+
+        AirForceGroups = new Table<AirForceGroup, AirForceGroupId, IAirForceGroupUpdated>(gameProvider.AirForceGroupsUpdated);
     }
 }

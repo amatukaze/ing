@@ -1,0 +1,7 @@
+@using Sakuno.ING.Game.Events
+@using Sakuno.ING.Game.Models.MasterData
+@id AirForceSquadronId
+@raw IAirForceSquadronUpdated
+
+SlotItemId SlotItemId
+AirForceSquadronMorale Morale

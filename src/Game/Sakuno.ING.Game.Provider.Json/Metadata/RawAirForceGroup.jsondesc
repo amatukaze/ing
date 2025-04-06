@@ -1,0 +1,9 @@
+@using Sakuno.ING.Game.Events
+@implements IAirForceGroupUpdated
+
+MapAreaId area_id
+int rid
+string name IAirForceGroupUpdated.Name
+RawAirForceGroupCombatRadius distance
+AirForceGroupAction action_kind IAirForceGroupUpdated.Action
+RawAirForceSquadron[] plane_info IAirForceGroupUpdated.Squadrons
