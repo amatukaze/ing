@@ -93,11 +93,11 @@ public class GameModelGenerator : IIncrementalGenerator
                             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PrivateKeyword))
                             .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(SyntaxFactory.InvocationExpression(
                                 SyntaxFactory.IdentifierName("SetField"),
-                                SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] {
+                                SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList([
                                     SyntaxFactory.Argument(SyntaxFactory.IdentifierName(fieldName)).WithRefKindKeyword(SyntaxFactory.Token(SyntaxKind.RefKeyword)),
                                     SyntaxFactory.Argument(SyntaxFactory.IdentifierName("value")),
-                                    SyntaxFactory.Argument(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("PropertyNames"), SyntaxFactory.IdentifierName(name))),
-                                })))))
+                                    SyntaxFactory.Argument(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("PropertyNames"), SyntaxFactory.IdentifierName(name)))
+                                ])))))
                             .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
 
                 members.Add(field);
@@ -107,10 +107,10 @@ public class GameModelGenerator : IIncrementalGenerator
             members.Add(SyntaxFactory.ConstructorDeclaration(info.ClassName)
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                 .AddParameterListParameters(SyntaxFactory.Parameter(SyntaxFactory.Identifier("id")).WithType(SyntaxFactory.ParseTypeName(info.IdType)))
-                .WithBody(SyntaxFactory.Block(SyntaxFactory.List(new[]
-                {
+                .WithBody(SyntaxFactory.Block(SyntaxFactory.List([
                     SyntaxFactory.ExpressionStatement(SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression, SyntaxFactory.IdentifierName("Id"), SyntaxFactory.IdentifierName("id"))),
-                }))));
+                    SyntaxFactory.ExpressionStatement(SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName("CreateCore"), SyntaxFactory.ArgumentList())),
+                ]))));
 
             members.Add(SyntaxFactory.ConstructorDeclaration(info.ClassName)
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
@@ -118,11 +118,10 @@ public class GameModelGenerator : IIncrementalGenerator
                 .WithInitializer(SyntaxFactory.ConstructorInitializer(SyntaxKind.ThisConstructorInitializer,
                     SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(
                         SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("raw"), SyntaxFactory.IdentifierName("Id")))))))
-                .WithBody(SyntaxFactory.Block(SyntaxFactory.List(new[]
-                {
+                .WithBody(SyntaxFactory.Block(SyntaxFactory.List([
                     SyntaxFactory.ExpressionStatement(SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName("Update"),
                         SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(SyntaxFactory.IdentifierName("raw")))))),
-                }))));
+                ]))));
 
             members.Add(SyntaxFactory.MethodDeclaration(SyntaxFactory.ParseTypeName(info.ClassName), "Create")
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.StaticKeyword))
@@ -134,7 +133,20 @@ public class GameModelGenerator : IIncrementalGenerator
             members.Add(SyntaxFactory.MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword)), "Update")
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                 .AddParameterListParameters(SyntaxFactory.Parameter(SyntaxFactory.Identifier("raw")).WithType(SyntaxFactory.ParseTypeName(info.RawType)))
-                .WithBody(SyntaxFactory.Block(SyntaxFactory.List(GenerateUpdateMethodBody(info, compilation, context.CancellationToken).ToArray()))));
+                .WithBody(SyntaxFactory.Block(SyntaxFactory.List(
+                    GenerateUpdateMethodBody(info, compilation, context.CancellationToken)
+                        .Append(SyntaxFactory.ExpressionStatement(SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName("UpdateCore"),
+                            SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(SyntaxFactory.IdentifierName("raw")))))))
+                        .ToArray()))));
+
+            members.Add(SyntaxFactory.MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword)), "CreateCore")
+                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PartialKeyword))
+                .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+
+            members.Add(SyntaxFactory.MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword)), "UpdateCore")
+                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PartialKeyword))
+                .AddParameterListParameters(SyntaxFactory.Parameter(SyntaxFactory.Identifier("raw")).WithType(SyntaxFactory.ParseTypeName(info.RawType)))
+                .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
 
             var @class = SyntaxFactory.ClassDeclaration(info.ClassName)
                 .AddBaseListTypes(
