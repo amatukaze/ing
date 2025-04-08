@@ -15,7 +15,6 @@ public class SelectedFleetViewModel : ReactiveObject
             .Transform(id => new ShipViewModel(id, playerDataService))
             .ObserveOn(RxApp.MainThreadScheduler)
             .Bind(out _ships)
-            .DisposeMany()
             .Subscribe();
     }
 }

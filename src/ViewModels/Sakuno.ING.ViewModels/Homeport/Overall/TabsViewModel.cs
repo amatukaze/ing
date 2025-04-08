@@ -12,7 +12,6 @@ public class TabsViewModel : ReactiveObject
             .Transform(fleet => new FleetTabViewModel(fleet.Id, fleetSelectionState))
             .ObserveOn(RxApp.MainThreadScheduler)
             .Bind(out _fleets)
-            .DisposeMany()
             .Subscribe();
     }
 }

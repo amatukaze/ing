@@ -6,8 +6,7 @@ public class FleetTabViewModel : ReactiveObject
 {
     public FleetId Id { get; }
 
-    private readonly ObservableAsPropertyHelper<bool> _isSelected;
-    public bool IsSelected => _isSelected.Value;
+    public IObservable<bool> IsSelected { get; }
 
     public ReactiveCommand<Unit, Unit> SelectCommand { get; }
 
@@ -16,6 +15,7 @@ public class FleetTabViewModel : ReactiveObject
         Id = id;
         SelectCommand = ReactiveCommand.Create(() => fleetSelectionState.Select(Id));
 
-        _isSelected = fleetSelectionState.SelectedId.Select(selectedId => Id == selectedId).BindProperty(this, nameof(IsSelected));
+        IsSelected = fleetSelectionState.SelectedId.Select(selectedId => Id == selectedId)
+            .ObserveOn(RxApp.MainThreadScheduler);
     }
 }

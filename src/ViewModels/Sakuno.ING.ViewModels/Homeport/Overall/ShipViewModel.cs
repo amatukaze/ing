@@ -1,22 +1,18 @@
 ﻿namespace Sakuno.ING.ViewModels.Homeport.Overall;
 
-public class ShipViewModel : ReactiveObject, IDisposable
+public class ShipViewModel : ReactiveObject
 {
     public ShipId Id { get; }
 
-    private readonly ObservableAsPropertyHelper<ShipInfoId> _masterId;
-    public ShipInfoId MasterId => _masterId.Value;
-
-    private readonly CompositeDisposable _disposables = [];
+    public IObservable<ShipInfoId> MasterId { get; }
 
     public ShipViewModel(ShipId id, PlayerDataService playerDataService)
     {
         Id = id;
 
         var model = playerDataService.Ships[id];
+        var masterId = model.WhenAnyValue(s => s.MasterId);
 
-        _masterId = model.WhenAnyValue(s => s.MasterId).BindProperty(this, nameof(MasterId)).DisposeWith(_disposables);
+        MasterId = masterId.ObserveOn(RxApp.MainThreadScheduler);
     }
-
-    public void Dispose() => _disposables.Dispose();
 }

@@ -5,6 +5,7 @@ public class ShipsTests
     private readonly Subject<IReadOnlyList<IShipUpdated>> _shipsUpdatedSubject = new();
     private readonly Subject<IReadOnlyList<IShipUpdated>> _partialShipsUpdatedSubject = new();
     private readonly ShipsViewModel _vm;
+    private readonly ObservableCollector<int> _count = new();
 
     public ShipsTests()
     {
@@ -13,12 +14,13 @@ public class ShipsTests
         provider.PartialShipsUpdated.Returns(_partialShipsUpdatedSubject);
 
         _vm = new ShipsViewModel(new PlayerDataService(provider));
+        _vm.Count.Subscribe(_count);
     }
 
     [Fact]
     public void ZeroCountAtFirst()
     {
-        Assert.Equal(0, _vm.Count);
+        Assert.Equal(0, _count.LatestValue);
     }
 
     [Fact]
@@ -26,11 +28,11 @@ public class ShipsTests
     {
         _shipsUpdatedSubject.OnNext(Utils.GenerateMocks<IShipUpdated, ShipId>(1, 4).ToArray());
 
-        Assert.Equal(4, _vm.Count);
+        Assert.Equal(4, _count.LatestValue);
 
         _shipsUpdatedSubject.OnNext(Utils.GenerateMocks<IShipUpdated, ShipId>(10, 6).ToArray());
 
-        Assert.Equal(6, _vm.Count);
+        Assert.Equal(6, _count.LatestValue);
     }
 
     [Fact]
@@ -38,10 +40,10 @@ public class ShipsTests
     {
         _partialShipsUpdatedSubject.OnNext(Utils.GenerateMocks<IShipUpdated, ShipId>(1, 3).ToArray());
 
-        Assert.Equal(3, _vm.Count);
+        Assert.Equal(3, _count.LatestValue);
 
         _partialShipsUpdatedSubject.OnNext(Utils.GenerateMocks<IShipUpdated, ShipId>(2, 5).ToArray());
 
-        Assert.Equal(6, _vm.Count);
+        Assert.Equal(6, _count.LatestValue);
     }
 }

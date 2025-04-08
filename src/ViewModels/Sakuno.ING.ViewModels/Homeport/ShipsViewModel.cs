@@ -2,13 +2,10 @@ namespace Sakuno.ING.ViewModels.Homeport;
 
 public class ShipsViewModel : ReactiveObject
 {
-    private readonly ObservableAsPropertyHelper<int> _count;
-    public int Count => _count.Value;
+    public IObservable<int> Count { get; }
 
     public ShipsViewModel(PlayerDataService playerDataService)
     {
-        _count = playerDataService.Ships.Connect()
-            .Count()
-            .BindProperty(this, nameof(Count));
+        Count = playerDataService.Ships.Connect().Count().ObserveOn(RxApp.MainThreadScheduler);
     }
 }

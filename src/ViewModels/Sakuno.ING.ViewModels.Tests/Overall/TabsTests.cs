@@ -28,18 +28,22 @@ public class TabsTests
 
         Assert.Equal((FleetId)1, fleetId);
 
-        for (var i = 0; i < _vm.Fleets.Count; i++)
-        {
-            var currentFleet = _vm.Fleets[i];
+        var isSelected1 = new ObservableCollector<bool>();
+        var isSelected2 = new ObservableCollector<bool>();
+        var isSelected3 = new ObservableCollector<bool>();
+        var isSelected4 = new ObservableCollector<bool>();
 
+        _vm.Fleets[0].IsSelected.Subscribe(isSelected1);
+        _vm.Fleets[1].IsSelected.Subscribe(isSelected2);
+        _vm.Fleets[2].IsSelected.Subscribe(isSelected3);
+        _vm.Fleets[3].IsSelected.Subscribe(isSelected4);
+
+        foreach (var currentFleet in _vm.Fleets)
             currentFleet.SelectCommand.Execute().Subscribe();
 
-            Assert.Equal((FleetId)(i + 1), currentFleet.Id);
-
-            foreach (var fleet in _vm.Fleets.Except([currentFleet]))
-                Assert.False(fleet.IsSelected);
-
-            Assert.True(currentFleet.IsSelected);
-        }
+        Assert.Equal([true, false, false, false], isSelected1.Values);
+        Assert.Equal([false, true, false, false], isSelected2.Values);
+        Assert.Equal([false, false, true, false], isSelected3.Values);
+        Assert.Equal([false, false, false, true], isSelected4.Values);
     }
 }
