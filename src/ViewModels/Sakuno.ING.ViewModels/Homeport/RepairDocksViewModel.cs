@@ -3,13 +3,13 @@ namespace Sakuno.ING.ViewModels.Homeport;
 [RegisterScoped]
 public class RepairDocksViewModel : ReactiveObject
 {
-    private readonly ReadOnlyObservableCollection<RepairDockId> _repairDocks;
-    public ReadOnlyObservableCollection<RepairDockId> RepairDocks => _repairDocks;
+    private readonly ReadOnlyObservableCollection<RepairDockViewModel> _repairDocks;
+    public ReadOnlyObservableCollection<RepairDockViewModel> RepairDocks => _repairDocks;
 
     public RepairDocksViewModel(PlayerDataService playerDataService)
     {
         playerDataService.RepairDocks.Connect()
-            .Transform(dock => dock.Id)
+            .Transform(dock => new RepairDockViewModel(dock, playerDataService))
             .ObserveOn(RxApp.MainThreadScheduler)
             .Bind(out _repairDocks)
             .Subscribe();

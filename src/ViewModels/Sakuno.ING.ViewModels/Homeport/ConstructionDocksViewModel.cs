@@ -3,13 +3,13 @@ namespace Sakuno.ING.ViewModels.Homeport;
 [RegisterScoped]
 public class ConstructionDocksViewModel : ReactiveObject
 {
-    private readonly ReadOnlyObservableCollection<ConstructionDockId> _constructionDocks;
-    public ReadOnlyObservableCollection<ConstructionDockId> ConstructionDocks => _constructionDocks;
+    private readonly ReadOnlyObservableCollection<ConstructionDockViewModel> _constructionDocks;
+    public ReadOnlyObservableCollection<ConstructionDockViewModel> ConstructionDocks => _constructionDocks;
 
     public ConstructionDocksViewModel(PlayerDataService playerDataService)
     {
         playerDataService.ConstructionDocks.Connect()
-            .Transform(dock => dock.Id)
+            .Transform(dock => new ConstructionDockViewModel(dock))
             .ObserveOn(RxApp.MainThreadScheduler)
             .Bind(out _constructionDocks)
             .Subscribe();
