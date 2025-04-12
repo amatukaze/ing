@@ -40,8 +40,17 @@ public class MapAreaName : TemplatedControl
         if (_textBlock is null)
             return;
 
-        var mapAreas = DependencyInjection.GetContainer(this).GetRequiredService<MasterDataService>().MapAreas;
+        var id = MapArea;
+        if (id.IsValid)
+        {
+            var mapAreas = DependencyInjection.GetContainer(this).GetRequiredService<MasterDataService>().MapAreas;
+            if (mapAreas.TryGetValue(id, out var mapAreaInfo))
+            {
+                _textBlock.Text = mapAreaInfo.Name;
+                return;
+            }
+        }
 
-        _textBlock.Text = mapAreas.TryGetValue(MapArea, out var areaInfo) ? areaInfo.Name : "?";
+        _textBlock.Text =  "?";
     }
 }

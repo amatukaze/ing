@@ -40,8 +40,17 @@ public class ShipName : TemplatedControl
         if (_textBlock is null)
             return;
 
-        var ships = DependencyInjection.GetContainer(this).GetRequiredService<MasterDataService>().Ships;
+        var id = Ship;
+        if (id.IsValid)
+        {
+            var ships = DependencyInjection.GetContainer(this).GetRequiredService<MasterDataService>().Ships;
+            if (ships.TryGetValue(id, out var shipInfo))
+            {
+                _textBlock.Text = shipInfo.Name;
+                return;
+            }
+        }
 
-        _textBlock.Text = ships.TryGetValue(Ship, out var shipInfo) ? shipInfo.Name : "?";
+        _textBlock.Text =  "?";
     }
 }

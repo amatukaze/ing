@@ -40,8 +40,17 @@ public class SlotItemName : TemplatedControl
         if (_textBlock is null)
             return;
 
-        var slotItems = DependencyInjection.GetContainer(this).GetRequiredService<MasterDataService>().SlotItems;
+        var id = SlotItem;
+        if (id.IsValid)
+        {
+            var slotItems = DependencyInjection.GetContainer(this).GetRequiredService<MasterDataService>().SlotItems;
+            if (slotItems.TryGetValue(id, out var slotItemInfo))
+            {
+                _textBlock.Text = slotItemInfo.Name;
+                return;
+            }
+        }
 
-        _textBlock.Text = slotItems.TryGetValue(SlotItem, out var slotItemInfo) ? slotItemInfo.Name : "?";
+        _textBlock.Text = "?";
     }
 }
