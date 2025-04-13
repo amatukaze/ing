@@ -1,7 +1,7 @@
 namespace Sakuno.ING.ViewModels.Homeport;
 
 [RegisterScoped]
-public class ConstructionDocksViewModel : ReactiveObject
+public class ConstructionDocksViewModel : ViewModelObject
 {
     private readonly ReadOnlyObservableCollection<ConstructionDockViewModel> _constructionDocks;
     public ReadOnlyObservableCollection<ConstructionDockViewModel> ConstructionDocks => _constructionDocks;
@@ -12,6 +12,7 @@ public class ConstructionDocksViewModel : ReactiveObject
             .Transform(dock => new ConstructionDockViewModel(dock))
             .ObserveOn(RxApp.MainThreadScheduler)
             .Bind(out _constructionDocks)
-            .Subscribe();
+            .Subscribe()
+            .DisposeWith(Disposables);;
     }
 }

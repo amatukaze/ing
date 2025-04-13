@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.ViewModels.Homeport;
 
-public class RepairDockViewModel : ReactiveObject, IViewContractObservable
+public class RepairDockViewModel : ViewModelObject, IViewContractObservable
 {
     public RepairDockId Id { get; }
 

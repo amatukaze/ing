@@ -1,7 +1,7 @@
 ﻿namespace Sakuno.ING.ViewModels.Homeport.Overall;
 
 [RegisterScoped]
-public class TabsViewModel : ReactiveObject
+public class TabsViewModel : ViewModelObject
 {
     private readonly ReadOnlyObservableCollection<FleetTabViewModel> _fleets;
     public ReadOnlyObservableCollection<FleetTabViewModel> Fleets => _fleets;
@@ -12,6 +12,7 @@ public class TabsViewModel : ReactiveObject
             .Transform(fleet => new FleetTabViewModel(fleet.Id, fleetSelectionState))
             .ObserveOn(RxApp.MainThreadScheduler)
             .Bind(out _fleets)
-            .Subscribe();
+            .Subscribe()
+            .DisposeWith(Disposables);
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Sakuno.ING.ViewModels.Homeport.Overall;
 
 [RegisterScoped]
-public class SelectedFleetViewModel : ReactiveObject
+public class SelectedFleetViewModel : ViewModelObject
 {
     private readonly ReadOnlyObservableCollection<ShipViewModel> _ships;
     public ReadOnlyObservableCollection<ShipViewModel> Ships => _ships;
@@ -15,6 +15,7 @@ public class SelectedFleetViewModel : ReactiveObject
             .Transform(id => new ShipViewModel(id, playerDataService))
             .ObserveOn(RxApp.MainThreadScheduler)
             .Bind(out _ships)
-            .Subscribe();
+            .Subscribe()
+            .DisposeWith(Disposables);;
     }
 }

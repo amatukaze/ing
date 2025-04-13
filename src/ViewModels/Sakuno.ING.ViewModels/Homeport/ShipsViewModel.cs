@@ -1,6 +1,6 @@
 namespace Sakuno.ING.ViewModels.Homeport;
 
-public class ShipsViewModel : ReactiveObject
+public class ShipsViewModel : ViewModelObject
 {
     public IObservable<int> Count { get; }
 

@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.ViewModels.Homeport.Overall;
 
-public class ShipViewModel : ReactiveObject
+public class ShipViewModel : ViewModelObject
 {
     public ShipId Id { get; }
 

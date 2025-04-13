@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.ViewModels.Homeport;
 
-public class ConstructionDockViewModel : ReactiveObject, IViewContractObservable
+public class ConstructionDockViewModel : ViewModelObject, IViewContractObservable
 {
     public ConstructionDockId Id { get; }
 

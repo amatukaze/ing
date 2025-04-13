@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.ViewModels;
 
 [RegisterSingleton]
-public class MainWindowViewModel : ReactiveObject
+public class MainWindowViewModel : ViewModelObject
 {
 }

@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.ViewModels.Homeport.Overall;
 
-public class FleetTabViewModel : ReactiveObject
+public class FleetTabViewModel : ViewModelObject
 {
     public FleetId Id { get; }
 
