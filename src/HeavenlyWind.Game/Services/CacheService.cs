@@ -135,6 +135,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         internal void ProcessResponse(ResourceSession rpResourceSession, Session rpSession)
         {
+            if (CurrentMode == CacheMode.Disabled)
+                return;
+
             rpSession.utilDecodeResponse();
 
             if (rpSession.responseCode != 304)
