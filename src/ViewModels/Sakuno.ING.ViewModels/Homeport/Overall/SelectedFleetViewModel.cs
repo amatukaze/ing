@@ -16,6 +16,6 @@ public class SelectedFleetViewModel : ViewModelObject
             .ObserveOn(RxApp.MainThreadScheduler)
             .Bind(out _ships)
             .Subscribe()
-            .DisposeWith(Disposables);;
+            .DisposeWith(Disposables);
     }
 }

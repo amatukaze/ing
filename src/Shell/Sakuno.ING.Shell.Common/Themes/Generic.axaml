@@ -3,6 +3,7 @@
     <Styles.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="ExpeditionName.axaml" />
                 <ResourceInclude Source="ShipName.axaml" />
                 <ResourceInclude Source="SlotItemName.axaml" />
                 <ResourceInclude Source="MapAreaName.axaml" />
