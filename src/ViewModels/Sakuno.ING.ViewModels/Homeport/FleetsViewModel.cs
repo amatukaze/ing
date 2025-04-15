@@ -1,14 +1,15 @@
 namespace Sakuno.ING.ViewModels.Homeport;
 
+[RegisterScoped]
 public class FleetsViewModel : ViewModelObject
 {
-    private readonly ReadOnlyObservableCollection<FleetId> _fleets;
-    public ReadOnlyObservableCollection<FleetId> Fleets => _fleets;
+    private readonly ReadOnlyObservableCollection<FleetViewModel> _fleets;
+    public ReadOnlyObservableCollection<FleetViewModel> Fleets => _fleets;
 
     public FleetsViewModel(PlayerDataService playerDataService)
     {
         playerDataService.Fleets.Connect()
-            .Transform(fleet => fleet.Id)
+            .Transform(fleet => new FleetViewModel(fleet))
             .ObserveOn(RxApp.MainThreadScheduler)
             .Bind(out _fleets)
             .Subscribe()
