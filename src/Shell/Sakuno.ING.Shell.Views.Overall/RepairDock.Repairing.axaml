@@ -1,0 +1,16 @@
+<rxui:ReactiveUserControl xmlns="https://github.com/avaloniaui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                          xmlns:rxui="http://reactiveui.net"
+                          xmlns:vm="clr-namespace:Sakuno.ING.ViewModels.Homeport;assembly=Sakuno.ING.ViewModels"
+                          xmlns:controls="clr-namespace:Sakuno.ING.Shell.Controls;assembly=Sakuno.ING.Shell.Common"
+                          mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                          x:Class="Sakuno.ING.Shell.Views.Overall.RepairDockRepairing"
+                          x:TypeArguments="vm:RepairDockViewModel"
+                          x:DataType="vm:RepairDockViewModel">
+    <StackPanel Orientation="Horizontal">
+        <TextBlock Text="{Binding Id}" />
+        <controls:ShipName Ship="{Binding ShipMasterId^}" />
+    </StackPanel>
+</rxui:ReactiveUserControl>
