@@ -8,6 +8,7 @@ public class SplatAdapter(IContainer container) : IDependencyResolver
 {
     private static readonly HashSet<Type> FactoryTypes =
     [
+        typeof(IViewFor<>),
         typeof(Func<,>),
         typeof(Func<,,>),
     ];
@@ -17,7 +18,7 @@ public class SplatAdapter(IContainer container) : IDependencyResolver
     public object? GetService(Type? serviceType, string? contract = null)
     {
         if (serviceType is { IsGenericType: true } && FactoryTypes.Contains(serviceType.GetGenericTypeDefinition()))
-            return container.Resolve(serviceType);
+            return container.Resolve(serviceType, contract);
 
         return _innerAdapter.GetService(serviceType, contract);
     }
