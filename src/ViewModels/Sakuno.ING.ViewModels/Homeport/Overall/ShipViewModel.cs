@@ -6,6 +6,8 @@ public class ShipViewModel : ViewModelObject
 
     public IObservable<ShipInfoId> MasterId { get; }
 
+    public IObservable<int> Level { get; }
+
     public ShipViewModel(ShipId id, PlayerDataService playerDataService)
     {
         Id = id;
@@ -14,5 +16,7 @@ public class ShipViewModel : ViewModelObject
         var masterId = model.WhenAnyValue(s => s.MasterId);
 
         MasterId = masterId.ObserveOn(RxApp.MainThreadScheduler);
+
+        Level = model.WhenAnyValue(m => m.Level).ObserveOn(RxApp.MainThreadScheduler);
     }
 }

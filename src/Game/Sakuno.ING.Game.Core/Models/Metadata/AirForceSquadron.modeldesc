@@ -4,4 +4,7 @@
 @raw IAirForceSquadronUpdated
 
 SlotItemId SlotItemId
+AirForceSquadronState State
+int Count
+int Capacity
 AirForceSquadronMorale Morale

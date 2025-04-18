@@ -2,6 +2,7 @@
 @implements IHomeportDataUpdated
 
 RawShip[] ship IHomeportDataUpdated.Ships
+RawAdmiral basic
 RawRepairDock[] ndock IHomeportDataUpdated.RepairDocks
 RawMaterial[] material
 RawFleet[] deck_port IHomeportDataUpdated.Fleets

@@ -1,3 +1,4 @@
+RawPreAdmiralInfo basic
 RawSlotItem[] slot_item
 RawConstructionDock[] kdock
 RawUseItemCount[] useitem

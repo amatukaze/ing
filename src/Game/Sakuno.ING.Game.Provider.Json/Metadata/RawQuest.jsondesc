@@ -1,0 +1,7 @@
+@using Sakuno.ING.Game.Events
+@implements IQuestUpdated
+
+QuestId no
+string title IQuestUpdated.Name
+string detail IQuestUpdated.Description
+QuestState state IQuestUpdated.State

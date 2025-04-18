@@ -10,13 +10,13 @@ int[] exp
 int nowhp
 int maxhp
 
-int soku
-int leng
+ShipSpeed soku IShipUpdated.Speed
+FireRange leng IShipUpdated.FireRange
 
 SlotItemId[] slot IShipUpdated.SlotItems
 int[] onslot IShipUpdated.PlaneCount
 
-int slot_ex
+SlotItemId slot_ex IShipUpdated.ExtraSlot
 
 int fuel IShipUpdated.Fuel
 int bull IShipUpdated.Bullet

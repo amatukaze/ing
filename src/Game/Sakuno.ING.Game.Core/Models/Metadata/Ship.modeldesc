@@ -5,8 +5,19 @@
 
 ShipInfoId MasterId
 
+int Level
+
+ShipHP HP
+
+ShipSpeed Speed
+FireRange FireRange
+
 IReadOnlyList<SlotItemId> SlotItems
 IReadOnlyList<int> PlaneCount
+SlotItemId ExtraSlot
+
+int Fuel
+int Bullet
 
 int Morale
 

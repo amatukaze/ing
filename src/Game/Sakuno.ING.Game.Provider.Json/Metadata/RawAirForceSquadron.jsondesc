@@ -2,7 +2,7 @@
 @implements IAirForceSquadronUpdated
 
 AirForceSquadronId squadron_id
-int state
+AirForceSquadronState state IAirForceSquadronUpdated.State
 SlotItemId slotid IAirForceSquadronUpdated.SlotItemId
 int count IAirForceSquadronUpdated.Count
 int max_count IAirForceSquadronUpdated.Capacity
