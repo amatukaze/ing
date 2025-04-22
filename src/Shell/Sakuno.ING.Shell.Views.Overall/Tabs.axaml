@@ -4,7 +4,6 @@
                           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                           xmlns:rxui="http://reactiveui.net"
                           xmlns:vm="clr-namespace:Sakuno.ING.ViewModels.Homeport.Overall;assembly=Sakuno.ING.ViewModels"
-                          xmlns:controls="clr-namespace:Sakuno.ING.Shell.Controls;assembly=Sakuno.ING.Shell.Common"
                           mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
                           x:Class="Sakuno.ING.Shell.Views.Overall.Tabs"
                           x:TypeArguments="vm:TabsViewModel"
@@ -15,10 +14,5 @@
                 <StackPanel Orientation="Horizontal" />
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <controls:ViewModelViewHost ViewModel="{Binding}" />
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
     </ItemsControl>
 </rxui:ReactiveUserControl>

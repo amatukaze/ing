@@ -1,9 +1,13 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:shell="clr-namespace:Sakuno.ING.Shell"
              x:Class="Sakuno.ING.Shell.App"
              RequestedThemeVariant="Default">
     <Application.Styles>
         <FluentTheme />
         <StyleInclude Source="avares://Sakuno.ING.Shell.Common/Themes/Generic.axaml" />
     </Application.Styles>
+    <Application.DataTemplates>
+        <shell:ViewLocator />
+    </Application.DataTemplates>
 </Application>

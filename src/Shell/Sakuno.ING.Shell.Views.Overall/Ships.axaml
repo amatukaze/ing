@@ -4,16 +4,9 @@
                           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                           xmlns:rxui="http://reactiveui.net"
                           xmlns:vm="clr-namespace:Sakuno.ING.ViewModels.Homeport.Overall;assembly=Sakuno.ING.ViewModels"
-                          xmlns:controls="clr-namespace:Sakuno.ING.Shell.Controls;assembly=Sakuno.ING.Shell.Common"
                           mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
                           x:Class="Sakuno.ING.Shell.Views.Overall.Ships"
                           x:TypeArguments="vm:SelectedFleetViewModel"
                           x:DataType="vm:SelectedFleetViewModel">
-    <ItemsControl ItemsSource="{Binding Ships}">
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <controls:ViewModelViewHost ViewModel="{Binding}" />
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+    <ItemsControl ItemsSource="{Binding Ships}" />
 </rxui:ReactiveUserControl>

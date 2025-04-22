@@ -4,16 +4,9 @@
                           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                           xmlns:rxui="http://reactiveui.net"
                           xmlns:vm="clr-namespace:Sakuno.ING.ViewModels.Homeport;assembly=Sakuno.ING.ViewModels"
-                          xmlns:controls="clr-namespace:Sakuno.ING.Shell.Controls;assembly=Sakuno.ING.Shell.Common"
                           mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
                           x:Class="Sakuno.ING.Shell.Views.Overall.ConstructionDocks"
                           x:TypeArguments="vm:ConstructionDocksViewModel"
                           x:DataType="vm:ConstructionDocksViewModel">
-    <ItemsControl ItemsSource="{Binding ConstructionDocks}">
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <controls:ViewModelViewHost ViewModel="{Binding}" />
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+    <ItemsControl ItemsSource="{Binding ConstructionDocks}" />
 </rxui:ReactiveUserControl>
