@@ -25,6 +25,16 @@ public interface IShipUpdated : IIdentifiable<ShipId>
 
     int Morale { get; }
 
+    int[] ImprovedStatuses { get; }
+    int Firepower { get; }
+    int Torpedo { get; }
+    int AntiAir { get; }
+    int Armor { get; }
+    int Evasion { get; }
+    int AntiSubmarine { get; }
+    int LineOfSight { get; }
+    int Luck { get; }
+
     bool IsLocked { get; }
 
     int? SortieLockingTagId { get; }

@@ -26,7 +26,7 @@ int[] ndock_item
 
 int cond IShipUpdated.Morale
 
-int[] kyouka
+int[] kyouka IShipUpdated.ImprovedStatuses
 int[] karyoku
 int[] raisou
 int[] taiku
