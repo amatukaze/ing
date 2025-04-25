@@ -1,4 +1,5 @@
-﻿using System.Reactive.Subjects;
+﻿using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using Injectio.Attributes;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models;
@@ -22,6 +23,10 @@ public class PlayerDataService
 
     public ITable<AirForceGroup, AirForceGroupId> AirForceGroups { get; }
 
+    private readonly BehaviorSubject<Materials> _materials;
+    public IObservable<Materials> Materials { get; }
+    public Materials MaterialsSnapshot => _materials.Value;
+
     public PlayerDataService(IGameProvider gameProvider)
     {
         var removeShipsSubject = new Subject<ShipId[]>();
@@ -40,5 +45,15 @@ public class PlayerDataService
         UseItems = new Table<UseItem, UseItemId, IUseItemUpdated>(gameProvider.UseItemsUpdated);
 
         AirForceGroups = new Table<AirForceGroup, AirForceGroupId, IAirForceGroupUpdated>(gameProvider.AirForceGroupsUpdated);
+
+        _materials = new(default);
+        Materials = _materials.AsObservable();
+
+        gameProvider.MaterialsUpdated.Scan(new Materials(), (materials, updated) =>
+        {
+            updated.Apply(ref materials);
+
+            return materials;
+        }).Subscribe(_materials);
     }
 }

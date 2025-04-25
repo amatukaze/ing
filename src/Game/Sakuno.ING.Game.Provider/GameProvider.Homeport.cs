@@ -1,4 +1,5 @@
-﻿using Sakuno.ING.Game.Provider.Json;
+﻿using Sakuno.ING.Game.Provider.Event;
+using Sakuno.ING.Game.Provider.Json;
 
 namespace Sakuno.ING.Game.Provider;
 
@@ -22,10 +23,15 @@ public sealed partial class GameProvider
     private void HandleHomeport(HomeportJson response)
     {
         _admiralUpdated.OnNext(response.api_basic);
+        _materialsUpdated.OnNext(new HomeportMaterialsUpdate(response.api_material));
         _shipsUpdated.OnNext(response.api_ship);
         _fleetsUpdated.OnNext(response.api_deck_port);
         _repairDocksUpdated.OnNext(response.api_ndock);
     }
+
+    [Api("api_get_member/material")]
+    private void HandleMaterials(RawMaterial[] response) =>
+        _materialsUpdated.OnNext(new HomeportMaterialsUpdate(response));
 
     [Api("api_get_member/deck")]
     private void HandleFleetsUpdated(RawFleet[] response) =>

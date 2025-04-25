@@ -11,6 +11,8 @@ public interface IGameProvider
     IObservable<AdmiralId> AdmiralIdUpdated { get; }
     IObservable<IAdmiralUpdated> AdmiralUpdated { get; }
 
+    IObservable<IMaterialsUpdated> MaterialsUpdated { get; }
+
     IObservable<IReadOnlyList<IShipUpdated>> ShipsUpdated { get; }
     IObservable<IReadOnlyList<IShipUpdated>> PartialShipsUpdated { get; }
 
