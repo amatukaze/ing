@@ -8,6 +8,7 @@
     <Project Path="src/Game/Sakuno.ING.Game.Provider/Sakuno.ING.Game.Provider.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game.Tests/Sakuno.ING.Game.Tests.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game/Sakuno.ING.Game.csproj" />
+    <Project Path="src/Game/Sakuno.ING.Game.Provider.SourceGenerators.Tests/Sakuno.ING.Game.Provider.SourceGenerators.Tests.csproj" />
   </Folder>
   <Folder Name="/Infrastructure/">
     <Project Path="src/Infrastructure/Sakuno.ING.Standard/Sakuno.ING.Standard.csproj" />
