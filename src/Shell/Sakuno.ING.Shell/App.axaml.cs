@@ -42,7 +42,7 @@ public partial class App : Application
 
             desktop.Startup += (sender, args) =>
             {
-                _ = _host.StartAsync();
+                Task.Factory.StartNew(_host.Start, TaskCreationOptions.LongRunning);
             };
             desktop.Exit += (sender, e) =>
             {
