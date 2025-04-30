@@ -53,8 +53,6 @@ public partial class App : Application
 
             DependencyInjection.SetContainer(desktop.MainWindow, _container);
         }
-
-        base.OnFrameworkInitializationCompleted();
     }
 
     private IHost BuildHost()
