@@ -6,6 +6,7 @@ using DryIoc;
 using DryIoc.Microsoft.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Sakuno.ING.Game;
 using Splat;
 
@@ -42,7 +43,10 @@ public partial class App : Application
 
             desktop.Startup += (sender, args) =>
             {
-                Task.Factory.StartNew(_host.Start, TaskCreationOptions.LongRunning);
+                Task.Factory.StartNew(_host.Start, TaskCreationOptions.LongRunning).ContinueWith(t =>
+                {
+                    _container.Resolve<ILogger<App>>().LogError(t.Exception, "Unhandled exception from host thread");
+                }, TaskContinuationOptions.OnlyOnFaulted);
             };
             desktop.Exit += (sender, e) =>
             {
