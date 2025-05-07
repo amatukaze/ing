@@ -111,7 +111,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                     ApiParserManager.HandleException(rpInfo.Session, e);
                 }
 
-            if (!Owner.IsPractice)
+            if (!Owner.IsPractice && !Owner.IsBossBattle)
                 foreach (var rSnapshot in Friend)
                 {
                     var rParticipant = (FriendShip)rSnapshot.Participant;
