@@ -1,6 +1,8 @@
 @using Sakuno.ING.Game.Events
 @implements IAdmiralUpdated
 
+AdmiralId member_id
+
 string nickname IAdmiralUpdated.Name
 int experience IAdmiralUpdated.Experience
 int max_chara IAdmiralUpdated.MaxShipCount

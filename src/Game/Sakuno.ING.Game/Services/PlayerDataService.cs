@@ -23,6 +23,10 @@ public class PlayerDataService
 
     public ITable<AirForceGroup, AirForceGroupId> AirForceGroups { get; }
 
+    private readonly BehaviorSubject<Admiral?> _admiral;
+    public IObservable<Admiral> Admiral { get; }
+    public Admiral AdmiralSnapshot => _admiral.Value ?? throw new InvalidOperationException("Game not initialized");
+
     private readonly BehaviorSubject<Materials> _materials;
     public IObservable<Materials> Materials { get; }
     public Materials MaterialsSnapshot => _materials.Value;
@@ -45,6 +49,18 @@ public class PlayerDataService
         UseItems = new Table<UseItem, UseItemId, IUseItemUpdated>(gameProvider.UseItemsUpdated);
 
         AirForceGroups = new Table<AirForceGroup, AirForceGroupId, IAirForceGroupUpdated>(gameProvider.AirForceGroupsUpdated);
+
+        _admiral = new(null);
+        Admiral = _admiral.Where(m => m is not null).AsObservable()!;
+
+        gameProvider.AdmiralUpdated.Scan((Admiral?)null, (admiral, raw) =>
+        {
+            if (admiral is null)
+                return new Admiral(raw);
+
+            admiral.Update(raw);
+            return admiral;
+        }).Subscribe(_admiral);
 
         _materials = new(default);
         Materials = _materials.AsObservable();

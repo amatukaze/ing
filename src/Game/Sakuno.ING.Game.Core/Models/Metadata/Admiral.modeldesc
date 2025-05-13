@@ -1,0 +1,11 @@
+@using Sakuno.ING.Game.Events
+@using Sakuno.ING.Game.Models.MasterData
+@id AdmiralId
+@raw IAdmiralUpdated
+
+string Name
+
+int Experience
+
+int MaxShipCount
+int MaxSlotItemCount

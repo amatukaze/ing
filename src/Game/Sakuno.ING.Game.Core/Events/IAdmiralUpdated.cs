@@ -1,6 +1,8 @@
-﻿namespace Sakuno.ING.Game.Events;
+﻿using Sakuno.ING.Game.Models;
 
-public interface IAdmiralUpdated
+namespace Sakuno.ING.Game.Events;
+
+public interface IAdmiralUpdated : IIdentifiable<AdmiralId>
 {
     string Name { get; }
 
