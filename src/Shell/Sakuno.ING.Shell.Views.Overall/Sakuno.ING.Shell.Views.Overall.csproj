@@ -17,6 +17,7 @@
         <PackageReference Include="Avalonia.ReactiveUI" />
         <PackageReference Include="Injectio" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+        <PackageReference Include="ReactiveUI" />
     </ItemGroup>
 
     <ItemGroup>

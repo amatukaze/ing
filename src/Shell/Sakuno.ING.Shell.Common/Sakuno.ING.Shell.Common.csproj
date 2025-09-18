@@ -10,7 +10,7 @@
 
     <ItemGroup>
         <PackageReference Include="Avalonia" />
-        <PackageReference Include="Avalonia.ReactiveUI" />
+        <PackageReference Include="ReactiveUI" />
     </ItemGroup>
 
     <ItemGroup>
