@@ -14,6 +14,7 @@
     <ItemGroup>
         <PackageReference Include="Injectio" />
         <PackageReference Include="ReactiveUI" />
+        <PackageReference Include="Splat" />
     </ItemGroup>
 
     <ItemGroup>

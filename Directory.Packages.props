@@ -32,6 +32,7 @@
     <PackageVersion Include="NSubstitute.Analyzers.CSharp" Version="1.0.17" />
     <PackageVersion Include="ReactiveUI" Version="21.0.1" />
     <PackageVersion Include="ReactiveUI.WPF" Version="20.1.1" />
+    <PackageVersion Include="Splat" Version="17.0.1" />
     <PackageVersion Include="Splat.DryIoc" Version="17.0.1" />
     <PackageVersion Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.8.12" />
     <PackageVersion Include="System.Reactive" Version="6.0.2" />
