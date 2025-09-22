@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.ViewModels;
 
-[RegisterSingleton]
+[RegisterSingleton(Registration = RegistrationStrategy.Self)]
 public class MainWindowViewModel : ViewModelObject
 {
 }

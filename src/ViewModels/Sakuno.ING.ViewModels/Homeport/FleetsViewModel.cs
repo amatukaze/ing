@@ -1,6 +1,6 @@
 namespace Sakuno.ING.ViewModels.Homeport;
 
-[RegisterScoped]
+[RegisterScoped(Registration = RegistrationStrategy.Self)]
 public class FleetsViewModel : ViewModelObject
 {
     private readonly ReadOnlyObservableCollection<FleetViewModel> _fleets;

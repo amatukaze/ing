@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.ViewModels.Homeport;
 
-[RegisterScoped]
+[RegisterScoped(Registration = RegistrationStrategy.Self)]
 public class MaterialsViewModel : ViewModelObject
 {
     public IObservable<Materials> Materials { get; }

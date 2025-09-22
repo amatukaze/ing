@@ -1,6 +1,6 @@
 namespace Sakuno.ING.ViewModels.Homeport;
 
-[RegisterScoped]
+[RegisterScoped(Registration = RegistrationStrategy.Self)]
 public class RepairDocksViewModel : ViewModelObject
 {
     private readonly ReadOnlyObservableCollection<RepairDockViewModel> _repairDocks;

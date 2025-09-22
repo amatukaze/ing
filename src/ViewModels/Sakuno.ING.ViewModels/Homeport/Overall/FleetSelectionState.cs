@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.ViewModels.Homeport.Overall;
 
-[RegisterScoped]
+[RegisterScoped(Registration = RegistrationStrategy.Self)]
 public class FleetSelectionState
 {
     private readonly Subject<FleetId> _selectedId = new();
