@@ -28,13 +28,19 @@ public class QueryStringEnumerableTests
     [Fact]
     public void EscapedQueryString()
     {
-        var input = "name=%E8%89%A6%E3%81%93%E3%82%8C+KanColle"u8;
+        var input = "name=%E8%89%A6%E3%81%93%E3%82%8C+KanColle&items=1%2C2%2C3"u8;
 
         var enumerator = input.EnumerateQueryString().GetEnumerator();
 
         Assert.True(enumerator.MoveNext());
         Assert.Equal("name"u8, enumerator.Current.Name);
         Assert.Equal("艦これ KanColle", enumerator.Current.DecodeValueAsString());
+
+        Assert.True(enumerator.MoveNext());
+        Assert.Equal("items"u8, enumerator.Current.Name);
+        Assert.Equal("1,2,3", enumerator.Current.DecodeValueAsString());
+        Assert.Equal([1, 2, 3], enumerator.Current.DecodeValueAsIntArray());
+        Assert.Equal([(ShipId)1, (ShipId)2, (ShipId)3], enumerator.Current.DecodeValueAsIdentifierArray<ShipId>());
 
         Assert.False(enumerator.MoveNext());
     }

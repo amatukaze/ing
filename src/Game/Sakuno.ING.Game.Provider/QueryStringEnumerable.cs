@@ -5,6 +5,8 @@ namespace Sakuno.ING.Game.Provider;
 
 internal readonly ref struct QueryStringEnumerable(ReadOnlySpan<byte> queryString)
 {
+    private static ReadOnlySpan<byte> ArraySeparator => "%2C"u8;
+
     private readonly ReadOnlySpan<byte> _queryString = queryString;
 
     public Enumerator GetEnumerator() => new(_queryString);
@@ -17,6 +19,25 @@ internal readonly ref struct QueryStringEnumerable(ReadOnlySpan<byte> queryStrin
         public int DecodeValueAsInt() => int.Parse(Value);
         public TId DecodeValueAsIdentifier<TId>() where TId : struct, IIdentifier<TId, int> =>
             TId.From(DecodeValueAsInt());
+
+        public int[] DecodeValueAsIntArray()
+        {
+            var result = new List<int>();
+
+            foreach (var range in Value.Split(ArraySeparator))
+                result.Add(int.Parse(Value[range]));
+
+            return result.ToArray();
+        }
+        public TId[] DecodeValueAsIdentifierArray<TId>() where TId : struct, IIdentifier<TId, int>
+        {
+            var result = new List<TId>();
+
+            foreach (var range in Value.Split(ArraySeparator))
+                result.Add(TId.From(int.Parse(Value[range])));
+
+            return result.ToArray();
+        }
 
         public string DecodeValueAsString() => Decode(Value).ToString();
         private static ReadOnlyMemory<char> Decode(ReadOnlySpan<byte> bytes)
