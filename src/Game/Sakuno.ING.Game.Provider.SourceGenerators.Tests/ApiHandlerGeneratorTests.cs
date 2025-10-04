@@ -3,6 +3,24 @@
 public class ApiHandlerGeneratorTests
 {
     [Fact]
+    public Task MultipleApis()
+    {
+        var source = """
+                     namespace Sakuno.ING.Game.Provider;
+
+                     public partial class GameProvider
+                     {
+                         [Api("api1")]
+                         [Api("api2")]
+                         [Api("api3")]
+                         private void HandleApis(string api) { }
+                     }
+                     """;
+
+        return Util.Verify<ApiHandlerGenerator>(source);
+    }
+
+    [Fact]
     public Task ResponseOnlyApi()
     {
         var source = """
