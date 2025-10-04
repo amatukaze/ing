@@ -2,4 +2,4 @@
 
 namespace Sakuno.ING.Game;
 
-public record ApiMessage(string Api, ReadOnlySequence<byte> Request, ReadOnlySequence<byte> Response);
+public record ApiMessage(string Api, ReadOnlyMemory<byte> Request, ReadOnlySequence<byte> Response);

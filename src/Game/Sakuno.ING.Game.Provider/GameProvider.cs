@@ -1,5 +1,4 @@
-﻿using System.Buffers;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.Text;
 using System.Web;
 using Injectio.Attributes;
@@ -19,8 +18,8 @@ public sealed partial class GameProvider : IGameProvider
 
     private partial bool HandleApiMessageCore(ApiMessage message);
 
-    private NameValueCollection ParseRequest(ReadOnlySequence<byte> buffer) =>
-        HttpUtility.ParseQueryString(Encoding.UTF8.GetString(buffer));
+    private NameValueCollection ParseRequest(ReadOnlyMemory<byte> buffer) =>
+        HttpUtility.ParseQueryString(Encoding.UTF8.GetString(buffer.Span));
 
     private void CheckResultCode(int code)
     {
