@@ -1,5 +1,4 @@
 ﻿using System.Reactive.Linq;
-using Injectio.Attributes;
 using Sakuno.ING.Game.Events.MasterData;
 using Sakuno.ING.Game.Models.MasterData;
 using Sakuno.ING.Game.Provider;

@@ -7,7 +7,6 @@ using DryIoc.Microsoft.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Sakuno.ING.Game;
 using Splat;
 
 namespace Sakuno.ING.Shell;

@@ -1,5 +1,4 @@
-﻿using Injectio.Attributes;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Sakuno.ING.Game;
 
