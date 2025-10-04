@@ -63,7 +63,7 @@ public class ApiHandlerGeneratorTests
                      public partial class GameProvider
                      {
                          [Api("api1")]
-                         private void HandleApi1([FromRequest("id")] ShipId id, [FromRequest("name")] string name) { }
+                         private void HandleApi1([FromRequest("id")] ShipId id, [FromRequest("name")] string name, [FromRequest("flag")] bool flag) { }
 
                          [Api("api2")]
                          private void HandleApi2([FromRequest("abc")] int number, [FromRequest("items")] int[] items, [FromRequest("ids")] SlotItemId[] ids) { }

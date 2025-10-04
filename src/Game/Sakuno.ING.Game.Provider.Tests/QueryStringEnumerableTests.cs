@@ -17,6 +17,7 @@ public class QueryStringEnumerableTests
         Assert.Equal("1"u8, enumerator.Current.Value);
         Assert.Equal(1, enumerator.Current.DecodeValueAsInt());
         Assert.Equal((ShipId)1, enumerator.Current.DecodeValueAsIdentifier<ShipId>());
+        Assert.True(enumerator.Current.DecodeValueAsBool());
 
         Assert.True(enumerator.MoveNext());
         Assert.Equal("bb"u8, enumerator.Current.Name);

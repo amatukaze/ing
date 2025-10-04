@@ -56,6 +56,7 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                 {
                     "int" => (SimpleNameSyntax)SyntaxFactory.IdentifierName("DecodeValueAsInt"),
                     "int[]" => SyntaxFactory.IdentifierName("DecodeValueAsIntArray"),
+                    "bool" => SyntaxFactory.IdentifierName("DecodeValueAsBool"),
                     "string" => SyntaxFactory.IdentifierName("DecodeValueAsString"),
 
                     var type when type.EndsWith("Id") => SyntaxFactory.GenericName(SyntaxFactory.Identifier("DecodeValueAsIdentifier"),

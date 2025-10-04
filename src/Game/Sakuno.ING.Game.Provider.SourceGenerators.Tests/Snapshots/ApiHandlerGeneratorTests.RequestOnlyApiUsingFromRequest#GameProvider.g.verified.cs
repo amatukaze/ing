@@ -16,18 +16,21 @@ partial class GameProvider
             {
                 ShipId id = default;
                 string name = string.Empty;
+                bool flag = default;
                 foreach (var item in message.EnumerateRequestQueryString())
                 {
                     if (item.Name.SequenceEqual("api_id"u8))
                         id = item.DecodeValueAsIdentifier<ShipId>();
                     else if (item.Name.SequenceEqual("api_name"u8))
                         name = item.DecodeValueAsString();
+                    else if (item.Name.SequenceEqual("api_flag"u8))
+                        flag = item.DecodeValueAsBool();
                 }
 
                 var reader = new Utf8JsonReader(message.Response);
                 var response = JsonSerializer.Deserialize(ref reader, JsonModelContext.Default.SvData)!;
                 CheckResultCode(response.api_result);
-                HandleApi1(id, name);
+                HandleApi1(id, name, flag);
                 return true;
             }
 

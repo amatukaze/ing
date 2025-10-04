@@ -39,6 +39,14 @@ internal readonly ref struct QueryStringEnumerable(ReadOnlySpan<byte> queryStrin
             return result.ToArray();
         }
 
+        public bool DecodeValueAsBool() => Value switch
+        {
+            [(byte)'0'] => false,
+            [(byte)'1'] => true,
+
+            _ => throw new InvalidOperationException(),
+        };
+
         public string DecodeValueAsString() => Decode(Value).ToString();
         private static ReadOnlyMemory<char> Decode(ReadOnlySpan<byte> bytes)
         {
