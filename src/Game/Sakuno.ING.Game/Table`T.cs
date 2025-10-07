@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
+using System.Reactive;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using DynamicData;
 using DynamicData.Binding;
 
@@ -33,9 +35,19 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
         }
     }
 
+    private readonly Subject<ITable<T, TId>>? _committed;
+    private IObservable<ITable<T, TId>>? _committedObservable;
+    public IObservable<ITable<T, TId>> Committed =>
+        _committedObservable ??=
+            (_committed ?? throw new InvalidOperationException("Committed observable is not available"))
+            .AsObservable();
+
     public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
-    public Table(IObservable<IReadOnlyList<TRaw>> fullUpdateSource, IObservable<IReadOnlyList<TRaw>>? partialUpdateSource = null, IObservable<IReadOnlyList<TId>>? removeSource = null)
+    public Table(IObservable<IReadOnlyList<TRaw>> fullUpdateSource,
+        IObservable<IReadOnlyList<TRaw>>? partialUpdateSource = null,
+        IObservable<IReadOnlyList<TId>>? removeSource = null,
+        IObservable<Unit>? committingSource = null)
     {
         _fullUpdateSubscription = fullUpdateSource.Subscribe(items =>
         {
@@ -52,8 +64,17 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
                     CreateItem(i++, item);
             }
         });
-        _partialUpdateSubscription = partialUpdateSource?.Subscribe(items =>
+
+        if (partialUpdateSource is not null || removeSource is not null)
         {
+            ArgumentNullException.ThrowIfNull(committingSource);
+
+            _committed = new();
+        }
+
+        _partialUpdateSubscription = partialUpdateSource?.Buffer(committingSource!).Subscribe(events =>
+        {
+            foreach (var items in events)
             foreach (var item in items)
             {
                 var index = BinarySearch(item.Id);
@@ -65,9 +86,12 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
 
                 CreateItem(~index, item);
             }
+
+            _committed!.OnNext(this);
         });
-        _removeSubscription = removeSource?.Subscribe(ids =>
+        _removeSubscription = removeSource?.Buffer(committingSource!).Subscribe(events =>
         {
+            foreach (var ids in events)
             foreach (var id in ids.OrderDescending())
             {
                 var index = BinarySearch(id);
@@ -76,6 +100,8 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
 
                 RemoveItem(index);
             }
+
+            _committed!.OnNext(this);
         });
 
         var changes = this.ToObservableChangeSet<ITable<T, TId>, T>().Publish();

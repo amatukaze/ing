@@ -1,4 +1,5 @@
-﻿using System.Reactive.Subjects;
+﻿using System.Reactive;
+using System.Reactive.Subjects;
 
 namespace Sakuno.ING.Game.Tests;
 
@@ -45,8 +46,9 @@ public class TableTests
     {
         var fullUpdateSubject = new Subject<RawTestItem[]>();
         var partialUpdateSubject = new Subject<RawTestItem[]>();
+        var committingSubject = new Subject<Unit>();
 
-        var table = new Table<TestItem, int, RawTestItem>(fullUpdateSubject, partialUpdateSubject);
+        var table = new Table<TestItem, int, RawTestItem>(fullUpdateSubject, partialUpdateSubject,  committingSource: committingSubject);
 
         Assert.Empty(table);
 
@@ -57,12 +59,19 @@ public class TableTests
             (9, 5),
             (10, 6),
         ]);
+
+        Assert.Equal(5, table.Count);
+
         partialUpdateSubject.OnNext([
             (2, 30),
             (7, 40),
             (5, 1),
             (13, 401),
         ]);
+
+        Assert.Equal(5, table.Count);
+
+        committingSubject.OnNext(Unit.Default);
 
         Assert.Equal(7, table.Count);
         Assert.Equal([
@@ -81,8 +90,9 @@ public class TableTests
     {
         var fullUpdateSubject = new Subject<RawTestItem[]>();
         var removeSubject = new Subject<int[]>();
+        var committingSubject = new Subject<Unit>();
 
-        var table = new Table<TestItem, int, RawTestItem>(fullUpdateSubject, removeSource: removeSubject);
+        var table = new Table<TestItem, int, RawTestItem>(fullUpdateSubject, removeSource: removeSubject, committingSource: committingSubject);
 
         Assert.Empty(table);
 
@@ -93,7 +103,14 @@ public class TableTests
             (9, 5),
             (10, 6),
         ]);
+
+        Assert.Equal(5, table.Count);
+
         removeSubject.OnNext([2, 10, 111]);
+
+        Assert.Equal(5, table.Count);
+
+        committingSubject.OnNext(Unit.Default);
 
         Assert.Equal(3, table.Count);
         Assert.Equal([
@@ -101,5 +118,26 @@ public class TableTests
             (7, 4),
             (9, 5),
         ], table);
+    }
+
+    [Fact]
+    public void CommittingSourceShouldNotBeNullWithPartialUpdatedOrRemoved()
+    {
+        var fullUpdateSubject = new Subject<RawTestItem[]>();
+        var partialUpdateSubject = new Subject<RawTestItem[]>();
+        var removeSubject = new Subject<int[]>();
+
+        Assert.Throws<ArgumentNullException>(() =>
+        {
+            _ = new Table<TestItem, int, RawTestItem>(fullUpdateSubject, partialUpdateSource: partialUpdateSubject);
+        });
+        Assert.Throws<ArgumentNullException>(() =>
+        {
+            _ = new Table<TestItem, int, RawTestItem>(fullUpdateSubject, removeSource: removeSubject);
+        });
+        Assert.Throws<ArgumentNullException>(() =>
+        {
+            _ = new Table<TestItem, int, RawTestItem>(fullUpdateSubject, partialUpdateSubject, removeSubject);
+        });
     }
 }

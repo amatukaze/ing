@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+using System.Collections.Specialized;
+using System.Reactive;
 using System.Text;
 using System.Web;
 
@@ -12,6 +13,8 @@ public sealed partial class GameProvider : IGameProvider
         messageProvider.ApiMessages.Subscribe(message =>
         {
             HandleApiMessageCore(message);
+
+            _committed.OnNext(Unit.Default);
         });
     }
 

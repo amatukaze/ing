@@ -2,6 +2,7 @@
 
 public class ShipsTests
 {
+    private readonly Subject<Unit> _committedSubject = new();
     private readonly Subject<IReadOnlyList<IShipUpdated>> _shipsUpdatedSubject = new();
     private readonly Subject<IReadOnlyList<IShipUpdated>> _partialShipsUpdatedSubject = new();
     private readonly ShipsViewModel _vm;
@@ -10,6 +11,7 @@ public class ShipsTests
     public ShipsTests()
     {
         var provider = Substitute.For<IGameProvider>();
+        provider.Committed.Returns(_committedSubject);
         provider.ShipsUpdated.Returns(_shipsUpdatedSubject);
         provider.PartialShipsUpdated.Returns(_partialShipsUpdatedSubject);
 
@@ -40,9 +42,13 @@ public class ShipsTests
     {
         _partialShipsUpdatedSubject.OnNext(Utils.GenerateMocks<IShipUpdated, ShipId>(1, 3).ToArray());
 
+        Assert.Equal(0, _count.LatestValue);
+
+        _committedSubject.OnNext(Unit.Default);
         Assert.Equal(3, _count.LatestValue);
 
         _partialShipsUpdatedSubject.OnNext(Utils.GenerateMocks<IShipUpdated, ShipId>(2, 5).ToArray());
+        _committedSubject.OnNext(Unit.Default);
 
         Assert.Equal(6, _count.LatestValue);
     }

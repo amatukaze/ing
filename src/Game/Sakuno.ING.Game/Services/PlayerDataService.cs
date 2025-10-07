@@ -34,15 +34,15 @@ public class PlayerDataService
     {
         var removeShipsSubject = new Subject<ShipId[]>();
 
-        Ships = new Table<Ship, ShipId, IShipUpdated>(gameProvider.ShipsUpdated, gameProvider.PartialShipsUpdated, removeShipsSubject);
+        Ships = new Table<Ship, ShipId, IShipUpdated>(gameProvider.ShipsUpdated, gameProvider.PartialShipsUpdated, removeShipsSubject, gameProvider.Committed);
 
         var removeSlotItemsSubject = new Subject<SlotItemId[]>();
 
-        SlotItems = new Table<SlotItem, SlotItemId, ISlotItemUpdated>(gameProvider.SlotItemsUpdated, gameProvider.PartialSlotItemsUpdated, removeSlotItemsSubject);
+        SlotItems = new Table<SlotItem, SlotItemId, ISlotItemUpdated>(gameProvider.SlotItemsUpdated, gameProvider.PartialSlotItemsUpdated, removeSlotItemsSubject, gameProvider.Committed);
 
-        Fleets = new Table<Fleet, FleetId, IFleetUpdated>(gameProvider.FleetsUpdated, gameProvider.PartialFleetsUpdated);
+        Fleets = new Table<Fleet, FleetId, IFleetUpdated>(gameProvider.FleetsUpdated, gameProvider.PartialFleetsUpdated, committingSource: gameProvider.Committed);
 
-        ConstructionDocks = new Table<ConstructionDock, ConstructionDockId, IConstructionDockUpdated>(gameProvider.ConstructionDocksUpdated);
+        ConstructionDocks = new Table<ConstructionDock, ConstructionDockId, IConstructionDockUpdated>(gameProvider.ConstructionDocksUpdated, committingSource: gameProvider.Committed);
         RepairDocks = new Table<RepairDock, RepairDockId, IRepairDockUpdated>(gameProvider.RepairDocksUpdated);
 
         UseItems = new Table<UseItem, UseItemId, IUseItemUpdated>(gameProvider.UseItemsUpdated);

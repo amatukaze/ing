@@ -1,4 +1,5 @@
-﻿using Sakuno.ING.Game.Events;
+﻿using System.Reactive;
+using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Events.MasterData;
 using Sakuno.ING.Game.Models;
 
@@ -6,6 +7,8 @@ namespace Sakuno.ING.Game.Provider;
 
 public interface IGameProvider
 {
+    IObservable<Unit> Committed { get; }
+
     IObservable<IMasterDataUpdated> MasterDataUpdated { get; }
 
     IObservable<AdmiralId> AdmiralIdUpdated { get; }
