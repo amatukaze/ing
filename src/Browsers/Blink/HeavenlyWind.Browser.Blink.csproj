@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CefSharp.Wpf.HwndHost" Version="121.3.70" />
+    <PackageReference Include="CefSharp.Wpf.HwndHost" Version="140.1.140" />
   </ItemGroup>
 
   <ItemGroup>

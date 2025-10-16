@@ -83,12 +83,12 @@ namespace Sakuno.KanColle.Amatsukaze.Browser.Blink
         IFrame GetKanColleFrame()
         {
             var browser = GetBrowser();
-            var gameFrame = browser.GetFrame("game_frame");
+            var gameFrame = browser.GetFrameByName("game_frame");
             if (gameFrame == null)
                 return null;
 
             var frames = browser.GetFrameIdentifiers()
-                .Select(r => browser.GetFrame(r))
+                .Select(r => browser.GetFrameByName(r))
                 .Where(r => r.Parent?.Identifier == gameFrame.Identifier);
 
             return frames.FirstOrDefault(f => f.Url.Contains(@"/kcs2/index.php"));

@@ -56,7 +56,7 @@ namespace Sakuno.KanColle.Amatsukaze.Browser.Blink
 
         public Task<IBrowser> CreateBrowserInstance()
         {
-            if (!Cef.IsInitialized)
+            if (!Cef.IsInitialized.GetValueOrDefault())
                 Cef.Initialize(r_Settings, false, browserProcessHandler: null);
 
             return Task.FromResult<IBrowser>(r_Browser = new BlinkBrowser());
