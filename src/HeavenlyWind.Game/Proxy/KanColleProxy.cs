@@ -58,9 +58,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
         public static void Start()
         {
+            if (!Preference.Instance.Network.SslCert.Value.IsNullOrEmpty())
+            {
+                FiddlerApplication.Prefs.SetStringPref("fiddler.certmaker.bc.key", Preference.Instance.Network.SslKey.Value);
+                FiddlerApplication.Prefs.SetStringPref("fiddler.certmaker.bc.cert", Preference.Instance.Network.SslCert.Value);
+            }
+
             var rStartupFlags = FiddlerCoreStartupFlags.ChainToUpstreamGateway;
             if (Preference.Instance.Network.AllowRequestsFromOtherDevices)
                 rStartupFlags |= FiddlerCoreStartupFlags.AllowRemoteClients;
+
+            rStartupFlags |= FiddlerCoreStartupFlags.DecryptSSL;
 
             var rPort = Preference.Instance.Network.Port.Default;
             if (Preference.Instance.Network.PortCustomization)

@@ -12,5 +12,8 @@
         public Property<bool> AutoRetry { get; } = new Property<bool>("network.auto_retry.enabled");
         public Property<int> AutoRetryCount { get; } = new Property<int>("network.auto_retry.count", 3);
         public Property<bool> AutoRetryConfirmation { get; } = new Property<bool>("network.auto_retry.confirmation", true);
+
+        public Property<string> SslCert { get; } = new Property<string>("network.ssl.cert", "");
+        public Property<string> SslKey { get; } = new Property<string>("network.ssl.key", "");
     }
 }

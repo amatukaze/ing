@@ -52,5 +52,15 @@
                 <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_AutoRetry_Confirmation}" />
             </CheckBox>
         </StackPanel>
+
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
+
+        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_Certificate}" FontSize="14" FontWeight="Bold" />
+
+        <StackPanel Orientation="Horizontal" Margin="0, 6, 0, 0">
+            <Button Command="{Binding UninstallCertificateCommand}">
+                <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_UninstallCertificate}" />
+            </Button>
+        </StackPanel>
     </StackPanel>
 </UserControl>

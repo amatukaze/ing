@@ -1,4 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.Models;
+﻿using Fiddler;
+using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Services.Plugins;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Plugins;
@@ -26,6 +27,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
         public ICommand OpenFolderPickerCommand { get; }
 
         public ICommand OpenCustomSoundFileDialogCommand { get; }
+
+        public ICommand UninstallCertificateCommand { get; }
 
         PreferencesWindowViewModel()
         {
@@ -83,6 +86,15 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
                         }
                     }
                 }
+            });
+
+            UninstallCertificateCommand = new DelegatedCommand(() =>
+            {
+                if (CertMaker.rootCertExists() && !CertMaker.removeFiddlerGeneratedCerts(true))
+                    return;
+
+                Preference.Instance.Network.SslCert.Value = "";
+                Preference.Instance.Network.SslKey.Value = "";
             });
         }
 

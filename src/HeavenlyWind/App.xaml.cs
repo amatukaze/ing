@@ -1,4 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.Extensibility;
+﻿using Fiddler;
+using Sakuno.KanColle.Amatsukaze.Extensibility;
 using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Internal;
@@ -71,6 +72,8 @@ namespace Sakuno.KanColle.Amatsukaze
             StringResources.Instance.Initialize();
             StringResources.Instance.LoadMainResource(Preference.Instance.Language);
             StringResources.Instance.LoadExtraResource(Preference.Instance.ExtraResourceLanguage);
+
+            EnsureSslCert();
 
             StatusBarService.Instance.Initialize();
             CacheService.Instance.Initialize();
@@ -190,6 +193,43 @@ namespace Sakuno.KanColle.Amatsukaze
             }
 
             rDialog.ShowAndDispose();
+        }
+
+        private void EnsureSslCert()
+        {
+            if (!Preference.Instance.Network.SslCert.Value.IsNullOrEmpty())
+                return;
+
+            var rDialog = new TaskDialog()
+            {
+                Caption = StringResources.Instance.Main.Product_Name,
+                Instruction = StringResources.Instance.Main.Startup_SslCert_Instruction,
+                Icon = TaskDialogIcon.Information,
+                Buttons =
+                    {
+                        new TaskDialogCommandLink(TaskDialogCommonButton.Yes, StringResources.Instance.Main.Startup_SslCert_Install),
+                        new TaskDialogCommandLink(TaskDialogCommonButton.No, StringResources.Instance.Main.Startup_SslCert_Skip),
+                    },
+                DefaultCommonButton = TaskDialogCommonButton.Yes,
+            };
+
+            if (rDialog.ShowAndDispose().ClickedCommonButton == TaskDialogCommonButton.No)
+                return;
+
+            if (CertMaker.rootCertExists())
+                return;
+
+            if (!CertMaker.createRootCert())
+                return;
+
+            if (!CertMaker.trustRootCert())
+                return;
+
+            var cert = FiddlerApplication.Prefs.GetStringPref("fiddler.certmaker.bc.cert", null);
+            var key = FiddlerApplication.Prefs.GetStringPref("fiddler.certmaker.bc.key", null);
+
+            Preference.Instance.Network.SslCert.Value = cert;
+            Preference.Instance.Network.SslKey.Value = key;
         }
     }
 }

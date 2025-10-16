@@ -408,6 +408,8 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="PreferenceWindow_Network_AutoRetry_Count">重试次数</String>
   <String Key="PreferenceWindow_Network_AutoRetry_Confirmation">达到该数值时时询问</String>
   <String Key="PreferenceWindow_Network_OpenInternetOptionConnectionDialog">打开 IE 的网络连接设置</String>
+  <String Key="PreferenceWindow_Network_Certificate">证书</String>
+  <String Key="PreferenceWindow_Network_UninstallCertificate">卸载</String>
   <String Key="PreferenceWindow_Window">窗口</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation">退出确认</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">禁用</String>
@@ -656,4 +658,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="CompositionSharing_GenerateCode_CopyToClipboard_Message">代码已复制到剪贴板。</String>
   <String Key="CompositionSharing_GenerateCode_AutoOpenBrowser">自动打开浏览器</String>
 
+  <String Key="Startup_SslCert_Instruction">为了能正常监听 HTTPS 请求，需要安装证书</String>
+  <String Key="Startup_SslCert_Install">安装</String>
+  <String Key="Startup_SslCert_Skip">跳过</String>
 </Strings>

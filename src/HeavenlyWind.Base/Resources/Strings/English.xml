@@ -408,6 +408,8 @@ PS: C[sub]n[/sub]=4</String>
   <String Key="PreferenceWindow_Network_AutoRetry_Count">Max retry count</String>
   <String Key="PreferenceWindow_Network_AutoRetry_Confirmation">Confirm when reaching this count</String>
   <String Key="PreferenceWindow_Network_OpenInternetOptionConnectionDialog">Open connection setting of IE</String>
+  <String Key="PreferenceWindow_Network_Certificate">Certificate</String>
+  <String Key="PreferenceWindow_Network_UninstallCertificate">Uninstall</String>
   <String Key="PreferenceWindow_Window">Window</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation">Close confirmation</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">Disabled</String>
@@ -656,4 +658,7 @@ PS: C[sub]n[/sub]=4</String>
   <String Key="CompositionSharing_GenerateCode_CopyToClipboard_Message">The code has been copied.</String>
   <String Key="CompositionSharing_GenerateCode_AutoOpenBrowser">Open the browser automatically</String>
 
+  <String Key="Startup_SslCert_Instruction">To capture HTTPS traffic, a certificate should be installed</String>
+  <String Key="Startup_SslCert_Install">Install</String>
+  <String Key="Startup_SslCert_Skip">Skip</String>
 </Strings>
