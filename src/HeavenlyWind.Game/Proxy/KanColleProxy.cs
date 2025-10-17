@@ -116,6 +116,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
             if (rFullUrl.OICEquals(GameConstants.GamePageUrl))
                 rpSession.bBufferResponse = true;
+            else if (rFullUrl.OICContains("osapi.dmm.com/gadgets/ifr?aid=854854"))
+                rpSession.bBufferResponse = true;
 
             var rResourceSession = rSession as ResourceSession;
             if (rResourceSession != null)
@@ -163,6 +165,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                     rSource = r_SuppressReloadConfirmation.Replace(rSource, "false");
 
                     rpSession.utilSetResponseBody(rSource);
+                }
+                if (rSession.FullUrl.OICContains("osapi.dmm.com/gadgets/ifr?aid=854854"))
+                {
+                    ForceOverrideGameFrameStylesheet(rpSession);
                 }
 
                 if (rSession is ApiSession)
@@ -238,10 +244,24 @@ body {
 #ntg-recommend, #dmm-ntgnavi-renew { display: none !important; }
 
 #game_frame {
-    position: fixed;
+    --game-frame-width: 1200px !important;
+    --game-frame-height: 720px !important;
+    position: absolute;
+    top: 0;
     left: 0;
-    top: -16px;
-    z-index: 255;
+}
+</style></head>");
+        }
+        static void ForceOverrideGameFrameStylesheet(Session rpSession)
+        {
+            rpSession.utilDecodeResponse();
+            rpSession.utilReplaceInResponse("</head>", @"<style type=""text/css"">
+#flashWrap {
+    overflow: hidden;
+}
+
+#sectionWrap {
+    display: none !important;
 }
 </style></head>");
         }
