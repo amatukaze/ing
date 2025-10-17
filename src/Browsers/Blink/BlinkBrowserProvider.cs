@@ -26,8 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.Browser.Blink
             {
                 LogSeverity = LogSeverity.Fatal,
                 BrowserSubprocessPath = Path.Combine(CoreDirectory, "CefSharp.BrowserSubprocess.exe"),
-                CachePath = Path.Combine(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory), "Browser Cache", "Blink"),
-                
+                RootCachePath = Path.Combine(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory), "Browser Cache", "Blink"),
             };
 
             var commandLines = r_Settings.CefCommandLineArgs;
