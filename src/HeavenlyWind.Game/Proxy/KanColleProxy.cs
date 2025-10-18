@@ -26,8 +26,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
         static Regex r_UserIDRegex { get; } = new Regex(@"(?:(?<=api_world%2Fget_id%2F)|(?<=api_world\\/get_id\\/)|(?<=api_auth_member\\/dmmlogin\\/))\d+");
         static Regex r_TokenResponseRegex { get; } = new Regex(@"(?<=\\""api_token\\"":\\"")\w+");
 
-        static Regex r_SuppressReloadConfirmation = new Regex("(?<=if \\()confirm\\(\"エラーが発生したため、ページ更新します。\"\\)(?=\\) {)");
-
         static string[] r_BlockingList;
 
         static string r_UpstreamProxy;
@@ -160,11 +158,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 if (rSession.FullUrl.OICEquals(GameConstants.GamePageUrl))
                 {
                     ForceOverrideStylesheet(rpSession);
-
-                    var rSource = rpSession.GetResponseBodyAsString();
-                    rSource = r_SuppressReloadConfirmation.Replace(rSource, "false");
-
-                    rpSession.utilSetResponseBody(rSource);
                 }
                 if (rSession.FullUrl.OICContains("osapi.dmm.com/gadgets/ifr?aid=854854"))
                 {

@@ -21,6 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Browser.Blink
             LifeSpanHandler = new LifeSpanHandler();
             KeyboardHandler = new KeyboardHandler();
             DragHandler = new DragHandler();
+            JsDialogHandler = new JsDialogHandler();
 
             LoadingStateChanged += Browser_LoadingStateChanged;
 
