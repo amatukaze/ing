@@ -8,6 +8,9 @@ namespace Sakuno.KanColle.Amatsukaze.Browser.Blink.Handlers
     {
         public void OnBeforeContextMenu(IWebBrowser browserControl, IBlinkBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model)
         {
+            if (frame.Url.StartsWith("devtools://"))
+                return;
+
             model.Clear();
         }
 
