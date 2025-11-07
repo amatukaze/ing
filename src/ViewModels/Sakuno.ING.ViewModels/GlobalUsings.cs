@@ -1,5 +1,6 @@
 ﻿global using System.Collections.ObjectModel;
 global using System.Reactive.Disposables;
+global using System.Reactive.Disposables.Fluent;
 global using System.Reactive.Linq;
 global using DynamicData;
 global using DynamicData.Aggregation;
