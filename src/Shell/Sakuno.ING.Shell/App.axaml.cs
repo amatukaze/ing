@@ -3,7 +3,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using DryIoc;
-using DryIoc.Microsoft.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -13,9 +12,6 @@ namespace Sakuno.ING.Shell;
 
 public partial class App : Application
 {
-    private IHost _host = default!;
-    private IContainer _container = default!;
-
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -23,50 +19,27 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        _host = BuildHost();
-        _container = _host.Services.GetRequiredService<IContainer>();
+        var host = AppLocator.Current.GetService<IHost>()!;
 
-        Locator.SetLocator(new SplatAdapter(_container));
+        if (ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop)
+            return;
 
-        var resolver = Locator.CurrentMutable;
-        resolver.InitializeSplat();
-        resolver.InitializeReactiveUI(RegistrationNamespace.Avalonia);
-        resolver.RegisterConstant(new AvaloniaActivationForViewFetcher(), typeof(IActivationForViewFetcher));
-        resolver.RegisterConstant(new DataTemplateBindingHook(), typeof(IPropertyBindingHook));
+        BindingPlugins.DataValidators.RemoveAt(0);
 
-        RxApp.MainThreadScheduler = AvaloniaScheduler.Instance;
-
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        desktop.Startup += (sender, args) =>
         {
-            BindingPlugins.DataValidators.RemoveAt(0);
-
-            desktop.Startup += (sender, args) =>
+            Task.Factory.StartNew(host.Start, TaskCreationOptions.LongRunning).ContinueWith(t =>
             {
-                Task.Factory.StartNew(_host.Start, TaskCreationOptions.LongRunning).ContinueWith(t =>
-                {
-                    _container.Resolve<ILogger<App>>().LogError(t.Exception, "Unhandled exception from host thread");
-                }, TaskContinuationOptions.OnlyOnFaulted);
-            };
-            desktop.Exit += (sender, e) =>
-            {
-                _host.StopAsync().GetAwaiter().GetResult();
-            };
+                host.Services.GetRequiredService<ILogger<App>>().LogError(t.Exception, "Unhandled exception from host thread");
+            }, TaskContinuationOptions.OnlyOnFaulted);
+        };
+        desktop.Exit += (sender, e) =>
+        {
+            host.StopAsync().GetAwaiter().GetResult();
+        };
 
-            desktop.MainWindow = new MainWindow();
+        desktop.MainWindow = new MainWindow();
 
-            DependencyInjection.SetContainer(desktop.MainWindow, _container);
-        }
-    }
-
-    private IHost BuildHost()
-    {
-        var hostBuilder = Host.CreateApplicationBuilder(Environment.GetCommandLineArgs());
-        hostBuilder.ConfigureContainer(new DryIocServiceProviderFactory());
-
-        hostBuilder.Services.AddGameServices();
-        hostBuilder.Services.AddViewModels();
-        hostBuilder.Services.AddOverallViews();
-
-        return hostBuilder.Build();
+        DependencyInjection.SetContainer(desktop.MainWindow, host.Services.GetRequiredService<IContainer>());
     }
 }
