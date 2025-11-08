@@ -1,13 +1,16 @@
 <Solution>
   <Folder Name="/Game/">
+    <Project Path="src/Game/Sakuno.ING.Game.Core.SourceGenerators.Tests/Sakuno.ING.Game.Core.SourceGenerators.Tests.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game.Core.SourceGenerators/Sakuno.ING.Game.Core.SourceGenerators.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game.Core/Sakuno.ING.Game.Core.csproj" />
+    <Project Path="src/Game/Sakuno.ING.Game.Provider.Json.SourceGenerators.Tests/Sakuno.ING.Game.Provider.Json.SourceGenerators.Tests.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game.Provider.Json.SourceGenerators/Sakuno.ING.Game.Provider.Json.SourceGenerators.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game.Provider.Json/Sakuno.ING.Game.Provider.Json.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game.Provider.SourceGenerators.Tests/Sakuno.ING.Game.Provider.SourceGenerators.Tests.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game.Provider.SourceGenerators/Sakuno.ING.Game.Provider.SourceGenerators.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game.Provider.Tests/Sakuno.ING.Game.Provider.Tests.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game.Provider/Sakuno.ING.Game.Provider.csproj" />
+    <Project Path="src/Game/Sakuno.ING.Game.SourceGenerator.Common/Sakuno.ING.Game.SourceGenerator.Common.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game.Tests/Sakuno.ING.Game.Tests.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game/Sakuno.ING.Game.csproj" />
   </Folder>
