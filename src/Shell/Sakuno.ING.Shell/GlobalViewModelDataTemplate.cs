@@ -4,7 +4,7 @@ using ViewModelViewHost = Sakuno.ING.Shell.Controls.ViewModelViewHost;
 
 namespace Sakuno.ING.Shell;
 
-internal class ViewLocator : IDataTemplate
+internal class GlobalViewModelDataTemplate : IDataTemplate
 {
     public bool Match(object? data) => data is ViewModelObject;
 

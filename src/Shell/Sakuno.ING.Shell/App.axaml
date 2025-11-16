@@ -8,6 +8,6 @@
         <StyleInclude Source="avares://Sakuno.ING.Shell.Common/Themes/Generic.axaml" />
     </Application.Styles>
     <Application.DataTemplates>
-        <shell:ViewLocator />
+        <shell:GlobalViewModelDataTemplate />
     </Application.DataTemplates>
 </Application>
