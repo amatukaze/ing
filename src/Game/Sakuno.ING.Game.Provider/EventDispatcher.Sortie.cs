@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Provider;
 
-public sealed partial class GameProvider
+partial class EventDispatcher
 {
     [Api("api_get_member/mapinfo")]
     private void HandleMaps(MapJson response)

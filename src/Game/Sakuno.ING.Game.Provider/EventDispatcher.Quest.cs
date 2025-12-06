@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Provider;
 
-public sealed partial class GameProvider
+partial class EventDispatcher
 {
     [Api("api_get_member/questlist")]
     private void HandleQuests(QuestListJson response) =>

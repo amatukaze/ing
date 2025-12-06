@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Provider;
 
-public sealed partial class GameProvider
+partial class EventDispatcher
 {
     [Api("api_start2/getData")]
     private void HandleMasterData(MasterDataJson response)

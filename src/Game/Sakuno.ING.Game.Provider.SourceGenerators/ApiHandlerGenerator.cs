@@ -124,7 +124,7 @@ public class ApiHandlerGenerator : IIncrementalGenerator
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         var provider = context.SyntaxProvider.ForAttributeWithMetadataName("Sakuno.ING.Game.Provider.ApiAttribute",
-            static (node, _) => node is MethodDeclarationSyntax { Parent: ClassDeclarationSyntax { Identifier.Text: "GameProvider" } },
+            static (node, _) => node is MethodDeclarationSyntax { Parent: ClassDeclarationSyntax { Identifier.Text: "EventDispatcher" } },
             static (context, _) =>
             {
                 var apis = ImmutableArray.CreateRange(context.Attributes
@@ -224,7 +224,7 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                 .AddParameterListParameters(SyntaxFactory.Parameter(SyntaxFactory.Identifier("message")).WithType(SyntaxFactory.ParseTypeName("ApiMessage")))
                 .WithBody(SyntaxFactory.Block(switchStatement, SyntaxFactory.ReturnStatement(SyntaxFactory.LiteralExpression(SyntaxKind.FalseLiteralExpression))));
 
-            var @class = SyntaxFactory.ClassDeclaration("GameProvider")
+            var @class = SyntaxFactory.ClassDeclaration("EventDispatcher")
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PartialKeyword))
                 .AddMembers(handlerMethod);
             var @namespace = SyntaxFactory.FileScopedNamespaceDeclaration(SyntaxFactory.ParseName("Sakuno.ING.Game.Provider"))
@@ -241,7 +241,7 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                 .WithLeadingTrivia(SyntaxFactory.Trivia(SyntaxFactory.NullableDirectiveTrivia(SyntaxFactory.Token(SyntaxKind.EnableKeyword), true)))
                 .NormalizeWhitespace();
 
-            context.AddSource("GameProvider.g.cs", SyntaxFactory.SyntaxTree(compilationUnit, encoding: Encoding.UTF8).GetText());
+            context.AddSource("EventDispatcher.g.cs", SyntaxFactory.SyntaxTree(compilationUnit, encoding: Encoding.UTF8).GetText());
         });
     }
 }

@@ -8,7 +8,7 @@ public class ApiHandlerGeneratorTests
         var source = """
                      namespace Sakuno.ING.Game.Provider;
 
-                     public partial class GameProvider
+                     public partial class EventDispatcher
                      {
                          [Api("api1")]
                          [Api("api2")]
@@ -26,7 +26,7 @@ public class ApiHandlerGeneratorTests
         var source = """
                      namespace Sakuno.ING.Game.Provider;
 
-                     public partial class GameProvider
+                     public partial class EventDispatcher
                      {
                          [Api("api1")]
                          private void HandleApi1(Api1Json response) { }
@@ -44,7 +44,7 @@ public class ApiHandlerGeneratorTests
 
                      namespace Sakuno.ING.Game.Provider;
 
-                     public partial class GameProvider
+                     public partial class EventDispatcher
                      {
                          [Api("api1")]
                          private void HandleApi1(NameValueCollection request) { }
@@ -60,7 +60,7 @@ public class ApiHandlerGeneratorTests
         var source = """
                      namespace Sakuno.ING.Game.Provider;
 
-                     public partial class GameProvider
+                     public partial class EventDispatcher
                      {
                          [Api("api1")]
                          private void HandleApi1([FromRequest("id")] ShipId id, [FromRequest("name")] string name, [FromRequest("flag")] bool flag) { }

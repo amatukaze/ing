@@ -3,7 +3,7 @@ using Sakuno.ING.Game.Provider.Json;
 
 namespace Sakuno.ING.Game.Provider;
 
-public sealed partial class GameProvider
+partial class EventDispatcher
 {
     [Api("api_get_member/require_info")]
     private void HandleStartupInfo(PreHomeportJson response)
