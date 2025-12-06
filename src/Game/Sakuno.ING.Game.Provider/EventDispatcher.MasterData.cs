@@ -7,6 +7,6 @@ partial class EventDispatcher
     [Api("api_start2/getData")]
     private void HandleMasterData(MasterDataJson response)
     {
-        _masterDataUpdated.OnNext(response);
+        _provider.OnMasterDataUpdated(response);
     }
 }

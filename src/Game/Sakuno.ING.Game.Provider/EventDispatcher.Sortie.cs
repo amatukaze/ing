@@ -7,6 +7,6 @@ partial class EventDispatcher
     [Api("api_get_member/mapinfo")]
     private void HandleMaps(MapJson response)
     {
-        _airForceGroupsUpdated.OnNext(response.api_air_base);
+        _provider.OnAirForceGroupsUpdated(response.api_air_base);
     }
 }

@@ -12,7 +12,7 @@ internal static class Util
             .Where(assembly => !assembly.IsDynamic && !string.IsNullOrWhiteSpace(assembly.Location))
             .Select(assembly => MetadataReference.CreateFromFile(assembly.Location))
             .Concat([
-                MetadataReference.CreateFromFile(typeof(GameProvider).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(IGameProvider).Assembly.Location),
             ]);
 
         var compilation = CSharpCompilation.Create("GameProviderTests",

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Specialized;
+using System.Reactive;
 using System.Text;
 using System.Web;
 
@@ -7,11 +8,17 @@ namespace Sakuno.ING.Game.Provider;
 [RegisterSingleton]
 internal partial class EventDispatcher
 {
-    public EventDispatcher(IApiMessageProvider messageProvider)
+    private readonly GameProvider _provider;
+
+    public EventDispatcher(GameProvider gameProvider, IApiMessageProvider messageProvider)
     {
+        _provider = gameProvider;
+
         messageProvider.ApiMessages.Subscribe(message =>
         {
             HandleApiMessageCore(message);
+
+            _provider.OnCommitted(Unit.Default);
         });
     }
 

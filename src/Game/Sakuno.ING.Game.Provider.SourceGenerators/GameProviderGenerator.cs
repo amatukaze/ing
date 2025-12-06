@@ -50,11 +50,24 @@ public class GameProviderGenerator : IIncrementalGenerator
                             SyntaxFactory.InvocationExpression(
                             SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName(fieldName), SyntaxFactory.IdentifierName("AsObservable")))
                     )))
-                    .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)); ;
+                    .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken));
+                var triggerMethod = SyntaxFactory
+                    .MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword)),
+                        $"On{name}")
+                    .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                    .AddParameterListParameters(SyntaxFactory.Parameter(SyntaxFactory.Identifier("value"))
+                        .WithType(SyntaxFactory.ParseTypeName(type)))
+                    .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(
+                        SyntaxFactory.InvocationExpression(
+                            SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                                SyntaxFactory.IdentifierName(fieldName), SyntaxFactory.IdentifierName("OnNext"))
+                        ).AddArgumentListArguments(SyntaxFactory.Argument(SyntaxFactory.IdentifierName("value")))))
+                    .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken));
 
                 members.Add(subjectField);
                 members.Add(observableField);
                 members.Add(observableProperty);
+                members.Add(triggerMethod);
             }
 
             var @class = SyntaxFactory.ClassDeclaration("GameProvider")
