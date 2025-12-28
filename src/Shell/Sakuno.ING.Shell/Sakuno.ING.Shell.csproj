@@ -5,10 +5,12 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <InjectioName>ShellServices</InjectioName>
     </PropertyGroup>
 
     <ItemGroup>
         <AvaloniaResource Include="Assets\**" />
+        <CompilerVisibleProperty Include="InjectioName" />
     </ItemGroup>
 
     <ItemGroup>
@@ -19,6 +21,7 @@
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
         <PackageReference Include="DryIoc.dll" />
         <PackageReference Include="DryIoc.Microsoft.DependencyInjection" />
+        <PackageReference Include="Injectio" />
         <PackageReference Include="Microsoft.Extensions.Hosting" />
         <PackageReference Include="ReactiveUI" />
         <PackageReference Include="ReactiveUI.Avalonia" />

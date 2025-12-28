@@ -5,8 +5,8 @@ using System.Web;
 
 namespace Sakuno.ING.Game.Provider;
 
-[RegisterSingleton]
-internal partial class EventDispatcher
+[RegisterSingleton(Registration = RegistrationStrategy.SelfWithProxyFactory)]
+internal partial class EventDispatcher : IServiceInitializable
 {
     private readonly GameProvider _provider;
 
@@ -32,4 +32,6 @@ internal partial class EventDispatcher
         if (code is not 1)
             throw new Exception();
     }
+
+    Task IServiceInitializable.InitializeAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 }

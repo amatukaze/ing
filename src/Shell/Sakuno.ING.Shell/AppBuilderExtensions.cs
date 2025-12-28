@@ -26,6 +26,7 @@ public static class AppBuilderExtensions
             hostBuilder.Services.AddGameServices();
             hostBuilder.Services.AddViewModels();
             hostBuilder.Services.AddOverallViews();
+            hostBuilder.Services.AddShellServices();
 
             return hostBuilder.Build();
         }
