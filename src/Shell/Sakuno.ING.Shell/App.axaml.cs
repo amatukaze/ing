@@ -1,6 +1,5 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using DryIoc;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,8 +22,6 @@ public partial class App : Application
 
         if (ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop)
             return;
-
-        BindingPlugins.DataValidators.RemoveAt(0);
 
         desktop.Startup += (sender, args) =>
         {
