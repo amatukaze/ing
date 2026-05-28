@@ -15,8 +15,8 @@ public class ShipViewModel : ViewModelObject
         var model = playerDataService.Ships[id];
         var masterId = model.WhenAnyValue(s => s.MasterId);
 
-        MasterId = masterId.ObserveOn(RxApp.MainThreadScheduler);
+        MasterId = masterId.ObserveOn(RxSchedulers.MainThreadScheduler);
 
-        Level = model.WhenAnyValue(m => m.Level).ObserveOn(RxApp.MainThreadScheduler);
+        Level = model.WhenAnyValue(m => m.Level).ObserveOn(RxSchedulers.MainThreadScheduler);
     }
 }

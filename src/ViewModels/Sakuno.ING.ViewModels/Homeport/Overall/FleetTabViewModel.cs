@@ -16,6 +16,6 @@ public class FleetTabViewModel : ViewModelObject
         SelectCommand = ReactiveCommand.Create(() => fleetSelectionState.Select(Id));
 
         IsSelected = fleetSelectionState.SelectedId.Select(selectedId => Id == selectedId)
-            .ObserveOn(RxApp.MainThreadScheduler);
+            .ObserveOn(RxSchedulers.MainThreadScheduler);
     }
 }

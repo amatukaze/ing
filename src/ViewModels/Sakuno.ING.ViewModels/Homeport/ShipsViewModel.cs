@@ -6,6 +6,6 @@ public class ShipsViewModel : ViewModelObject
 
     public ShipsViewModel(PlayerDataService playerDataService)
     {
-        Count = playerDataService.Ships.Connect().Count().ObserveOn(RxApp.MainThreadScheduler);
+        Count = playerDataService.Ships.Connect().Count().ObserveOn(RxSchedulers.MainThreadScheduler);
     }
 }

@@ -10,7 +10,7 @@ public class RepairDocksViewModel : ViewModelObject
     {
         playerDataService.RepairDocks.Connect()
             .Transform(dock => new RepairDockViewModel(dock, playerDataService))
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Bind(out _repairDocks)
             .Subscribe()
             .DisposeWith(Disposables);

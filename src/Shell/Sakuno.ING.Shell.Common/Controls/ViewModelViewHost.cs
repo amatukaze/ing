@@ -36,7 +36,7 @@ public sealed class ViewModelViewHost : ContentControl, IViewFor, IEnableLogger
             if (vm is not IViewContractObservable viewContractObservable)
                 return Observable.Return<string?>(null);
 
-            return viewContractObservable.ViewContractObservable.ObserveOn(RxApp.MainThreadScheduler);
+            return viewContractObservable.ViewContractObservable.ObserveOn(RxSchedulers.MainThreadScheduler);
         }).Switch();
 
         _subscription = viewModelSource

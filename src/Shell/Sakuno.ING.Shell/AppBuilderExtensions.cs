@@ -1,8 +1,12 @@
-﻿using Avalonia;
-using DryIoc;
+﻿using DryIoc;
 using DryIoc.Microsoft.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ReactiveUI.Builder;
+using Splat;
+using Splat.Builder;
+using AppBuilder = Avalonia.AppBuilder;
+using SplatBuilder = Splat.Builder.AppBuilder;
 
 namespace Sakuno.ING.Shell;
 
@@ -10,13 +14,21 @@ public static class AppBuilderExtensions
 {
     public static AppBuilder UseShell(this AppBuilder builder)
     {
-        return builder.UseReactiveUIWithDIContainer(
-            () => BuildHost().Services.GetRequiredService<IContainer>(),
-            container =>
-            {
-                container.Register<IPropertyBindingHook, DataTemplateBindingHook>(Reuse.Singleton);
-            },
-            container => new SplatAdapter(container));
+        return builder.AfterPlatformServicesSetup(_ =>
+        {
+            var container = BuildHost().Services.GetRequiredService<IContainer>();
+
+            var module = new DryIocSplatModule(container);
+            module.Configure(default!);
+
+            AppLocator.CurrentMutable.RegisterConstant(container);
+
+            var rxuiBuilder = AppLocator.CurrentMutable.CreateReactiveUIBuilder();
+            rxuiBuilder.WithAvalonia();
+
+            if (!SplatBuilder.HasBeenBuilt)
+                rxuiBuilder.BuildApp();
+        });
 
         IHost BuildHost()
         {

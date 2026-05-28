@@ -13,8 +13,8 @@ public class ConstructionDockViewModel : ViewModelObject, IViewContractObservabl
     {
         Id = model.Id;
 
-        ShipId = model.WhenAnyValue(m => m.ResultShipId).ObserveOn(RxApp.MainThreadScheduler);
-        CompletionTime = model.WhenAnyValue(m => m.CompletionTime).ObserveOn(RxApp.MainThreadScheduler);
+        ShipId = model.WhenAnyValue(m => m.ResultShipId).ObserveOn(RxSchedulers.MainThreadScheduler);
+        CompletionTime = model.WhenAnyValue(m => m.CompletionTime).ObserveOn(RxSchedulers.MainThreadScheduler);
 
         ViewContractObservable = model.WhenAnyValue(m => m.State).Select(s => s.ToString());
     }

@@ -8,7 +8,7 @@ public class MaterialsViewModel : ViewModelObject
 
     public MaterialsViewModel(PlayerDataService playerDataService)
     {
-        Materials = playerDataService.Materials.ObserveOn(RxApp.MainThreadScheduler);
+        Materials = playerDataService.Materials.ObserveOn(RxSchedulers.MainThreadScheduler);
         MaterialsDiff = playerDataService.Materials.Scan(new DiffCache(), (cache, materials) =>
         {
             cache.Previous = cache.Current;
@@ -25,7 +25,7 @@ public class MaterialsViewModel : ViewModelObject
             InstantRepair = cache.Current.InstantRepair - cache.Previous.InstantRepair,
             Development = cache.Current.Development - cache.Previous.Development,
             Improvement = cache.Current.Improvement - cache.Previous.Improvement,
-        }).ObserveOn(RxApp.MainThreadScheduler);
+        }).ObserveOn(RxSchedulers.MainThreadScheduler);
     }
 
     private class DiffCache

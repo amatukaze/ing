@@ -13,7 +13,7 @@ public class SelectedFleetViewModel : ViewModelObject
                 .Switch()
                 .Subscribe(items => list.EditDiff(items.Where(id => id > 0))))
             .Transform(id => new ShipViewModel(id, playerDataService))
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Bind(out _ships)
             .Subscribe()
             .DisposeWith(Disposables);

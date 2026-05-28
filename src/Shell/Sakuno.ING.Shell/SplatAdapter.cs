@@ -1,11 +1,12 @@
 ﻿using DryIoc;
-using Splat;
 using Splat.DryIoc;
 
 namespace Sakuno.ING.Shell;
 
-public class SplatAdapter(IContainer container) : IDependencyResolver
+public class SplatAdapter(IContainer container) : DryIocDependencyResolver(container)
 {
+    private readonly IContainer _container = container;
+
     private static readonly HashSet<Type> FactoryTypes =
     [
         typeof(IViewFor<>),
@@ -13,21 +14,11 @@ public class SplatAdapter(IContainer container) : IDependencyResolver
         typeof(Func<,,>),
     ];
 
-    private readonly DryIocDependencyResolver _innerAdapter = new(container);
-
-    public object? GetService(Type? serviceType, string? contract = null)
+    public override object? GetService(Type? serviceType, string? contract)
     {
         if (serviceType is { IsGenericType: true } && FactoryTypes.Contains(serviceType.GetGenericTypeDefinition()))
-            return container.Resolve(serviceType, contract);
+            return _container.Resolve(serviceType, contract);
 
-        return _innerAdapter.GetService(serviceType, contract);
+        return base.GetService(serviceType, contract);
     }
-
-    public IEnumerable<object> GetServices(Type? serviceType, string? contract = null) => _innerAdapter.GetServices(serviceType, contract);
-    public bool HasRegistration(Type? serviceType, string? contract = null) => _innerAdapter.HasRegistration(serviceType, contract);
-    public void Register(Func<object?> factory, Type? serviceType, string? contract = null) => _innerAdapter.Register(factory, serviceType, contract);
-    public void UnregisterCurrent(Type? serviceType, string? contract = null) => _innerAdapter.UnregisterCurrent(serviceType, contract);
-    public void UnregisterAll(Type? serviceType, string? contract = null) => _innerAdapter.UnregisterAll(serviceType, contract);
-    public IDisposable ServiceRegistrationCallback(Type serviceType, string? contract, Action<IDisposable> callback) => _innerAdapter.ServiceRegistrationCallback(serviceType, contract, callback);
-    public void Dispose() => _innerAdapter.Dispose();
 }

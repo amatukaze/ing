@@ -10,7 +10,7 @@ public class FleetsViewModel : ViewModelObject
     {
         playerDataService.Fleets.Connect()
             .Transform(fleet => new FleetViewModel(fleet))
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Bind(out _fleets)
             .Subscribe()
             .DisposeWith(Disposables);

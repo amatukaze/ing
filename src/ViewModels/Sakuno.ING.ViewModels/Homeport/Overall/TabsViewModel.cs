@@ -10,7 +10,7 @@ public class TabsViewModel : ViewModelObject
     {
         playerDataService.Fleets.Connect()
             .Transform(fleet => new FleetTabViewModel(fleet.Id, fleetSelectionState))
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Bind(out _fleets)
             .Subscribe()
             .DisposeWith(Disposables);

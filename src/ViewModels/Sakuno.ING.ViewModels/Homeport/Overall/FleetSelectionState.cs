@@ -13,7 +13,7 @@ public class FleetSelectionState
     {
         SelectedId = playerDataService.Fleets.Connect().Take(1).Select(_ => (FleetId)1).Merge(_selectedId)
             .DistinctUntilChanged()
-            .ObserveOn(RxApp.MainThreadScheduler);
+            .ObserveOn(RxSchedulers.MainThreadScheduler);
     }
 
     public void Select(FleetId id) => _selectedId.OnNext(id);

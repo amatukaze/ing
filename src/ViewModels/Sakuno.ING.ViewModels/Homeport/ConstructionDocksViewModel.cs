@@ -10,7 +10,7 @@ public class ConstructionDocksViewModel : ViewModelObject
     {
         playerDataService.ConstructionDocks.Connect()
             .Transform(dock => new ConstructionDockViewModel(dock))
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Bind(out _constructionDocks)
             .Subscribe()
             .DisposeWith(Disposables);;

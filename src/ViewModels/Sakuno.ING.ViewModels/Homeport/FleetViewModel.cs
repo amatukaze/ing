@@ -18,7 +18,7 @@ public class FleetViewModel : ViewModelObject, IViewContractObservable
 
         ExpeditionId = Id == (FleetId)1
             ? Observable.Return<ExpeditionId>(default)
-            : fleet.WhenAnyValue(f => f.ExpeditionId).ObserveOn(RxApp.MainThreadScheduler);
+            : fleet.WhenAnyValue(f => f.ExpeditionId).ObserveOn(RxSchedulers.MainThreadScheduler);
 
         ViewContractObservable = expeditionState
             .Select(state => (state switch
