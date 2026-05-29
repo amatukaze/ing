@@ -1,40 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-        <InjectioName>ShellServices</InjectioName>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <InjectioName>ShellServices</InjectioName>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <AvaloniaResource Include="Assets\**" />
-        <CompilerVisibleProperty Include="InjectioName" />
-    </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+    <CompilerVisibleProperty Include="InjectioName" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Avalonia" />
-        <PackageReference Include="Avalonia.Desktop" />
-        <PackageReference Include="Avalonia.Themes.Fluent" />
-        <PackageReference Include="Avalonia.Fonts.Inter" />
-        <PackageReference Include="DryIoc.dll" />
-        <PackageReference Include="DryIoc.Microsoft.DependencyInjection" />
-        <PackageReference Include="Injectio">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Hosting" />
-        <PackageReference Include="ReactiveUI" />
-        <PackageReference Include="ReactiveUI.Avalonia" />
-        <PackageReference Include="Splat.DryIoc" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="Avalonia.Fonts.Inter" />
+    <PackageReference Include="DryIoc.dll" />
+    <PackageReference Include="DryIoc.Microsoft.DependencyInjection" />
+    <PackageReference Include="Injectio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+    <PackageReference Include="ReactiveUI" />
+    <PackageReference Include="ReactiveUI.Avalonia" />
+    <PackageReference Include="Splat.DryIoc" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="$(BasePath)src\ViewModels\Sakuno.ING.ViewModels\Sakuno.ING.ViewModels.csproj" />
-        <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Common\Sakuno.ING.Shell.Common.csproj" />
-        <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Views.Overall\Sakuno.ING.Shell.Views.Overall.csproj" />
-        <ProjectReference Condition="'$(Configuration)'=='DEBUG'" Include="$(BasePath)src\Game\Sakuno.ING.Game.Diagnostics\Sakuno.ING.Game.Diagnostics.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(BasePath)src\ViewModels\Sakuno.ING.ViewModels\Sakuno.ING.ViewModels.csproj" />
+    <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Common\Sakuno.ING.Shell.Common.csproj" />
+    <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Views.Overall\Sakuno.ING.Shell.Views.Overall.csproj" />
+    <ProjectReference Condition="'$(Configuration)'=='DEBUG'" Include="$(BasePath)src\Game\Sakuno.ING.Game.Diagnostics\Sakuno.ING.Game.Diagnostics.csproj" />
+  </ItemGroup>
 
 </Project>

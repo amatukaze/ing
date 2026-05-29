@@ -1,26 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <InjectioName>ViewModels</InjectioName>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <InjectioName>ViewModels</InjectioName>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <CompilerVisibleProperty Include="InjectioName" />
-    </ItemGroup>
+  <ItemGroup>
+    <CompilerVisibleProperty Include="InjectioName" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Injectio">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="ReactiveUI" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Injectio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="ReactiveUI" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game\Sakuno.ING.Game.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game\Sakuno.ING.Game.csproj" />
+  </ItemGroup>
 
 </Project>

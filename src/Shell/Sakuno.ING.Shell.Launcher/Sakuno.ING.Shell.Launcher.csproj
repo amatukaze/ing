@@ -1,26 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>net10.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-        <ApplicationManifest>app.manifest</ApplicationManifest>
-    </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Avalonia.Desktop" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell\Sakuno.ING.Shell.csproj" />
-        <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Common\Sakuno.ING.Shell.Common.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell\Sakuno.ING.Shell.csproj" />
+    <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Common\Sakuno.ING.Shell.Common.csproj" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <None Update="appsettings.Development.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-    </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>

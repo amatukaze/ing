@@ -1,28 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <InjectioName>GameServices</InjectioName>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <InjectioName>GameServices</InjectioName>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <CompilerVisibleProperty Include="InjectioName" />
-    </ItemGroup>
+  <ItemGroup>
+    <CompilerVisibleProperty Include="InjectioName" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Injectio">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Injectio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj" />
-        <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Core\Sakuno.ING.Game.Core.csproj" />
-        <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj" />
+    <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Core\Sakuno.ING.Game.Core.csproj" />
+    <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj" />
+  </ItemGroup>
 
 </Project>

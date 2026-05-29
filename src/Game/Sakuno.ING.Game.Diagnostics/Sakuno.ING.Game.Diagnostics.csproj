@@ -1,25 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <InjectioName>GameDiagnostics</InjectioName>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <InjectioName>GameDiagnostics</InjectioName>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Injectio">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="MessagePack" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
-        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Injectio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MessagePack" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game\Sakuno.ING.Game.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game\Sakuno.ING.Game.csproj" />
+  </ItemGroup>
 
 </Project>

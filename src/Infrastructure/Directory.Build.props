@@ -1,9 +1,9 @@
 <Project>
 
-    <PropertyGroup>
-        <AppPlatform>Portable</AppPlatform>
-    </PropertyGroup>
+  <PropertyGroup>
+    <AppPlatform>Portable</AppPlatform>
+  </PropertyGroup>
 
-    <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
 
 </Project>

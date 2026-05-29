@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
 
-    <PropertyGroup Label="BasePath">
-        <BasePath>$(MSBuildThisFileDirectory)</BasePath>
-        <MinimumVisualStudioVersion>17</MinimumVisualStudioVersion>
-        <LangVersion>latest</LangVersion>
-    </PropertyGroup>
+  <PropertyGroup Label="BasePath">
+    <BasePath>$(MSBuildThisFileDirectory)</BasePath>
+    <MinimumVisualStudioVersion>17</MinimumVisualStudioVersion>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
 
 </Project>

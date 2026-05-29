@@ -1,31 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-        <InjectioName>OverallViews</InjectioName>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <InjectioName>OverallViews</InjectioName>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <CompilerVisibleProperty Include="InjectioName" />
-    </ItemGroup>
+  <ItemGroup>
+    <CompilerVisibleProperty Include="InjectioName" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Avalonia" />
-        <PackageReference Include="Injectio">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
-        <PackageReference Include="ReactiveUI" />
-        <PackageReference Include="ReactiveUI.Avalonia" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Injectio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="ReactiveUI" />
+    <PackageReference Include="ReactiveUI.Avalonia" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="$(BasePath)src\ViewModels\Sakuno.ING.ViewModels\Sakuno.ING.ViewModels.csproj" />
-        <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Common\Sakuno.ING.Shell.Common.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(BasePath)src\ViewModels\Sakuno.ING.ViewModels\Sakuno.ING.ViewModels.csproj" />
+    <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Common\Sakuno.ING.Shell.Common.csproj" />
+  </ItemGroup>
 
 </Project>
