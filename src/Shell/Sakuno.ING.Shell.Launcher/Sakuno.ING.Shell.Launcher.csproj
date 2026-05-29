@@ -17,4 +17,10 @@
         <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Common\Sakuno.ING.Shell.Common.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <None Update="appsettings.Development.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
 </Project>

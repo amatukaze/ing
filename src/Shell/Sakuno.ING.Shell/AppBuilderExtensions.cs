@@ -40,6 +40,10 @@ public static class AppBuilderExtensions
             hostBuilder.Services.AddOverallViews();
             hostBuilder.Services.AddShellServices();
 
+#if DEBUG
+            hostBuilder.Services.AddGameDiagnostics();
+#endif
+
             return hostBuilder.Build();
         }
     }

@@ -34,6 +34,7 @@
         <ProjectReference Include="$(BasePath)src\ViewModels\Sakuno.ING.ViewModels\Sakuno.ING.ViewModels.csproj" />
         <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Common\Sakuno.ING.Shell.Common.csproj" />
         <ProjectReference Include="$(BasePath)src\Shell\Sakuno.ING.Shell.Views.Overall\Sakuno.ING.Shell.Views.Overall.csproj" />
+        <ProjectReference Condition="'$(Configuration)'=='DEBUG'" Include="$(BasePath)src\Game\Sakuno.ING.Game.Diagnostics\Sakuno.ING.Game.Diagnostics.csproj" />
     </ItemGroup>
 
 </Project>

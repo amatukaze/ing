@@ -3,6 +3,7 @@
     <Project Path="src/Game/Sakuno.ING.Game.Core.SourceGenerators.Tests/Sakuno.ING.Game.Core.SourceGenerators.Tests.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game.Core.SourceGenerators/Sakuno.ING.Game.Core.SourceGenerators.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game.Core/Sakuno.ING.Game.Core.csproj" />
+    <Project Path="src/Game/Sakuno.ING.Game.Diagnostics/Sakuno.ING.Game.Diagnostics.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game.Provider.Json.SourceGenerators.Tests/Sakuno.ING.Game.Provider.Json.SourceGenerators.Tests.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game.Provider.Json.SourceGenerators/Sakuno.ING.Game.Provider.Json.SourceGenerators.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game.Provider.Json/Sakuno.ING.Game.Provider.Json.csproj" />
