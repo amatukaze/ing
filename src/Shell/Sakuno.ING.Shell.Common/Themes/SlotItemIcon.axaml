@@ -1,0 +1,17 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Sakuno.ING.Shell.Controls">
+  <ControlTheme x:Key="{x:Type controls:SlotItemIcon}" TargetType="controls:SlotItemIcon">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Width="24" Height="24">
+          <Ellipse Fill="Gray" />
+          <TextBlock Name="PART_TextBlock"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Foreground="White" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>
