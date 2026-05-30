@@ -1,11 +1,11 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="using:Sakuno.ING.Shell.Controls">
-  <ControlTheme x:Key="{x:Type controls:ExpeditionName}" TargetType="controls:ExpeditionName">
-    <Setter Property="Template">
-      <ControlTemplate>
-        <TextBlock Name="PART_TextBlock" />
-      </ControlTemplate>
-    </Setter>
-  </ControlTheme>
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:controls="using:Sakuno.ING.Shell.Controls">
+    <ControlTheme x:Key="{x:Type controls:ExpeditionName}" TargetType="controls:ExpeditionName">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <TextBlock Name="PART_TextBlock" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
 </ResourceDictionary>
