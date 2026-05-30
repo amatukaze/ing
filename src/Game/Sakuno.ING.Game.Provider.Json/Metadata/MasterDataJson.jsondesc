@@ -12,4 +12,4 @@ RawMapAreaInfo[] mst_maparea IMasterDataUpdated.MapAreas
 RawMapInfo[] mst_mapinfo IMasterDataUpdated.Maps
 RawMapBgmInfo[] mst_mapbgm
 RawExpeditionInfo[] mst_mission IMasterDataUpdated.Expeditions
-RawShipEquipLimitation[] mst_equip_ship
+
