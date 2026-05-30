@@ -10,15 +10,16 @@ internal static class ServiceRegistration
     {
         services.AddSingleton(serviceProvider =>
         {
-            var options = new ApiDataLoaderOptions();
+            var options = new DiagnosticsOptions();
 
-            serviceProvider.GetRequiredService<IConfiguration>().GetSection("ApiDataLoader").Bind(options);
+            serviceProvider.GetRequiredService<IConfiguration>().GetSection("Diagnostics").Bind(options);
 
             return options;
         });
 
-        services.AddSingleton<ApiDataLoader>();
-        services.AddSingleton<IApiMessageProvider>(provider => provider.GetRequiredService<ApiDataLoader>());
-        services.AddHostedService(provider => provider.GetRequiredService<ApiDataLoader>());
+        services.AddHttpClient<SseDataSource>();
+        services.AddSingleton<SseDataSource>();
+        services.AddSingleton<IApiMessageProvider>(provider => provider.GetRequiredService<SseDataSource>());
+        services.AddHostedService(provider => provider.GetRequiredService<SseDataSource>());
     }
 }
