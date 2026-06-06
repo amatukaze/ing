@@ -5,7 +5,7 @@ public class ShipsTests
     private readonly Subject<Unit> _committedSubject = new();
     private readonly Subject<IReadOnlyList<IShipUpdated>> _shipsUpdatedSubject = new();
     private readonly Subject<IReadOnlyList<IShipUpdated>> _partialShipsUpdatedSubject = new();
-    private readonly ShipsViewModel _vm;
+    private readonly ShipCountViewModel _vm;
     private readonly ObservableCollector<int> _count = new();
 
     public ShipsTests()
@@ -15,7 +15,7 @@ public class ShipsTests
         provider.ShipsUpdated.Returns(_shipsUpdatedSubject);
         provider.PartialShipsUpdated.Returns(_partialShipsUpdatedSubject);
 
-        _vm = new ShipsViewModel(new PlayerDataService(provider));
+        _vm = new ShipCountViewModel(new PlayerDataService(provider));
         _vm.Count.Subscribe(_count);
     }
 
