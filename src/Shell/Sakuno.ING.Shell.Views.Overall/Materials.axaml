@@ -1,0 +1,21 @@
+<rxui:ReactiveUserControl xmlns="https://github.com/avaloniaui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                          xmlns:rxui="http://reactiveui.net"
+                          xmlns:vm="clr-namespace:Sakuno.ING.ViewModels.Homeport;assembly=Sakuno.ING.ViewModels"
+                          mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                          x:Class="Sakuno.ING.Shell.Views.Overall.Materials"
+                          x:TypeArguments="vm:MaterialsViewModel"
+                          x:DataType="vm:MaterialsViewModel">
+    <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*,*" ColumnSpacing="4">
+        <TextBlock Text="{Binding Materials^.Fuel}" />
+        <TextBlock Text="{Binding Materials^.Bullet}" Grid.Row="1" />
+        <TextBlock Text="{Binding Materials^.Steel}" Grid.Column="1" />
+        <TextBlock Text="{Binding Materials^.Bauxite}" Grid.Column="1" Grid.Row="1" />
+        <TextBlock Text="{Binding Materials^.InstantBuild}" Grid.Column="2" />
+        <TextBlock Text="{Binding Materials^.InstantRepair}" Grid.Column="2" Grid.Row="1" />
+        <TextBlock Text="{Binding Materials^.Development}" Grid.Column="3" />
+        <TextBlock Text="{Binding Materials^.Improvement}" Grid.Column="3" Grid.Row="1" />
+    </Grid>
+</rxui:ReactiveUserControl>
