@@ -9,7 +9,7 @@ public class SelectedFleetViewModel : ViewModelObject
     public SelectedFleetViewModel(PlayerDataService playerDataService, FleetSelectionState fleetSelectionState)
     {
         ObservableChangeSet.Create<ShipId>(list => fleetSelectionState.SelectedId
-                .Select(id => playerDataService.Fleets[id]!.WhenAnyValue(f => f.Ships))
+                .Select(id => playerDataService.Fleets.Snapshot[id].WhenAnyValue(f => f.Ships))
                 .Switch()
                 .Subscribe(items => list.EditDiff(items.Where(id => id > 0))))
             .Transform(id => new ShipViewModel(id, playerDataService))

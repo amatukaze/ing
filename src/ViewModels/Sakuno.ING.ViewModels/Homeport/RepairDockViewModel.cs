@@ -14,7 +14,7 @@ public class RepairDockViewModel : ViewModelObject, IViewContractObservable
         Id = model.Id;
 
         ShipMasterId = model.WhenAnyValue(m => m.ShipId)
-            .Select(id => playerDataService.Ships[id]?.MasterId ?? default)
+            .Select(id => playerDataService.Ships.Snapshot.TryGetValue(id, out var ship) ? ship.MasterId : default)
             .ObserveOn(RxSchedulers.MainThreadScheduler);
         CompletionTime = model.WhenAnyValue(m => m.CompletionTime).ObserveOn(RxSchedulers.MainThreadScheduler);
 

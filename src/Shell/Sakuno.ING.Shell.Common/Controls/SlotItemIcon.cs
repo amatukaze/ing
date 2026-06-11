@@ -44,7 +44,7 @@ public class SlotItemIcon : TemplatedControl
         if (id.IsValid)
         {
             var slotItems = DependencyInjection.GetContainer(this).GetRequiredService<MasterDataService>().SlotItems;
-            if (slotItems.TryGetValue(id, out var slotItemInfo))
+            if (slotItems.Snapshot.TryGetValue(id, out var slotItemInfo))
             {
                 _textBlock.Text = slotItemInfo.IconId.ToString();
                 return;

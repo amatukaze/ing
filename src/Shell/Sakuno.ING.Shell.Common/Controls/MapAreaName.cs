@@ -44,7 +44,7 @@ public class MapAreaName : TemplatedControl
         if (id.IsValid)
         {
             var mapAreas = DependencyInjection.GetContainer(this).GetRequiredService<MasterDataService>().MapAreas;
-            if (mapAreas.TryGetValue(id, out var mapAreaInfo))
+            if (mapAreas.Snapshot.TryGetValue(id, out var mapAreaInfo))
             {
                 _textBlock.Text = mapAreaInfo.Name;
                 return;

@@ -44,7 +44,7 @@ public class ShipName : TemplatedControl
         if (id.IsValid)
         {
             var ships = DependencyInjection.GetContainer(this).GetRequiredService<MasterDataService>().Ships;
-            if (ships.TryGetValue(id, out var shipInfo))
+            if (ships.Snapshot.TryGetValue(id, out var shipInfo))
             {
                 _textBlock.Text = shipInfo.Name;
                 return;

@@ -12,7 +12,7 @@ public class ShipViewModel : ViewModelObject
     {
         Id = id;
 
-        var model = playerDataService.Ships[id];
+        var model = playerDataService.Ships.Snapshot[id];
         var masterId = model.WhenAnyValue(s => s.MasterId);
 
         MasterId = masterId.ObserveOn(RxSchedulers.MainThreadScheduler);

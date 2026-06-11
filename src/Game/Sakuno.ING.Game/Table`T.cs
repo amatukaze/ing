@@ -25,15 +25,7 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
 
     public int Count => _list.Count;
 
-    public T? this[TId id]
-    {
-        get
-        {
-            var index = BinarySearch(id);
-
-            return index >= 0 ? _list[index] : default;
-        }
-    }
+    public ITableSnapshot<T, TId> Snapshot => field ??= new SnapshotView(this);
 
     private readonly Subject<ITable<T, TId>>? _committed;
     private IObservable<ITable<T, TId>>? _committedObservable;
@@ -114,19 +106,6 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
 
     List<T>.Enumerator GetEnumerator() => _list.GetEnumerator();
 
-    public bool TryGetValue(TId id, [MaybeNullWhen(false)] out T value)
-    {
-        var index = BinarySearch(id);
-        if (index < 0)
-        {
-            value = default;
-            return false;
-        }
-
-        value = _list[index];
-        return true;
-    }
-
     private int BinarySearch(TId id)
     {
         var left = 0;
@@ -174,4 +153,37 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator();
+
+    private sealed class SnapshotView(Table<T, TId, TRaw> owner) : ITableSnapshot<T, TId>
+    {
+        public int Count => owner.Count;
+
+        public T this[TId id]
+        {
+            get
+            {
+                var index = owner.BinarySearch(id);
+                if (index < 0)
+                    throw new KeyNotFoundException($"{id} not found");
+
+                return owner._list[index];
+            }
+        }
+
+        public bool TryGetValue(TId id, [MaybeNullWhen(false)] out T value)
+        {
+            var index = owner.BinarySearch(id);
+            if (index < 0)
+            {
+                value = default;
+                return false;
+            }
+
+            value = owner._list[index];
+            return true;
+        }
+
+        public IEnumerator<T> GetEnumerator() => owner._list.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
 }
