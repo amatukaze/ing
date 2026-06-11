@@ -7,8 +7,8 @@ using Sakuno.ING.Game.Provider;
 
 namespace Sakuno.ING.Game.Services;
 
-[RegisterSingleton]
-public class PlayerDataService
+[RegisterSingleton(Registration = RegistrationStrategy.SelfWithProxyFactory)]
+public class PlayerDataService : IPlayerDataService
 {
     public ITable<Ship, ShipId> Ships { get; }
     public ITable<SlotItem, SlotItemId> SlotItems { get; }
