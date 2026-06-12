@@ -40,13 +40,10 @@ public class GameProviderGenerator : IIncrementalGenerator
                         SyntaxFactory.SingletonSeparatedList(
                             SyntaxFactory.VariableDeclarator(fieldName).WithInitializer(SyntaxFactory.EqualsValueClause(SyntaxFactory.ImplicitObjectCreationExpression())))))
                     .AddModifiers(SyntaxFactory.Token(SyntaxKind.PrivateKeyword), SyntaxFactory.Token(SyntaxKind.ReadOnlyKeyword));
-                var observableField = SyntaxFactory.FieldDeclaration(SyntaxFactory.VariableDeclaration(SyntaxFactory.NullableType(observableType)))
-                    .AddModifiers(SyntaxFactory.Token(SyntaxKind.PrivateKeyword))
-                    .AddDeclarationVariables(SyntaxFactory.VariableDeclarator(fieldName + "Observable"));
                 var observableProperty = SyntaxFactory.PropertyDeclaration(observableType, name)
                     .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                     .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(
-                        SyntaxFactory.AssignmentExpression(SyntaxKind.CoalesceAssignmentExpression, SyntaxFactory.IdentifierName(fieldName + "Observable"),
+                        SyntaxFactory.AssignmentExpression(SyntaxKind.CoalesceAssignmentExpression, SyntaxFactory.FieldExpression(),
                             SyntaxFactory.InvocationExpression(
                             SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName(fieldName), SyntaxFactory.IdentifierName("AsObservable")))
                     )))
@@ -65,7 +62,6 @@ public class GameProviderGenerator : IIncrementalGenerator
                     .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken));
 
                 members.Add(subjectField);
-                members.Add(observableField);
                 members.Add(observableProperty);
                 members.Add(triggerMethod);
             }
