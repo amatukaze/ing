@@ -24,6 +24,7 @@ public interface IGameProvider
 
     IObservable<IReadOnlyList<IFleetUpdated>> FleetsUpdated { get; }
     IObservable<IReadOnlyList<IFleetUpdated>> PartialFleetsUpdated { get; }
+    IObservable<IFleetPatched> FleetPatched { get; }
 
     IObservable<IReadOnlyList<IConstructionDockUpdated>> ConstructionDocksUpdated { get; }
     IObservable<IReadOnlyList<IRepairDockUpdated>> RepairDocksUpdated { get; }

@@ -9,10 +9,12 @@ namespace Sakuno.ING.Game.Provider;
 internal partial class EventDispatcher : IServiceInitializable
 {
     private readonly IGameProviderSource _provider;
+    private readonly IPlayerDataSnapshotService _playerDataSnapshotService;
 
-    public EventDispatcher(IGameProviderSource gameProvider, IApiMessageProvider messageProvider)
+    public EventDispatcher(IGameProviderSource gameProvider, IPlayerDataSnapshotService playerDataSnapshotService, IApiMessageProvider messageProvider)
     {
         _provider = gameProvider;
+        _playerDataSnapshotService = playerDataSnapshotService;
 
         messageProvider.ApiMessages.Subscribe(message =>
         {
@@ -31,6 +33,11 @@ internal partial class EventDispatcher : IServiceInitializable
     {
         if (code is not 1)
             throw new Exception();
+    }
+
+    private void Mutate(Action<IPlayerDataSnapshotService> action)
+    {
+        action(_playerDataSnapshotService);
     }
 
     Task IServiceInitializable.InitializeAsync(CancellationToken cancellationToken) => Task.CompletedTask;
