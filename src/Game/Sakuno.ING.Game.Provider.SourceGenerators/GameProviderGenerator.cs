@@ -27,10 +27,20 @@ public class GameProviderGenerator : IIncrementalGenerator
 
         context.RegisterSourceOutput(provider, (context, infos) =>
         {
-            var members = new List<MemberDeclarationSyntax>();
+            var sourceMembers = new List<MemberDeclarationSyntax>();
+            var classMembers = new List<MemberDeclarationSyntax>();
 
             foreach (var (name, type) in infos)
             {
+                var sourceMethod = SyntaxFactory
+                    .MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword)),
+                        $"On{name}")
+                    .AddParameterListParameters(SyntaxFactory.Parameter(SyntaxFactory.Identifier("value"))
+                        .WithType(SyntaxFactory.ParseTypeName(type)))
+                    .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken));
+
+                sourceMembers.Add(sourceMethod);
+
                 var fieldName = $"_{char.ToLowerInvariant(name[0])}{name.Substring(1)}";
                 var observableType = SyntaxFactory.ParseTypeName($"IObservable<{type}>");
 
@@ -61,27 +71,47 @@ public class GameProviderGenerator : IIncrementalGenerator
                         ).AddArgumentListArguments(SyntaxFactory.Argument(SyntaxFactory.IdentifierName("value")))))
                     .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken));
 
-                members.Add(subjectField);
-                members.Add(observableProperty);
-                members.Add(triggerMethod);
+                classMembers.Add(subjectField);
+                classMembers.Add(observableProperty);
+                classMembers.Add(triggerMethod);
             }
+
+            var sourceInterface = SyntaxFactory.InterfaceDeclaration("IGameProviderSource")
+                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
+                .AddMembers(sourceMembers.ToArray());
+            var sourceNamespace = SyntaxFactory.FileScopedNamespaceDeclaration(SyntaxFactory.ParseName("Sakuno.ING.Game.Provider"))
+                .AddMembers(sourceInterface);
+
+            var sourceCompilationUnit = SyntaxFactory.CompilationUnit()
+                .AddMembers(sourceNamespace)
+                .AddUsings(
+                    SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Reactive"))
+                )
+                .WithLeadingTrivia(SyntaxFactory.Trivia(SyntaxFactory.NullableDirectiveTrivia(SyntaxFactory.Token(SyntaxKind.EnableKeyword), true)))
+                .NormalizeWhitespace();
+
+            context.AddSource("IGameProviderSource.g.cs", SyntaxFactory.SyntaxTree(sourceCompilationUnit, encoding: Encoding.UTF8).GetText());
 
             var @class = SyntaxFactory.ClassDeclaration("GameProvider")
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PartialKeyword))
-                .AddMembers(members.ToArray());
-            var @namespace = SyntaxFactory.FileScopedNamespaceDeclaration(SyntaxFactory.ParseName("Sakuno.ING.Game.Provider"))
+                .AddBaseListTypes(
+                    SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName("IGameProvider")),
+                    SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName("IGameProviderSource")))
+                .AddMembers(classMembers.ToArray());
+            var classNamespace = SyntaxFactory.FileScopedNamespaceDeclaration(SyntaxFactory.ParseName("Sakuno.ING.Game.Provider"))
                 .AddMembers(@class);
 
-            var compilationUnit = SyntaxFactory.CompilationUnit()
-                .AddMembers(@namespace)
+            var classCompilationUnit = SyntaxFactory.CompilationUnit()
+                .AddMembers(classNamespace)
                 .AddUsings(
+                    SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Reactive")),
                     SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Reactive.Linq")),
                     SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Reactive.Subjects"))
                 )
                 .WithLeadingTrivia(SyntaxFactory.Trivia(SyntaxFactory.NullableDirectiveTrivia(SyntaxFactory.Token(SyntaxKind.EnableKeyword), true)))
                 .NormalizeWhitespace();
 
-            context.AddSource("GameProvider.g.cs", SyntaxFactory.SyntaxTree(compilationUnit, encoding: Encoding.UTF8).GetText());
+            context.AddSource("GameProvider.g.cs", SyntaxFactory.SyntaxTree(classCompilationUnit, encoding: Encoding.UTF8).GetText());
         });
     }
 }

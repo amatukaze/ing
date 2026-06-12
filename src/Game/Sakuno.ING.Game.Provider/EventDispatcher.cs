@@ -8,9 +8,9 @@ namespace Sakuno.ING.Game.Provider;
 [RegisterSingleton(Registration = RegistrationStrategy.SelfWithProxyFactory)]
 internal partial class EventDispatcher : IServiceInitializable
 {
-    private readonly GameProvider _provider;
+    private readonly IGameProviderSource _provider;
 
-    public EventDispatcher(GameProvider gameProvider, IApiMessageProvider messageProvider)
+    public EventDispatcher(IGameProviderSource gameProvider, IApiMessageProvider messageProvider)
     {
         _provider = gameProvider;
 
