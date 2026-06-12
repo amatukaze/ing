@@ -28,9 +28,9 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
     public ITableSnapshot<T, TId> Snapshot => field ??= new SnapshotView(this);
 
     private readonly Subject<ITable<T, TId>>? _committed;
-    private IObservable<ITable<T, TId>>? _committedObservable;
+
     public IObservable<ITable<T, TId>> Committed =>
-        _committedObservable ??=
+        field ??=
             (_committed ?? throw new InvalidOperationException("Committed observable is not available"))
             .AsObservable();
 

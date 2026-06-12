@@ -6,12 +6,8 @@ namespace Sakuno.ING.Game.Models;
 public sealed partial class Test : BindableObject, IModel<Test, TestId, ITestUpdated>
 {
     public TestId Id { get; }
-
-    private int _a;
-    public int A { get => _a; private set => SetField(ref _a, value, PropertyNames.A); }
-
-    private int _b;
-    public int B { get => _b; private set => SetField(ref _b, value, PropertyNames.B); }
+    public int A { get; private set => SetField(ref field, value, PropertyNames.A); }
+    public int B { get; private set => SetField(ref field, value, PropertyNames.B); }
 
     public Test(TestId id)
     {

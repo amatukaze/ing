@@ -77,30 +77,22 @@ public class GameModelGenerator : IIncrementalGenerator
 
             foreach (var (type, name) in info.Properties)
             {
-                var fieldName = $"_{char.ToLowerInvariant(name[0])}{name.Substring(1)}";
-                var field = SyntaxFactory.FieldDeclaration(
-                    SyntaxFactory.VariableDeclaration(
-                        SyntaxFactory.ParseTypeName(type),
-                        SyntaxFactory.SingletonSeparatedList(SyntaxFactory.VariableDeclarator(fieldName))))
-                    .AddModifiers(SyntaxFactory.Token(SyntaxKind.PrivateKeyword));
                 var property = SyntaxFactory.PropertyDeclaration(SyntaxFactory.ParseTypeName(type), name)
                     .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                     .AddAccessorListAccessors(
                         SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration)
-                            .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(SyntaxFactory.IdentifierName(fieldName)))
                             .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)),
                         SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration)
                             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PrivateKeyword))
                             .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(SyntaxFactory.InvocationExpression(
                                 SyntaxFactory.IdentifierName("SetField"),
                                 SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList([
-                                    SyntaxFactory.Argument(SyntaxFactory.IdentifierName(fieldName)).WithRefKindKeyword(SyntaxFactory.Token(SyntaxKind.RefKeyword)),
+                                    SyntaxFactory.Argument(SyntaxFactory.FieldExpression()).WithRefKindKeyword(SyntaxFactory.Token(SyntaxKind.RefKeyword)),
                                     SyntaxFactory.Argument(SyntaxFactory.IdentifierName("value")),
                                     SyntaxFactory.Argument(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("PropertyNames"), SyntaxFactory.IdentifierName(name)))
                                 ])))))
                             .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
 
-                members.Add(field);
                 members.Add(property);
             }
 
