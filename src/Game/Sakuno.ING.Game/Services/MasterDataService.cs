@@ -5,8 +5,8 @@ using Sakuno.ING.Game.Provider;
 
 namespace Sakuno.ING.Game.Services;
 
-[RegisterSingleton]
-public class MasterDataService
+[RegisterSingleton(Registration = RegistrationStrategy.SelfWithProxyFactory)]
+public class MasterDataService : IMasterDataService
 {
     public ITable<ShipInfo, ShipInfoId> Ships { get; }
     public ITable<ShipTypeInfo, ShipTypeId> ShipTypes { get; }
