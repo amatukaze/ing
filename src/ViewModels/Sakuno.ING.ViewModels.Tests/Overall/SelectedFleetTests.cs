@@ -24,7 +24,7 @@ public class SelectedFleetTests
     [Fact]
     public void Test()
     {
-        _shipsUpdatedSubject.OnNext(Utils.GenerateMocks<IShipUpdated, ShipId>(1, 4).ToArray());
+        _shipsUpdatedSubject.OnNext(Utils.GenerateMocks<IShipUpdated, ShipId>(1, 5).ToArray());
 
         var fleet1 = Utils.GenerateMock<IFleetUpdated, FleetId>(1);
         fleet1.Ships.Returns([(ShipId)1, (ShipId)2, (ShipId)3], [(ShipId)1, (ShipId)2, (ShipId)4]);
