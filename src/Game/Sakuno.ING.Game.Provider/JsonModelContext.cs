@@ -17,6 +17,7 @@ namespace Sakuno.ING.Game.Provider;
 [JsonSerializable(typeof(SvData<RawMaterial[]>))]
 [JsonSerializable(typeof(SvData<RawShip[]>))]
 [JsonSerializable(typeof(SvData<RawSlotItem[]>))]
+[JsonSerializable(typeof(SvData<RawFleet>))]
 [JsonSerializable(typeof(SvData<RawFleet[]>))]
 [JsonSerializable(typeof(SvData<RawConstructionDock[]>))]
 [JsonSerializable(typeof(SvData<RawRepairDock[]>))]

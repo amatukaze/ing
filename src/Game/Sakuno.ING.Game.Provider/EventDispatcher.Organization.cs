@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Provider.Json;
 
 namespace Sakuno.ING.Game.Provider;
 
@@ -75,4 +76,8 @@ partial class EventDispatcher
     }
 
     private record FleetPatch(FleetId Id, IReadOnlyList<ShipId> Ships) : IFleetPatched;
+
+    [Api("api_req_hensei/preset_select")]
+    private void HandleFleetPresetApplied(RawFleet response) =>
+        _provider.OnPartialFleetsUpdated([response]);
 }
