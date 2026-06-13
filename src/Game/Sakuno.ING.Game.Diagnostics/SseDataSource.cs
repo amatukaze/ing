@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Net.ServerSentEvents;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
@@ -17,6 +18,7 @@ internal record RawApiMessage(string Api, string Request, string Response);
 internal partial class RawApiMessageSerializerContext : JsonSerializerContext;
 
 internal sealed class SseDataSource(
+    IHostApplicationLifetime applicationLifetime,
     DiagnosticsOptions options,
     HttpClient httpClient,
     MasterDataService masterDataService,
@@ -34,7 +36,8 @@ internal sealed class SseDataSource(
             return;
         }
 
-        await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
+        if (!await WaitForStartup(stoppingToken))
+            return;
 
         logger.LogInformation("Connecting to SSE endpoint {Endpoint}", options.SseEndpoint);
 
@@ -86,5 +89,18 @@ internal sealed class SseDataSource(
                 break;
             }
         }
+    }
+
+    [SuppressMessage("ReSharper", "UseAwaitUsing")]
+    private async Task<bool> WaitForStartup(CancellationToken stoppingToken)
+    {
+        var startedSource = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var cancelledSource = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        using var applicationStartedRegistration = applicationLifetime.ApplicationStarted.Register(() => startedSource.TrySetResult());
+        using var stoppingRegistration = stoppingToken.Register(() => cancelledSource.TrySetResult());
+
+        var completedTask = await Task.WhenAny(startedSource.Task, cancelledSource.Task).ConfigureAwait(false);
+        return completedTask == startedSource.Task;
     }
 }
