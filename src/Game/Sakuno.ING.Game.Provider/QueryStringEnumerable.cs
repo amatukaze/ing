@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 
 namespace Sakuno.ING.Game.Provider;
@@ -16,7 +17,7 @@ internal readonly ref struct QueryStringEnumerable(ReadOnlySpan<byte> queryStrin
         public ReadOnlySpan<byte> Name { get; } = name;
         public ReadOnlySpan<byte> Value { get; } = value;
 
-        public int DecodeValueAsInt() => int.Parse(Value);
+        public int DecodeValueAsInt() => int.Parse(Value, CultureInfo.InvariantCulture);
         public TId DecodeValueAsIdentifier<TId>() where TId : struct, IIdentifier<TId, int> =>
             TId.From(DecodeValueAsInt());
 
@@ -25,7 +26,7 @@ internal readonly ref struct QueryStringEnumerable(ReadOnlySpan<byte> queryStrin
             var result = new List<int>();
 
             foreach (var range in Value.Split(ArraySeparator))
-                result.Add(int.Parse(Value[range]));
+                result.Add(int.Parse(Value[range], CultureInfo.InvariantCulture));
 
             return result.ToArray();
         }
@@ -34,7 +35,7 @@ internal readonly ref struct QueryStringEnumerable(ReadOnlySpan<byte> queryStrin
             var result = new List<TId>();
 
             foreach (var range in Value.Split(ArraySeparator))
-                result.Add(TId.From(int.Parse(Value[range])));
+                result.Add(TId.From(int.Parse(Value[range], CultureInfo.InvariantCulture)));
 
             return result.ToArray();
         }
