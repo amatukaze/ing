@@ -11,7 +11,7 @@ public class SelectedFleetViewModel : ViewModelObject
         ObservableChangeSet.Create<ShipId>(list => fleetSelectionState.SelectedId
                 .Select(id => playerDataService.Fleets.Snapshot[id].WhenAnyValue(f => f.Ships))
                 .Switch()
-                .Subscribe(items => list.EditDiff(items.Where(id => id > 0))))
+                .Subscribe(items => list.EditDiff(items.Where(id => id.IsValid))))
             .Transform(id => new ShipViewModel(id, playerDataService))
             .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Bind(out _ships)

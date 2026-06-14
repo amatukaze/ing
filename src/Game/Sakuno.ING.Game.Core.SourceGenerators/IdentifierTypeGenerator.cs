@@ -16,7 +16,7 @@ public class IdentifierTypeGenerator : IIncrementalGenerator
                 var node = (StructDeclarationSyntax)context.TargetNode;
                 var attributeData = context.Attributes.Single(attr => attr.AttributeClass!.Name is "IdentifierAttribute");
                 var noToStringValue = attributeData.NamedArguments.SingleOrDefault(arg => arg.Key is "NoToString").Value;
-                var noToString = noToStringValue.IsNull ? false : (bool)noToStringValue.Value!;
+                var noToString = !noToStringValue.IsNull && (bool)noToStringValue.Value!;
 
                 return (node.Identifier.Text, ((BaseNamespaceDeclarationSyntax)node.Parent!).Name.ToString(), noToString);
             });
@@ -34,24 +34,33 @@ namespace {@namespace};
 
 public readonly partial struct {typeName} : IIdentifier<{typeName}, int>, IEquatable<{typeName}>, IComparable<{typeName}>
 {{
+    public static readonly {typeName} Empty = new(0);
+
     private readonly int _value;
 
     public bool IsValid => _value > 0;
 
-    public {typeName}(int value) => _value = value;
-
-    public int CompareTo({typeName} other) => _value - other._value;
-    public bool Equals({typeName} other) => _value == other._value;
-
-    public static bool operator ==({typeName} left, {typeName} right) => left._value == right._value;
-    public static bool operator !=({typeName} left, {typeName} right) => left._value != right._value;
-    public static implicit operator int({typeName} id) => id._value;
-    public static explicit operator {typeName}(int value) => new(value);
+    private {typeName}(int value) => _value = value;
 
     public static {typeName} From(int value) => new(value);
 
-    public override bool Equals(object? obj) => obj is {typeName} other && other == this;
+    public override bool Equals(object? obj) => obj is {typeName} other && Equals(other);
     public override int GetHashCode() => _value;
+
+    public bool Equals({typeName} other) => _value == other._value;
+    public int CompareTo({typeName} other) => _value.CompareTo(other._value);
+
+    public static bool operator ==({typeName} left, {typeName} right) => left._value == right._value;
+    public static bool operator !=({typeName} left, {typeName} right) => left._value != right._value;
+
+    public static bool operator >({typeName} left, {typeName} right) => left._value > right._value;
+    public static bool operator >=({typeName} left, {typeName} right) => left._value >= right._value;
+    public static bool operator <({typeName} left, {typeName} right) => left._value < right._value;
+    public static bool operator <=({typeName} left, {typeName} right) => left._value <= right._value;
+
+    public static explicit operator int({typeName} id) => id._value;
+    public static explicit operator {typeName}(int value) => new(value);
+
     {(!noToString ? "public override string ToString() => _value.ToString();" : string.Empty)}
 }}");
         });
