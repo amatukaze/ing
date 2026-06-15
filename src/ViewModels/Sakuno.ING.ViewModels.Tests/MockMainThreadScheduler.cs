@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.ViewModels.Tests;
 
-internal sealed class TestScheduler : IScheduler
+internal sealed class MockMainThreadScheduler : IScheduler
 {
     public DateTimeOffset Now => DateTimeOffset.Now;
 

@@ -12,6 +12,6 @@ public static class ModuleInitializer
         RxAppBuilder.CreateReactiveUIBuilder()
             .BuildApp();
 
-        RxSchedulers.MainThreadScheduler = new TestScheduler();
+        RxSchedulers.MainThreadScheduler = new MockMainThreadScheduler();
     }
 }
