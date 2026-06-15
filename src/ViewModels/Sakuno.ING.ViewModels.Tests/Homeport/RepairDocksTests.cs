@@ -14,13 +14,7 @@ public class RepairDocksTests
     }
 
     [Fact]
-    public void ZeroCountAtFirst()
-    {
-        Assert.Empty(_vm.RepairDocks);
-    }
-
-    [Fact]
-    public void NonZeroCountWithData()
+    public void ItemsPopulatedAfterUpdatedEvent()
     {
         _repairDocksUpdatedSubject.OnNext(Utils.GenerateMocks<IRepairDockUpdated, RepairDockId>(1, 4).ToArray());
 

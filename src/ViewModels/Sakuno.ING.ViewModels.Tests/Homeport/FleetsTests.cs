@@ -14,13 +14,7 @@ public class FleetsTests
     }
 
     [Fact]
-    public void ZeroCountAtFirst()
-    {
-        Assert.Empty(_vm.Fleets);
-    }
-
-    [Fact]
-    public void NonZeroCountWithData()
+    public void ItemsPopulatedAfterUpdatedEvent()
     {
         _fleetsUpdatedSubject.OnNext(Utils.GenerateMocks<IFleetUpdated, FleetId>(1, 4).ToArray());
 

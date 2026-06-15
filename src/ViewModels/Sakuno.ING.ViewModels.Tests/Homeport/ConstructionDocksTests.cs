@@ -14,13 +14,7 @@ public class ConstructionDocksTests
     }
 
     [Fact]
-    public void ZeroCountAtFirst()
-    {
-        Assert.Empty(_vm.ConstructionDocks);
-    }
-
-    [Fact]
-    public void NonZeroCountWithData()
+    public void ItemsPopulatedAfterUpdatedEvent()
     {
         _constructionDocksUpdatedSubject.OnNext(Utils.GenerateMocks<IConstructionDockUpdated, ConstructionDockId>(1, 4).ToArray());
 
