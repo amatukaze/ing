@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Reactive.Concurrency;
+using System.Runtime.CompilerServices;
 using ReactiveUI;
 using ReactiveUI.Builder;
 
@@ -12,6 +13,6 @@ public static class ModuleInitializer
         RxAppBuilder.CreateReactiveUIBuilder()
             .BuildApp();
 
-        RxSchedulers.MainThreadScheduler = new MockMainThreadScheduler();
+        RxSchedulers.MainThreadScheduler = ImmediateScheduler.Instance;
     }
 }
