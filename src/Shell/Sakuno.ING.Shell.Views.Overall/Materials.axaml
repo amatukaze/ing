@@ -9,13 +9,13 @@
                           x:TypeArguments="vm:MaterialsViewModel"
                           x:DataType="vm:MaterialsViewModel">
     <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*,*" ColumnSpacing="4">
-        <TextBlock Text="{Binding Materials^.Fuel}" />
-        <TextBlock Text="{Binding Materials^.Bullet}" Grid.Row="1" />
-        <TextBlock Text="{Binding Materials^.Steel}" Grid.Column="1" />
-        <TextBlock Text="{Binding Materials^.Bauxite}" Grid.Column="1" Grid.Row="1" />
-        <TextBlock Text="{Binding Materials^.InstantBuild}" Grid.Column="2" />
-        <TextBlock Text="{Binding Materials^.InstantRepair}" Grid.Column="2" Grid.Row="1" />
-        <TextBlock Text="{Binding Materials^.Development}" Grid.Column="3" />
-        <TextBlock Text="{Binding Materials^.Improvement}" Grid.Column="3" Grid.Row="1" />
+        <TextBlock Text="{Binding Fuel.Current^}" />
+        <TextBlock Text="{Binding Bullet.Current^}" Grid.Row="1" />
+        <TextBlock Text="{Binding Steel.Current^}" Grid.Column="1" />
+        <TextBlock Text="{Binding Bauxite.Current^}" Grid.Column="1" Grid.Row="1" />
+        <TextBlock Text="{Binding InstantBuild.Current^}" Grid.Column="2" />
+        <TextBlock Text="{Binding InstantRepair.Current^}" Grid.Column="2" Grid.Row="1" />
+        <TextBlock Text="{Binding Development.Current^}" Grid.Column="3" />
+        <TextBlock Text="{Binding Improvement.Current^}" Grid.Column="3" Grid.Row="1" />
     </Grid>
 </rxui:ReactiveUserControl>
