@@ -15,7 +15,7 @@ public class TabsTests
         gameProvider.FleetsUpdated.Returns(_fleetsUpdatedSubject);
 
         var playerDataService = new PlayerDataService(gameProvider);
-        var fleetSelectionState = new FleetSelectionState(playerDataService);
+        var fleetSelectionState = new FleetSelectionState(gameProvider);
         _vm = new TabsViewModel(playerDataService, fleetSelectionState);
 
         fleetSelectionState.SelectedId.Subscribe(_selectedFleetId);

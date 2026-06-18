@@ -20,7 +20,7 @@ public class SelectedFleetTests
         gameProvider.FleetsUpdated.Returns(_fleetsUpdatedSubject);
 
         var playerDataService = new PlayerDataService(gameProvider);
-        _state = new FleetSelectionState(playerDataService);
+        _state = new FleetSelectionState(gameProvider);
         _vm = new SelectedFleetViewModel(playerDataService, _state);
 
         _fleet1 = Utils.GenerateMock<IFleetUpdated, FleetId>(1);

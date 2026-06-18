@@ -1,4 +1,5 @@
 ﻿using System.Reactive.Subjects;
+using Sakuno.ING.Game.Provider;
 
 namespace Sakuno.ING.ViewModels.Homeport.Overall;
 
@@ -9,9 +10,12 @@ public class FleetSelectionState
 
     public IObservable<FleetId> SelectedId { get; }
 
-    public FleetSelectionState(PlayerDataService playerDataService)
+    public FleetSelectionState(IGameProvider gameProvider)
     {
-        SelectedId = playerDataService.Fleets.Connect().Take(1).Select(_ => (FleetId)1).Merge(_selectedId)
+        SelectedId = gameProvider.FleetsUpdated
+            .Take(1)
+            .Select(_ => FleetId.From(1))
+            .Merge(_selectedId)
             .DistinctUntilChanged()
             .ObserveOn(RxSchedulers.MainThreadScheduler);
     }
