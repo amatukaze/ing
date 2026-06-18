@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
+using Sakuno.ING.Game;
 using Sakuno.ING.Game.Models.MasterData;
-using Sakuno.ING.Game.Services;
 
 namespace Sakuno.ING.Shell.Controls;
 
@@ -43,7 +43,7 @@ public class MapAreaName : TemplatedControl
         var id = MapArea;
         if (id.IsValid)
         {
-            var mapAreas = DependencyInjection.GetContainer(this).GetRequiredService<MasterDataService>().MapAreas;
+            var mapAreas = DependencyInjection.GetContainer(this).GetRequiredService<IMasterDataService>().MapAreas;
             if (mapAreas.Snapshot.TryGetValue(id, out var mapAreaInfo))
             {
                 _textBlock.Text = mapAreaInfo.Name;

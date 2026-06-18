@@ -1,4 +1,6 @@
-﻿namespace Sakuno.ING.ViewModels.Homeport.Overall;
+﻿using Sakuno.ING.Game;
+
+namespace Sakuno.ING.ViewModels.Homeport.Overall;
 
 [RegisterScoped(Registration = RegistrationStrategy.Self)]
 public class SelectedFleetViewModel : ViewModelObject
@@ -6,7 +8,7 @@ public class SelectedFleetViewModel : ViewModelObject
     private readonly ReadOnlyObservableCollection<ShipViewModel> _ships;
     public ReadOnlyObservableCollection<ShipViewModel> Ships => _ships;
 
-    public SelectedFleetViewModel(PlayerDataService playerDataService, FleetSelectionState fleetSelectionState)
+    public SelectedFleetViewModel(IPlayerDataService playerDataService, FleetSelectionState fleetSelectionState)
     {
         ObservableChangeSet.Create<ShipId>(list => fleetSelectionState.SelectedId
                 .Select(id => playerDataService.Fleets.Snapshot[id].WhenAnyValue(f => f.Ships))

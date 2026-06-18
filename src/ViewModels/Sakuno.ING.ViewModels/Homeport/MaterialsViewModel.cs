@@ -1,4 +1,6 @@
-﻿namespace Sakuno.ING.ViewModels.Homeport;
+﻿using Sakuno.ING.Game;
+
+namespace Sakuno.ING.ViewModels.Homeport;
 
 [RegisterScoped(Registration = RegistrationStrategy.Self)]
 public class MaterialsViewModel : ViewModelObject
@@ -12,7 +14,7 @@ public class MaterialsViewModel : ViewModelObject
     public MaterialViewModel Development { get; }
     public MaterialViewModel Improvement { get; }
 
-    public MaterialsViewModel(PlayerDataService playerDataService)
+    public MaterialsViewModel(IPlayerDataService playerDataService)
     {
         Fuel = new MaterialViewModel(playerDataService.Materials.Select(m => m.Fuel));
         Bullet = new MaterialViewModel(playerDataService.Materials.Select(m => m.Bullet));

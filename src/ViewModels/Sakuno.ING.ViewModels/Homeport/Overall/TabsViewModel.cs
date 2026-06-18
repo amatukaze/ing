@@ -1,4 +1,6 @@
-﻿namespace Sakuno.ING.ViewModels.Homeport.Overall;
+﻿using Sakuno.ING.Game;
+
+namespace Sakuno.ING.ViewModels.Homeport.Overall;
 
 [RegisterScoped(Registration = RegistrationStrategy.Self)]
 public class TabsViewModel : ViewModelObject
@@ -6,7 +8,7 @@ public class TabsViewModel : ViewModelObject
     private readonly ReadOnlyObservableCollection<FleetTabViewModel> _fleets;
     public ReadOnlyObservableCollection<FleetTabViewModel> Fleets => _fleets;
 
-    public TabsViewModel(PlayerDataService playerDataService, FleetSelectionState fleetSelectionState)
+    public TabsViewModel(IPlayerDataService playerDataService, FleetSelectionState fleetSelectionState)
     {
         playerDataService.Fleets.Connect()
             .Transform(fleet => new FleetTabViewModel(fleet.Id, fleetSelectionState))

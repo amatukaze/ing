@@ -14,4 +14,8 @@ public interface IPlayerDataService
     ITable<RepairDock, RepairDockId> RepairDocks { get; }
 
     ITable<UseItem, UseItemId> UseItems { get; }
+
+    IObservable<Admiral> Admiral { get; }
+
+    IObservable<Materials> Materials { get; }
 }

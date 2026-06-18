@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
+using Sakuno.ING.Game;
 using Sakuno.ING.Game.Models.MasterData;
-using Sakuno.ING.Game.Services;
 
 namespace Sakuno.ING.Shell.Controls;
 
@@ -43,7 +43,7 @@ public class SlotItemName : TemplatedControl
         var id = SlotItem;
         if (id.IsValid)
         {
-            var slotItems = DependencyInjection.GetContainer(this).GetRequiredService<MasterDataService>().SlotItems;
+            var slotItems = DependencyInjection.GetContainer(this).GetRequiredService<IMasterDataService>().SlotItems;
             if (slotItems.Snapshot.TryGetValue(id, out var slotItemInfo))
             {
                 _textBlock.Text = slotItemInfo.Name;

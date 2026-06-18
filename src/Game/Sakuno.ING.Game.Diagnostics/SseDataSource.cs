@@ -7,7 +7,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Sakuno.ING.Game.Services;
 
 namespace Sakuno.ING.Game.Diagnostics;
 
@@ -21,8 +20,8 @@ internal sealed class SseDataSource(
     IHostApplicationLifetime applicationLifetime,
     DiagnosticsOptions options,
     HttpClient httpClient,
-    MasterDataService masterDataService,
-    PlayerDataService playerDataService,
+    IMasterDataService masterDataService,
+    IPlayerDataService playerDataService,
     ILogger<SseDataSource> logger) : BackgroundService, IApiMessageProvider
 {
     private readonly Subject<ApiMessage> _apiMessages = new();

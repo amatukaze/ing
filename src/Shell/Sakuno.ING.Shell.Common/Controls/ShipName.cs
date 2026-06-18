@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
+using Sakuno.ING.Game;
 using Sakuno.ING.Game.Models.MasterData;
-using Sakuno.ING.Game.Services;
 
 namespace Sakuno.ING.Shell.Controls;
 
@@ -43,7 +43,7 @@ public class ShipName : TemplatedControl
         var id = Ship;
         if (id.IsValid)
         {
-            var ships = DependencyInjection.GetContainer(this).GetRequiredService<MasterDataService>().Ships;
+            var ships = DependencyInjection.GetContainer(this).GetRequiredService<IMasterDataService>().Ships;
             if (ships.Snapshot.TryGetValue(id, out var shipInfo))
             {
                 _textBlock.Text = shipInfo.Name;

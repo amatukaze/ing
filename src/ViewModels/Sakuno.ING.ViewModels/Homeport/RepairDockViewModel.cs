@@ -1,4 +1,6 @@
-﻿namespace Sakuno.ING.ViewModels.Homeport;
+﻿using Sakuno.ING.Game;
+
+namespace Sakuno.ING.ViewModels.Homeport;
 
 public class RepairDockViewModel : ViewModelObject, IViewContractObservable
 {
@@ -9,7 +11,7 @@ public class RepairDockViewModel : ViewModelObject, IViewContractObservable
 
     public IObservable<string?> ViewContractObservable { get; }
 
-    public RepairDockViewModel(RepairDock model, PlayerDataService playerDataService)
+    public RepairDockViewModel(RepairDock model, IPlayerDataService playerDataService)
     {
         Id = model.Id;
 

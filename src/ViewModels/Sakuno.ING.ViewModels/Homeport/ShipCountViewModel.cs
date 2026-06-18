@@ -1,4 +1,6 @@
-﻿namespace Sakuno.ING.ViewModels.Homeport;
+﻿using Sakuno.ING.Game;
+
+namespace Sakuno.ING.ViewModels.Homeport;
 
 [RegisterScoped(Registration = RegistrationStrategy.Self)]
 public class ShipCountViewModel : ViewModelObject
@@ -6,7 +8,7 @@ public class ShipCountViewModel : ViewModelObject
     public IObservable<int> Count { get; }
     public IObservable<int> MaxCount { get; }
 
-    public ShipCountViewModel(PlayerDataService playerDataService)
+    public ShipCountViewModel(IPlayerDataService playerDataService)
     {
         Count = playerDataService.Ships.Connect()
             .Count()

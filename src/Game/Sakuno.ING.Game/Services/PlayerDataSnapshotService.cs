@@ -3,8 +3,8 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Services;
 
-[RegisterSingleton(Registration = RegistrationStrategy.SelfWithProxyFactory)]
-internal class PlayerDataSnapshotService(PlayerDataService service) : IPlayerDataSnapshotService
+[RegisterSingleton(Registration = RegistrationStrategy.ImplementedInterfaces)]
+internal class PlayerDataSnapshotService(IPlayerDataService service) : IPlayerDataSnapshotService
 {
     public ITableSnapshot<Ship, ShipId> Ships => service.Ships.Snapshot;
     public ITableSnapshot<SlotItem, SlotItemId> SlotItems => service.SlotItems.Snapshot;

@@ -1,4 +1,6 @@
-﻿namespace Sakuno.ING.ViewModels.Homeport.Overall;
+﻿using Sakuno.ING.Game;
+
+namespace Sakuno.ING.ViewModels.Homeport.Overall;
 
 public class ShipViewModel : ViewModelObject
 {
@@ -8,7 +10,7 @@ public class ShipViewModel : ViewModelObject
 
     public IObservable<int> Level { get; }
 
-    public ShipViewModel(ShipId id, PlayerDataService playerDataService)
+    public ShipViewModel(ShipId id, IPlayerDataService playerDataService)
     {
         Id = id;
 

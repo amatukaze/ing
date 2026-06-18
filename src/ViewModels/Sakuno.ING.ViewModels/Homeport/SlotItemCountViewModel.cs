@@ -1,4 +1,6 @@
-﻿namespace Sakuno.ING.ViewModels.Homeport;
+﻿using Sakuno.ING.Game;
+
+namespace Sakuno.ING.ViewModels.Homeport;
 
 [RegisterScoped(Registration = RegistrationStrategy.Self)]
 public class SlotItemCountViewModel : ViewModelObject
@@ -16,7 +18,7 @@ public class SlotItemCountViewModel : ViewModelObject
     public IObservable<int> Count { get; }
     public IObservable<int> MaxCount { get; }
 
-    public SlotItemCountViewModel(PlayerDataService playerDataService)
+    public SlotItemCountViewModel(IPlayerDataService playerDataService)
     {
         Count = playerDataService.SlotItems.Connect()
             .Filter(item => !_excludedMasterIds.Contains(item.MasterId))
