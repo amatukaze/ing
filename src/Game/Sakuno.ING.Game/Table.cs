@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using System.Reactive;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using DynamicData;
@@ -9,19 +10,16 @@ using DynamicData.Binding;
 
 namespace Sakuno.ING.Game;
 
-public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
+internal class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
     where T : IModel<T, TId, TRaw>
     where TId : struct, IEquatable<TId>, IComparable<TId>
     where TRaw : IIdentifiable<TId>
 {
-    private readonly List<T> _list = [];
-
-    private readonly IDisposable _fullUpdateSubscription;
-    private readonly IDisposable? _partialUpdateSubscription;
-    private readonly IDisposable? _removeSubscription;
+    protected readonly List<T> _list = [];
 
     private readonly IObservable<IChangeSet<T>> _changes;
-    private readonly IDisposable _changesSubscription;
+
+    protected readonly CompositeDisposable _disposables = [];
 
     public int Count => _list.Count;
 
@@ -40,8 +38,14 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
         IObservable<IReadOnlyList<TRaw>>? partialUpdateSource = null,
         IObservable<IReadOnlyList<TId>>? removeSource = null,
         IObservable<Unit>? committingSource = null)
+        : this(fullUpdateSource, partialUpdateSource, removeSource, committingSource, false) { }
+    protected Table(IObservable<IReadOnlyList<TRaw>> fullUpdateSource,
+        IObservable<IReadOnlyList<TRaw>>? partialUpdateSource,
+        IObservable<IReadOnlyList<TId>>? removeSource,
+        IObservable<Unit>? committingSource,
+        bool patchable)
     {
-        _fullUpdateSubscription = fullUpdateSource.Subscribe(items =>
+        _disposables.Add(fullUpdateSource.Subscribe(items =>
         {
             var i = 0;
 
@@ -55,16 +59,16 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
                 else
                     CreateItem(i++, item);
             }
-        });
+        }));
 
-        if (partialUpdateSource is not null || removeSource is not null)
+        if (patchable || partialUpdateSource is not null || removeSource is not null)
         {
             ArgumentNullException.ThrowIfNull(committingSource);
 
             _committed = new();
         }
 
-        _partialUpdateSubscription = partialUpdateSource?.Buffer(committingSource!).Subscribe(events =>
+        var partialUpdateSubscription = partialUpdateSource?.Buffer(committingSource!).Subscribe(events =>
         {
             foreach (var items in events)
             foreach (var item in items)
@@ -79,9 +83,13 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
                 CreateItem(~index, item);
             }
 
-            _committed!.OnNext(this);
+            Commit();
         });
-        _removeSubscription = removeSource?.Buffer(committingSource!).Subscribe(events =>
+
+        if (partialUpdateSubscription is not null)
+            _disposables.Add(partialUpdateSubscription);
+
+        var removeSubscription = removeSource?.Buffer(committingSource!).Subscribe(events =>
         {
             foreach (var ids in events)
             foreach (var id in ids.OrderDescending())
@@ -93,20 +101,25 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
                 RemoveItem(index);
             }
 
-            _committed!.OnNext(this);
+            Commit();
         });
+
+        if (removeSubscription is not null)
+            _disposables.Add(removeSubscription);
 
         var changes = this.ToObservableChangeSet<ITable<T, TId>, T>().Publish();
 
         _changes = changes.AsObservable();
-        _changesSubscription = changes.Connect();
+        _disposables.Add(changes.Connect());
     }
+
+    protected void Commit() => _committed!.OnNext(this);
 
     public IObservable<IChangeSet<T>> Connect() => _changes;
 
     List<T>.Enumerator GetEnumerator() => _list.GetEnumerator();
 
-    private int BinarySearch(TId id)
+    protected int BinarySearch(TId id)
     {
         var left = 0;
         var right = _list.Count - 1;
@@ -143,13 +156,7 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
         CollectionChanged?.Invoke(this, new(NotifyCollectionChangedAction.Remove, item, index));
     }
 
-    public void Dispose()
-    {
-        _fullUpdateSubscription.Dispose();
-        _partialUpdateSubscription?.Dispose();
-        _removeSubscription?.Dispose();
-        _changesSubscription.Dispose();
-    }
+    public void Dispose() => _disposables.Dispose();
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator();
@@ -185,5 +192,34 @@ public sealed class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
 
         public IEnumerator<T> GetEnumerator() => owner._list.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+}
+
+internal sealed class Table<T, TId, TRaw, TPatch> : Table<T, TId, TRaw>
+    where T : IModel<T, TId, TRaw>, IPatchable<TId, TPatch>
+    where TId : struct, IEquatable<TId>, IComparable<TId>
+    where TRaw : IIdentifiable<TId>
+    where TPatch : IPatch<TId>
+{
+    public Table(IObservable<IReadOnlyList<TRaw>> fullUpdateSource,
+        IObservable<TPatch> patchSource,
+        IObservable<Unit> committingSource,
+        IObservable<IReadOnlyList<TRaw>>? partialUpdateSource = null,
+        IObservable<IReadOnlyList<TId>>? removeSource = null)
+        : base(fullUpdateSource, partialUpdateSource, removeSource, committingSource, true)
+    {
+        _disposables.Add(patchSource.Buffer(committingSource).Subscribe(events =>
+        {
+            foreach (var patch in events)
+            {
+                var index = BinarySearch(patch.Id);
+                if (index < 0)
+                    continue;
+
+                _list[index].Patch(patch);
+            }
+
+            Commit();
+        }));
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.Game.Tests;
 
-internal record TestItem(int Id, int Value) : IModel<TestItem, int, RawTestItem>
+internal record TestItem(int Id, int Value) : IModel<TestItem, int, RawTestItem>, IPatchable<int, TestItemPatch>
 {
     public int Value { get; private set; } = Value;
 
@@ -13,6 +13,9 @@ internal record TestItem(int Id, int Value) : IModel<TestItem, int, RawTestItem>
 
     public void Update(RawTestItem raw) =>
         (_, Value) = raw;
+
+    public void Patch(TestItemPatch patch) =>
+        Value = patch.Value;
 
     public static implicit operator TestItem((int, int) tuple)
     {

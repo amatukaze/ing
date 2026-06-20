@@ -121,7 +121,50 @@ public class TableTests
     }
 
     [Fact]
-    public void CommittingSourceShouldNotBeNullWithPartialUpdatedOrRemoved()
+    public void Patch()
+    {
+        var fullUpdateSubject = new Subject<RawTestItem[]>();
+        var patchSubject = new Subject<TestItemPatch>();
+        var committingSubject = new Subject<Unit>();
+
+        var table = new Table<TestItem, int, RawTestItem, TestItemPatch>(fullUpdateSubject, patchSubject, committingSubject);
+
+        Assert.Empty(table);
+
+        fullUpdateSubject.OnNext([
+            (1, 2),
+            (2, 3),
+            (7, 4),
+            (9, 5),
+            (10, 6),
+        ]);
+
+        Assert.Equal(5, table.Count);
+
+        patchSubject.OnNext(new(2, 30));
+        patchSubject.OnNext(new(11, 401));
+
+        Assert.Equal([
+            (1, 2),
+            (2, 3),
+            (7, 4),
+            (9, 5),
+            (10, 6),
+        ], table);
+
+        committingSubject.OnNext(Unit.Default);
+
+        Assert.Equal([
+            (1, 2),
+            (2, 30),
+            (7, 4),
+            (9, 5),
+            (10, 6),
+        ], table);
+    }
+
+    [Fact]
+    public void CommittingSourceRequiredForBufferedOperations()
     {
         var fullUpdateSubject = new Subject<RawTestItem[]>();
         var partialUpdateSubject = new Subject<RawTestItem[]>();
