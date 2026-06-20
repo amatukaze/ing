@@ -206,7 +206,7 @@ public class EventDispatcherFleetOrganizationTests
         var apiMessageProvider = Substitute.For<IApiMessageProvider>();
         apiMessageProvider.ApiMessages.Returns(new Subject<ApiMessage>());
 
-        var dispatcher = new EventDispatcher(providerSource, playerDataSnapshotService, apiMessageProvider);
+        var dispatcher = new EventDispatcher(providerSource, Substitute.For<IMasterDataSnapshotService>(), playerDataSnapshotService, apiMessageProvider);
 
         return (providerSource, dispatcher);
     }

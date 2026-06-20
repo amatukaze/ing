@@ -9,11 +9,16 @@ namespace Sakuno.ING.Game.Provider;
 internal partial class EventDispatcher : IServiceInitializable
 {
     private readonly IGameProviderSource _provider;
+    private readonly IMasterDataSnapshotService _masterDataSnapshotService;
     private readonly IPlayerDataSnapshotService _playerDataSnapshotService;
 
-    public EventDispatcher(IGameProviderSource gameProvider, IPlayerDataSnapshotService playerDataSnapshotService, IApiMessageProvider messageProvider)
+    public EventDispatcher(IGameProviderSource gameProvider,
+        IMasterDataSnapshotService masterDataSnapshotService,
+        IPlayerDataSnapshotService playerDataSnapshotService,
+        IApiMessageProvider messageProvider)
     {
         _provider = gameProvider;
+        _masterDataSnapshotService = masterDataSnapshotService;
         _playerDataSnapshotService = playerDataSnapshotService;
 
         messageProvider.ApiMessages.Subscribe(message =>
@@ -38,6 +43,10 @@ internal partial class EventDispatcher : IServiceInitializable
     private void Mutate(Action<IPlayerDataSnapshotService> action)
     {
         action(_playerDataSnapshotService);
+    }
+    private void Mutate(Action<IMasterDataSnapshotService, IPlayerDataSnapshotService> action)
+    {
+        action(_masterDataSnapshotService, _playerDataSnapshotService);
     }
 
     Task IServiceInitializable.InitializeAsync(CancellationToken cancellationToken) => Task.CompletedTask;
