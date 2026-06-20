@@ -2,7 +2,6 @@
 
 namespace Sakuno.ING.Game.Events;
 
-public interface IFleetPatched : IIdentifiable<FleetId>
+public interface IFleetPatched : IPatch<FleetId>
 {
-    IReadOnlyList<ShipId> Ships { get; }
 }

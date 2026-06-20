@@ -2,6 +2,7 @@
 using NSubstitute;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Patches;
 using Xunit;
 
 namespace Sakuno.ING.Game.Provider.Tests;
@@ -15,7 +16,7 @@ public class EventDispatcherFleetOrganizationTests
 
         dispatcher.HandleFleetOrganization(FleetId.From(1), 1, ShipId.From(2));
 
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(1) && f.Ships.SequenceEqual(new[] { ShipId.From(1), ShipId.From(2) })));
     }
 
@@ -26,7 +27,7 @@ public class EventDispatcherFleetOrganizationTests
 
         dispatcher.HandleFleetOrganization(FleetId.From(2), 1, ShipId.From(2));
 
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(2) && f.Ships.SequenceEqual(new[] { ShipId.From(2) })));
     }
 
@@ -37,7 +38,7 @@ public class EventDispatcherFleetOrganizationTests
 
         dispatcher.HandleFleetOrganization(FleetId.From(1), 1, ShipId.From(4));
 
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(1) && f.Ships.SequenceEqual(new[] { ShipId.From(1), ShipId.From(4), ShipId.From(3) })));
     }
 
@@ -48,7 +49,7 @@ public class EventDispatcherFleetOrganizationTests
 
         dispatcher.HandleFleetOrganization(FleetId.From(1), 0, ShipId.From(-1));
 
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(1) && f.Ships.SequenceEqual(new[] { ShipId.From(2), ShipId.From(3) })));
     }
 
@@ -59,7 +60,7 @@ public class EventDispatcherFleetOrganizationTests
 
         dispatcher.HandleFleetOrganization(FleetId.From(1), 1, ShipId.From(-1));
 
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(1) && f.Ships.SequenceEqual(new[] { ShipId.From(1), ShipId.From(3) })));
     }
 
@@ -70,7 +71,7 @@ public class EventDispatcherFleetOrganizationTests
 
         dispatcher.HandleFleetOrganization(FleetId.From(1), 2, ShipId.From(-1));
 
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(1) && f.Ships.SequenceEqual(new[] { ShipId.From(1), ShipId.From(2) })));
     }
 
@@ -81,7 +82,7 @@ public class EventDispatcherFleetOrganizationTests
 
         dispatcher.HandleFleetOrganization(FleetId.From(1), 0, ShipId.From(-2));
 
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(1) && f.Ships.SequenceEqual(new[] { ShipId.From(1) })));
     }
 
@@ -92,7 +93,7 @@ public class EventDispatcherFleetOrganizationTests
 
         dispatcher.HandleFleetOrganization(FleetId.From(1), 1, ShipId.From(5));
 
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(1) && f.Ships.SequenceEqual(new[] { ShipId.From(1), ShipId.From(5), ShipId.From(3), ShipId.From(4), ShipId.From(2) })));
     }
 
@@ -103,7 +104,7 @@ public class EventDispatcherFleetOrganizationTests
 
         dispatcher.HandleFleetOrganization(FleetId.From(1), 3, ShipId.From(3));
 
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(1) && f.Ships.SequenceEqual(new[] { ShipId.From(1), ShipId.From(2), ShipId.From(4), ShipId.From(3), ShipId.From(5) })));
     }
 
@@ -114,9 +115,9 @@ public class EventDispatcherFleetOrganizationTests
 
         dispatcher.HandleFleetOrganization(FleetId.From(1), 1, ShipId.From(2));
 
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(1) && f.Ships.SequenceEqual(new[] { ShipId.From(1), ShipId.From(2) })));
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(2) && f.Ships.SequenceEqual(new[] { ShipId.From(3), ShipId.From(4) })));
     }
 
@@ -127,9 +128,9 @@ public class EventDispatcherFleetOrganizationTests
 
         dispatcher.HandleFleetOrganization(FleetId.From(1), 1, ShipId.From(3));
 
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(1) && f.Ships.SequenceEqual(new[] { ShipId.From(1), ShipId.From(3) })));
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(2) && f.Ships.SequenceEqual(new[] { ShipId.From(2), ShipId.From(4), ShipId.From(5) })));
     }
 
@@ -140,9 +141,9 @@ public class EventDispatcherFleetOrganizationTests
 
         dispatcher.HandleFleetOrganization(FleetId.From(1), 1, ShipId.From(4));
 
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(1) && f.Ships.SequenceEqual(new[] { ShipId.From(1), ShipId.From(4) })));
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(2) && f.Ships.SequenceEqual(new[] { ShipId.From(2), ShipId.From(3) })));
     }
 
@@ -153,9 +154,9 @@ public class EventDispatcherFleetOrganizationTests
 
         dispatcher.HandleFleetOrganization(FleetId.From(1), 0, ShipId.From(4));
 
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(1) && f.Ships.SequenceEqual(new[] { ShipId.From(4), ShipId.From(2), ShipId.From(3) })));
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(2) && f.Ships.SequenceEqual(new[] { ShipId.From(1), ShipId.From(5), ShipId.From(6) })));
     }
 
@@ -166,9 +167,9 @@ public class EventDispatcherFleetOrganizationTests
 
         dispatcher.HandleFleetOrganization(FleetId.From(1), 1, ShipId.From(4));
 
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(1) && f.Ships.SequenceEqual(new[] { ShipId.From(1), ShipId.From(4), ShipId.From(3) })));
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(2) && f.Ships.SequenceEqual(new[] { ShipId.From(2), ShipId.From(5), ShipId.From(6) })));
     }
 
@@ -179,9 +180,9 @@ public class EventDispatcherFleetOrganizationTests
 
         dispatcher.HandleFleetOrganization(FleetId.From(1), 2, ShipId.From(6));
 
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(1) && f.Ships.SequenceEqual(new[] { ShipId.From(1), ShipId.From(2), ShipId.From(6) })));
-        providerSource.Received().OnFleetPatched(Arg.Is<IFleetPatched>(f =>
+        providerSource.Received().OnFleetPatched(Arg.Is<FleetShipsPatch>(f =>
             f.Id == FleetId.From(2) && f.Ships.SequenceEqual(new[] { ShipId.From(4), ShipId.From(5), ShipId.From(3) })));
     }
 

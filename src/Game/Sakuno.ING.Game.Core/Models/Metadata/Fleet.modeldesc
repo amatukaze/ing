@@ -9,3 +9,6 @@ IReadOnlyList<ShipId> Ships
 FleetExpeditionState ExpeditionState
 ExpeditionId ExpeditionId
 DateTimeOffset ExpeditionCompletionTime
+
+@patchbase IFleetPatched
+@patch FleetShipsPatch Ships

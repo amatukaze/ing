@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
-using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Patches;
 using Sakuno.ING.Game.Provider.Json;
 
 namespace Sakuno.ING.Game.Provider;
@@ -20,14 +20,14 @@ partial class EventDispatcher
             if (shipId == ShipId.From(-1))
             {
                 resultShipIds = [..targetFleetShipIds[..targetShipIndex], ..targetFleetShipIds[(targetShipIndex + 1)..]];
-                _provider.OnFleetPatched(new FleetPatch(fleetId, resultShipIds));
+                _provider.OnFleetPatched(new FleetShipsPatch(fleetId, resultShipIds));
                 return;
             }
 
             if (shipId == ShipId.From(-2))
             {
                 resultShipIds = [targetFleetShipIds[0]];
-                _provider.OnFleetPatched(new FleetPatch(fleetId, resultShipIds));
+                _provider.OnFleetPatched(new FleetShipsPatch(fleetId, resultShipIds));
                 return;
             }
 
@@ -43,7 +43,7 @@ partial class EventDispatcher
                     resultShipIds = targetFleetShipIds.ToArray();
                     (resultShipIds[targetShipIndex], resultShipIds[shipIndexInFleet]) = (resultShipIds[shipIndexInFleet], resultShipIds[targetShipIndex]);
 
-                    _provider.OnFleetPatched(new FleetPatch(fleetId, resultShipIds));
+                    _provider.OnFleetPatched(new FleetShipsPatch(fleetId, resultShipIds));
                     return;
                 }
 
@@ -51,7 +51,7 @@ partial class EventDispatcher
                     ? [..fleetShipIds[..shipIndexInFleet], ..fleetShipIds[(shipIndexInFleet + 1)..]]
                     : [..fleetShipIds[..shipIndexInFleet], targetFleetShipIds[targetShipIndex], ..fleetShipIds[(shipIndexInFleet + 1)..]];
 
-                _provider.OnFleetPatched(new FleetPatch(fleet.Id, updatedFleetShipIds));
+                _provider.OnFleetPatched(new FleetShipsPatch(fleet.Id, updatedFleetShipIds));
                 break;
             }
 
@@ -63,7 +63,7 @@ partial class EventDispatcher
                     : [..targetFleetShipIds[..targetShipIndex], shipId, ..targetFleetShipIds[(targetShipIndex + 1)..]]
             };
 
-            _provider.OnFleetPatched(new FleetPatch(fleetId, resultShipIds));
+            _provider.OnFleetPatched(new FleetShipsPatch(fleetId, resultShipIds));
         });
 
         static ReadOnlySpan<T> GetSpan<T>(IReadOnlyList<T> list) =>
@@ -74,8 +74,6 @@ partial class EventDispatcher
                 _ => list.ToArray().AsSpan(),
             };
     }
-
-    private record FleetPatch(FleetId Id, IReadOnlyList<ShipId> Ships) : IFleetPatched;
 
     [Api("api_req_hensei/preset_select")]
     private void HandleFleetPresetApplied(RawFleet response) =>
