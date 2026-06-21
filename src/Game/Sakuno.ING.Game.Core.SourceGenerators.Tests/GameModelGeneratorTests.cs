@@ -61,4 +61,36 @@ public class GameModelGeneratorTests
 
         return Util.VerifyGameModel(name, description, source);
     }
+
+    [Fact]
+    public Task PatchPropertyNotDefined()
+    {
+        var name = "ProjectRoot/Models/Metadata/Test.modeldesc";
+        var description = """
+                          @using TestNamespace
+                          @id TestId
+                          @raw ITestUpdated
+
+                          int A
+
+                          @patchbase ITestPatched
+                          @patch TestPatch B
+                          """;
+        var source = """
+                     using Sakuno.ING.Game;
+
+                     namespace TestNamespace;
+
+                     interface ITestUpdated
+                     {
+                         int A { get; }
+                     }
+
+                     public interface ITestPatched : IPatch<TestId>
+                     {
+                     }
+                     """;
+
+        return Util.VerifyGameModel(name, description, source);
+    }
 }

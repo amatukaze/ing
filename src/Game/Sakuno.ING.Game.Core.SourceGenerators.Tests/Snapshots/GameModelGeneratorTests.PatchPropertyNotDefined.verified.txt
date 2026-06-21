@@ -1,0 +1,17 @@
+﻿{
+  Diagnostics: [
+    {
+      Location: ProjectRoot\Models\Metadata\Test.modeldesc: (0,0)-(0,0),
+      Message: Property 'B' declared in patch 'TestPatch' is not defined,
+      Severity: Error,
+      Descriptor: {
+        Id: INGGC002,
+        Title: Patch property not defined,
+        MessageFormat: Property '{0}' declared in patch '{1}' is not defined,
+        Category: GameModelGenerator,
+        DefaultSeverity: Error,
+        IsEnabledByDefault: true
+      }
+    }
+  ]
+}

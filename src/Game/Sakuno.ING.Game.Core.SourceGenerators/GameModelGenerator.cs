@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Immutable;
+using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -8,6 +9,22 @@ namespace Sakuno.ING.Game.SourceGenerators;
 [Generator(LanguageNames.CSharp)]
 public class GameModelGenerator : IIncrementalGenerator
 {
+    private static readonly DiagnosticDescriptor ModelDescriptionParseErrorDescriptor = new(
+        "INGGC001",
+        "Model description parse error",
+        "Failed to parse model description: {0}",
+        "GameModelGenerator",
+        DiagnosticSeverity.Error,
+        isEnabledByDefault: true);
+
+    private static readonly DiagnosticDescriptor PatchPropertyNotDefinedDescriptor = new(
+        "INGGC002",
+        "Patch property not defined",
+        "Property '{0}' declared in patch '{1}' is not defined",
+        "GameModelGenerator",
+        DiagnosticSeverity.Error,
+        isEnabledByDefault: true);
+
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         var modelDescriptionDirectoryProvider = context.AnalyzerConfigOptionsProvider.Select(static (context, _) =>
@@ -17,8 +34,8 @@ public class GameModelGenerator : IIncrementalGenerator
 
             throw new InvalidOperationException("Missing build build_property.ProjectDir");
         });
-        var modelDescriptionFileProvider = context.AdditionalTextsProvider.
-            Where(static file => string.Equals(Path.GetExtension(file.Path), ".modeldesc", StringComparison.OrdinalIgnoreCase));
+        var modelDescriptionFileProvider = context.AdditionalTextsProvider.Where(static file =>
+            string.Equals(Path.GetExtension(file.Path), ".modeldesc", StringComparison.OrdinalIgnoreCase));
 
         var modelInfoProvider = modelDescriptionFileProvider.Combine(modelDescriptionDirectoryProvider).Select(static (tuple, cancellationToken) =>
         {
@@ -27,11 +44,22 @@ public class GameModelGenerator : IIncrementalGenerator
             var fileDirectory = Path.GetDirectoryName(file.Path)!;
             var subNamespace = fileDirectory == projectDirectory ? string.Empty : fileDirectory.Substring(projectDirectory.Length + 1).Replace(Path.PathSeparator, '.');
 
-            return GameModelInfo.Create(file, className, subNamespace, cancellationToken);
+            GameModelInfoResult result;
+            try
+            {
+                result = new GameModelInfoResult.Ok(file, GameModelInfo.Create(file, className, subNamespace, cancellationToken));
+            }
+            catch (InvalidOperationException ex)
+            {
+                var diagnostic = Diagnostic.Create(ModelDescriptionParseErrorDescriptor, Location.Create(file.Path, default, default), ex.Message);
+                result = new GameModelInfoResult.Error(file, diagnostic);
+            }
+
+            return result;
         });
 
         var propertiesProvider = modelInfoProvider
-            .SelectMany(static (info, _) => info.Properties)
+            .SelectMany(static (result, _) => result is GameModelInfoResult.Ok ok ? ok.Info.Properties : [])
             .Select(static (tuple, _) => tuple.Name).Collect();
 
         context.RegisterSourceOutput(propertiesProvider, static (context, propertyNames) =>
@@ -62,11 +90,50 @@ public class GameModelGenerator : IIncrementalGenerator
             context.AddSource("PropertyNames.g.cs", SyntaxFactory.SyntaxTree(compilationUnit, encoding: Encoding.UTF8).GetText(context.CancellationToken));
         });
 
-        var provider = modelInfoProvider.Combine(context.CompilationProvider);
-
-        context.RegisterSourceOutput(provider, static (context, tuple) =>
+        var modelWithUpdateInfoProvider = modelInfoProvider.Combine(context.CompilationProvider).Select(static (tuple, cancellationToken) =>
         {
-            var (info, compilation) = tuple;
+            var (result, compilation) = tuple;
+            if (result is GameModelInfoResult.Error)
+                return new GameModelUpdateInfo(result, ImmutableArray<string>.Empty);
+
+            var updateablePropertyNames = GetUpdateablePropertyNames(((GameModelInfoResult.Ok)result).Info, compilation);
+            return new GameModelUpdateInfo(result, updateablePropertyNames);
+        });
+
+        context.RegisterSourceOutput(modelWithUpdateInfoProvider, static (context, updateInfo) =>
+        {
+            if (updateInfo.Result is GameModelInfoResult.Error error)
+            {
+                context.ReportDiagnostic(error.Diagnostic);
+                return;
+            }
+
+            var result = (GameModelInfoResult.Ok)updateInfo.Result;
+            var info = result.Info;
+            if (info.PatchBaseType is not null)
+            {
+                var propertyTypeMap = info.Properties.ToDictionary(p => p.Name, p => p.Type, StringComparer.Ordinal);
+                var validPatches = new List<(string InterfaceName, IReadOnlyList<string> PropertyNames)>();
+
+                foreach (var (patchClassName, patchPropertyNames) in info.Patches)
+                {
+                    var hasPatchError = false;
+                    foreach (var propertyName in patchPropertyNames)
+                    {
+                        if (propertyTypeMap.ContainsKey(propertyName))
+                            continue;
+
+                        context.ReportDiagnostic(Diagnostic.Create(PatchPropertyNotDefinedDescriptor, Location.Create(result.File.Path, default, default), propertyName, patchClassName));
+                        hasPatchError = true;
+                    }
+
+                    if (!hasPatchError)
+                        validPatches.Add((patchClassName, patchPropertyNames));
+                }
+
+                info = info with { Patches = validPatches };
+            }
+
             var members = new List<MemberDeclarationSyntax>();
 
             var usings = info.Usings.ToDictionary(u => u, u => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(u)), StringComparer.Ordinal);
@@ -136,7 +203,7 @@ public class GameModelGenerator : IIncrementalGenerator
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                 .AddParameterListParameters(SyntaxFactory.Parameter(SyntaxFactory.Identifier("raw")).WithType(SyntaxFactory.ParseTypeName(info.RawType)))
                 .WithBody(SyntaxFactory.Block(SyntaxFactory.List(
-                    GenerateUpdateMethodBody(info, compilation, context.CancellationToken)
+                    GenerateUpdateMethodBody(updateInfo.UpdateablePropertyNames)
                         .Append(SyntaxFactory.ExpressionStatement(SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName("UpdateCore"),
                             SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(SyntaxFactory.IdentifierName("raw")))))))
                         .ToArray()))));
@@ -247,9 +314,7 @@ public class GameModelGenerator : IIncrementalGenerator
 
                     foreach (var propertyName in patchPropertyNames)
                     {
-                        if (!propertyTypeMap.TryGetValue(propertyName, out var propertyType))
-                            throw new InvalidOperationException($"Property '{propertyName}' declared in patch '{patchClassName}' is not defined");
-
+                        var propertyType = propertyTypeMap[propertyName];
                         patchParameters.Add(SyntaxFactory.Parameter(SyntaxFactory.Identifier(propertyName)).WithType(SyntaxFactory.ParseTypeName(propertyType)));
                     }
 
@@ -279,7 +344,7 @@ public class GameModelGenerator : IIncrementalGenerator
         });
     }
 
-    private static IEnumerable<StatementSyntax> GenerateUpdateMethodBody(GameModelInfo info, Compilation compilation, CancellationToken cancellationToken)
+    private static ImmutableArray<string> GetUpdateablePropertyNames(GameModelInfo info, Compilation compilation)
     {
         var rawSymbol = compilation.GetTypeByMetadataName(info.RawType);
 
@@ -294,15 +359,19 @@ public class GameModelGenerator : IIncrementalGenerator
             }
 
             if (rawSymbol is null)
-                yield break;
+                return ImmutableArray<string>.Empty;
         }
 
-        foreach (var (_, propertyName) in info.Properties)
-        {
-            var propertyMetadata = rawSymbol.GetMembers(propertyName).SingleOrDefault();
-            if (propertyMetadata is null)
-                continue;
+        return info.Properties
+            .Where(property => rawSymbol.GetMembers(property.Name).Any())
+            .Select(property => property.Name)
+            .ToImmutableArray();
+    }
 
+    private static IEnumerable<StatementSyntax> GenerateUpdateMethodBody(ImmutableArray<string> updateablePropertyNames)
+    {
+        foreach (var propertyName in updateablePropertyNames)
+        {
             yield return SyntaxFactory.ExpressionStatement(SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression,
                 SyntaxFactory.IdentifierName(propertyName),
                 SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("raw"), SyntaxFactory.IdentifierName(propertyName))));
