@@ -175,7 +175,7 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                 return new ApiHandlerInfo(apis, methodName, ImmutableArray.Create(parameters), responseDataTypeName);
             }).Collect();
 
-        context.RegisterSourceOutput(provider, (context, infos) =>
+        context.RegisterImplementationSourceOutput(provider, (context, infos) =>
         {
             var sections = new List<SwitchSectionSyntax>(infos.Length);
 
