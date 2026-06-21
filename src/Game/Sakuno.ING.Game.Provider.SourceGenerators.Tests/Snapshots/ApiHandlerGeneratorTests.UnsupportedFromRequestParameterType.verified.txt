@@ -1,0 +1,23 @@
+﻿{
+  Diagnostics: [
+    {
+      Location: /*
+    [Api("api1")]
+    private void HandleApi1([FromRequest("date")] DateTime date) { }
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+}
+*/
+ : (5,28)-(5,63),
+      Message: API handler parameter type 'DateTime' is not supported,
+      Severity: Error,
+      Descriptor: {
+        Id: INGPROV001,
+        Title: Unsupported API handler parameter type,
+        MessageFormat: API handler parameter type '{0}' is not supported,
+        Category: ApiHandlerGenerator,
+        DefaultSeverity: Error,
+        IsEnabledByDefault: true
+      }
+    }
+  ]
+}

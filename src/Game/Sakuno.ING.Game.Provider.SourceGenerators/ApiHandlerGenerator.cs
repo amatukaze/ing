@@ -10,7 +10,15 @@ namespace Sakuno.ING.Game.Provider.SourceGenerators;
 [Generator(LanguageNames.CSharp)]
 public class ApiHandlerGenerator : IIncrementalGenerator
 {
-    private record ApiHandlerInfo(ImmutableArray<string> Apis, string MethodName, ImmutableArray<HandlerParameter> Parameters, string ResponseDataTypeName)
+    private static readonly DiagnosticDescriptor UnsupportedParameterTypeDescriptor = new(
+        "INGPROV001",
+        "Unsupported API handler parameter type",
+        "API handler parameter type '{0}' is not supported",
+        "ApiHandlerGenerator",
+        DiagnosticSeverity.Error,
+        isEnabledByDefault: true);
+
+    private record ApiHandlerInfo(ImmutableArray<string> Apis, string MethodName, ImmutableArray<HandlerParameter> Parameters, string ResponseDataTypeName, ImmutableArray<Diagnostic> Diagnostics)
     {
         public IEnumerable<StatementSyntax> GenerateQueryStringParsing()
         {
@@ -64,7 +72,7 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                     var type when type.EndsWith("Id[]") => SyntaxFactory.GenericName(SyntaxFactory.Identifier("DecodeValueAsIdentifierArray"),
                         SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.ParseTypeName(parameter.TypeName.Remove(parameter.TypeName.Length - 2))))),
 
-                    _ => throw new InvalidOperationException(),
+                    _ => throw new InvalidOperationException("Unsupported query parameter type"),
                 };
                 var assignment = SyntaxFactory.ExpressionStatement(
                     SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression,
@@ -110,7 +118,7 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                     RequestQueryParameter query => SyntaxFactory.IdentifierName(query.Name),
                     ResponseParameter => SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("response"), SyntaxFactory.IdentifierName("api_data")),
 
-                    _ => throw new InvalidOperationException(),
+                    _ => throw new InvalidOperationException("Unsupported handler parameter kind"),
                 });
         }
     }
@@ -120,6 +128,14 @@ public class ApiHandlerGenerator : IIncrementalGenerator
     private record NameValueCollectionParameter : HandlerParameter;
     private record RequestQueryParameter(string Name, string TypeName, string SourceName) : HandlerParameter;
     private record ResponseParameter : HandlerParameter;
+
+    private static bool IsSupportedQueryParameterType(string typeName) => typeName switch
+    {
+        "int" or "int[]" or "bool" or "string" => true,
+        var s when s.EndsWith("Id") => true,
+        var s when s.EndsWith("Id[]") => true,
+        _ => false,
+    };
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
@@ -135,6 +151,7 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                 var methodName = method.Identifier.Text;
                 var parameters = new HandlerParameter[method.ParameterList.Parameters.Count];
                 var responseDataType = default(ITypeSymbol);
+                var diagnostics = ImmutableArray.CreateBuilder<Diagnostic>();
 
                 for (var i = 0; i < parameters.Length; i++)
                 {
@@ -147,8 +164,12 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                     if (fromRequestAttribute is not null)
                     {
                         var attributeArgument = (string)fromRequestAttribute.ConstructorArguments[0].Value!;
+                        var typeName = parameterType.ToDisplayString();
 
-                        parameters[i] = new RequestQueryParameter(parameterNode.Identifier.Text, parameterType.ToDisplayString(), attributeArgument);
+                        if (!IsSupportedQueryParameterType(typeName))
+                            diagnostics.Add(Diagnostic.Create(UnsupportedParameterTypeDescriptor, parameterNode.GetLocation(), typeName));
+
+                        parameters[i] = new RequestQueryParameter(parameterNode.Identifier.Text, typeName, attributeArgument);
                         continue;
                     }
 
@@ -172,7 +193,7 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                     ? responseDataType?.Name ?? string.Empty
                     : arrayTypeSymbol.ElementType.Name + "Array");
 
-                return new ApiHandlerInfo(apis, methodName, ImmutableArray.Create(parameters), responseDataTypeName);
+                return new ApiHandlerInfo(apis, methodName, ImmutableArray.Create(parameters), responseDataTypeName, diagnostics.ToImmutable());
             }).Collect();
 
         context.RegisterImplementationSourceOutput(provider, (context, infos) =>
@@ -181,6 +202,12 @@ public class ApiHandlerGenerator : IIncrementalGenerator
 
             foreach (var info in infos)
             {
+                foreach (var diagnostic in info.Diagnostics)
+                    context.ReportDiagnostic(diagnostic);
+
+                if (info.Diagnostics.Length > 0)
+                    continue;
+
                 var labels = SyntaxFactory.List<SwitchLabelSyntax>(info.Apis.Select(api => SyntaxFactory.CaseSwitchLabel(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(api)))));
                 var statements = SyntaxFactory.SingletonList<StatementSyntax>(SyntaxFactory.Block((StatementSyntax[])
                 [
