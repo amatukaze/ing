@@ -1,0 +1,17 @@
+﻿{
+  Diagnostics: [
+    {
+      Location: ProjectRoot\Metadata\Test.jsondesc: (0,0)-(0,0),
+      Message: Property 'C' could not be found on implementation type 'ITestUpdated',
+      Severity: Error,
+      Descriptor: {
+        Id: INGJSON003,
+        Title: Mapping property not found,
+        MessageFormat: Property '{0}' could not be found on implementation type '{1}',
+        Category: JsonModelGenerator,
+        DefaultSeverity: Error,
+        IsEnabledByDefault: true
+      }
+    }
+  ]
+}

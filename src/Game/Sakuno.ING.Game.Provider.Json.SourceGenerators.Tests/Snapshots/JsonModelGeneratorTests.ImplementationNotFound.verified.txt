@@ -1,0 +1,17 @@
+﻿{
+  Diagnostics: [
+    {
+      Location: ProjectRoot\Metadata\Test.jsondesc: (0,0)-(0,0),
+      Message: Implementation type 'INonExistent' could not be found,
+      Severity: Error,
+      Descriptor: {
+        Id: INGJSON002,
+        Title: Implementation not found,
+        MessageFormat: Implementation type '{0}' could not be found,
+        Category: JsonModelGenerator,
+        DefaultSeverity: Error,
+        IsEnabledByDefault: true
+      }
+    }
+  ]
+}

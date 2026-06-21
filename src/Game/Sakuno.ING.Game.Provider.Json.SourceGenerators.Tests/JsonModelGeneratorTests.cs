@@ -26,4 +26,48 @@ public class JsonModelGeneratorTests
 
         return Util.VerifyJsonModel(name, description, source);
     }
+
+    [Fact]
+    public Task ImplementationNotFound()
+    {
+        var name = "ProjectRoot/Metadata/Test.jsondesc";
+        var description = """
+                          @using TestNamespace
+                          @implements INonExistent
+
+                          int a INonExistent.A
+                          """;
+        var source = """
+                     namespace TestNamespace;
+
+                     public interface ITestUpdated
+                     {
+                         int A { get; }
+                     }
+                     """;
+
+        return Util.VerifyJsonModel(name, description, source);
+    }
+
+    [Fact]
+    public Task MappingPropertyNotFound()
+    {
+        var name = "ProjectRoot/Metadata/Test.jsondesc";
+        var description = """
+                          @using TestNamespace
+                          @implements ITestUpdated
+
+                          int a ITestUpdated.C
+                          """;
+        var source = """
+                     namespace TestNamespace;
+
+                     public interface ITestUpdated
+                     {
+                         int A { get; }
+                     }
+                     """;
+
+        return Util.VerifyJsonModel(name, description, source);
+    }
 }
