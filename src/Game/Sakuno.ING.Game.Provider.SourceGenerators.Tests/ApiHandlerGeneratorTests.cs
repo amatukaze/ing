@@ -104,4 +104,20 @@ public class ApiHandlerGeneratorTests
 
         return Util.Verify<ApiHandlerGenerator>(source);
     }
+
+    [Fact]
+    public Task UnsupportedFromRequestParameterTypeWithResponse()
+    {
+        var source = """
+                     namespace Sakuno.ING.Game.Provider;
+
+                     public partial class EventDispatcher
+                     {
+                         [Api("api1")]
+                         private void HandleApi1([FromRequest("date")] DateTime date, Api1Json response) { }
+                     }
+                     """;
+
+        return Util.Verify<ApiHandlerGenerator>(source);
+    }
 }

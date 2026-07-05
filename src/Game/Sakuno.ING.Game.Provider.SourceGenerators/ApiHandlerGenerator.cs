@@ -26,14 +26,26 @@ public class ApiHandlerGenerator : IIncrementalGenerator
         DiagnosticSeverity.Error,
         isEnabledByDefault: true);
 
-    private record ApiHandlerInfo(ImmutableArray<string> Apis, string MethodName, ImmutableArray<HandlerParameter> Parameters, string ResponseDataTypeName, ImmutableArray<Diagnostic> Diagnostics)
+    private static readonly DiagnosticDescriptor UnsupportedHandlerParameterKindDescriptor = new(
+        "INGPROV003",
+        "Unsupported API handler parameter kind",
+        "API handler parameter kind is not supported",
+        "ApiHandlerGenerator",
+        DiagnosticSeverity.Error,
+        isEnabledByDefault: true);
+
+    private record ApiHandlerInfo(ImmutableArray<string> Apis, string MethodName, ImmutableArray<HandlerParameter?> Parameters, string ResponseDataTypeName, ImmutableArray<Diagnostic> Diagnostics)
     {
+        public bool HasInvalidParameter => Parameters.Any(p => p is null);
+
         public IEnumerable<StatementSyntax> GenerateQueryStringParsing()
         {
-            if (!Parameters.OfType<RequestQueryParameter>().Any())
+            var queryParameters = Parameters.OfType<RequestQueryParameter>().ToArray();
+
+            if (queryParameters.Length is 0)
                 yield break;
 
-            foreach (var parameter in Parameters.OfType<RequestQueryParameter>())
+            foreach (var parameter in queryParameters)
                 yield return SyntaxFactory.LocalDeclarationStatement(SyntaxFactory.VariableDeclaration(
                     SyntaxFactory.IdentifierName(parameter.TypeName),
                     SyntaxFactory.SingletonSeparatedList(SyntaxFactory.VariableDeclarator(parameter.Name)
@@ -80,8 +92,11 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                     var type when type.EndsWith("Id[]") => SyntaxFactory.GenericName(SyntaxFactory.Identifier("DecodeValueAsIdentifierArray"),
                         SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.ParseTypeName(parameter.TypeName.Remove(parameter.TypeName.Length - 2))))),
 
-                    _ => throw new InvalidOperationException("Unsupported query parameter type"),
+                    _ => null,
                 };
+
+                if (method is null)
+                    continue;
                 var assignment = SyntaxFactory.ExpressionStatement(
                     SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression,
                         SyntaxFactory.IdentifierName(parameter.Name),
@@ -118,16 +133,26 @@ public class ApiHandlerGenerator : IIncrementalGenerator
         public IEnumerable<ArgumentSyntax> GenerateHandlerArguments()
         {
             foreach (var parameterKind in Parameters)
-                yield return SyntaxFactory.Argument(parameterKind switch
+            {
+                if (parameterKind is null)
+                    continue;
+
+                var argumentExpression = parameterKind switch
                 {
-                    ApiParameter => SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("message"), SyntaxFactory.IdentifierName("Api")),
+                    ApiParameter => (ExpressionSyntax?)SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("message"), SyntaxFactory.IdentifierName("Api")),
                     NameValueCollectionParameter => SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName("ParseRequest"),
                         SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("message"), SyntaxFactory.IdentifierName("Request")))))),
                     RequestQueryParameter query => SyntaxFactory.IdentifierName(query.Name),
                     ResponseParameter => SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("response"), SyntaxFactory.IdentifierName("api_data")),
 
-                    _ => throw new InvalidOperationException("Unsupported handler parameter kind"),
-                });
+                    _ => null,
+                };
+
+                if (argumentExpression is null)
+                    continue;
+
+                yield return SyntaxFactory.Argument(argumentExpression);
+            }
         }
     }
 
@@ -157,7 +182,7 @@ public class ApiHandlerGenerator : IIncrementalGenerator
 
                 var method = (MethodDeclarationSyntax)context.TargetNode;
                 var methodName = method.Identifier.Text;
-                var parameters = new HandlerParameter[method.ParameterList.Parameters.Count];
+                var parameters = new HandlerParameter?[method.ParameterList.Parameters.Count];
                 var responseDataType = default(ITypeSymbol);
                 var diagnostics = ImmutableArray.CreateBuilder<Diagnostic>();
                 var hasResponseParameter = false;
@@ -176,7 +201,11 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                         var typeName = parameterType.ToDisplayString();
 
                         if (!IsSupportedQueryParameterType(typeName))
+                        {
                             diagnostics.Add(Diagnostic.Create(UnsupportedParameterTypeDescriptor, parameterNode.GetLocation(), typeName));
+                            parameters[i] = null;
+                            continue;
+                        }
 
                         parameters[i] = new RequestQueryParameter(parameterNode.Identifier.Text, typeName, attributeArgument);
                         continue;
@@ -221,7 +250,7 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                 foreach (var diagnostic in info.Diagnostics)
                     context.ReportDiagnostic(diagnostic);
 
-                if (info.Diagnostics.Length > 0)
+                if (info.Diagnostics.Length > 0 || info.HasInvalidParameter)
                     continue;
 
                 var labels = SyntaxFactory.List<SwitchLabelSyntax>(info.Apis.Select(api => SyntaxFactory.CaseSwitchLabel(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(api)))));
