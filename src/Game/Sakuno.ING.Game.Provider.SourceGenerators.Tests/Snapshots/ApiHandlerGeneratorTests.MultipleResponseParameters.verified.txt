@@ -1,0 +1,23 @@
+﻿{
+  Diagnostics: [
+    {
+      Location: /*
+    [Api("api1")]
+    private void HandleApi1(Api1Json response1, Api2Json response2) { }
+                                                ^^^^^^^^^^^^^^^^^^
+}
+*/
+ : (5,48)-(5,66),
+      Message: API handler has multiple response parameters,
+      Severity: Error,
+      Descriptor: {
+        Id: INGPROV002,
+        Title: Multiple response parameters,
+        MessageFormat: API handler has multiple response parameters,
+        Category: ApiHandlerGenerator,
+        DefaultSeverity: Error,
+        IsEnabledByDefault: true
+      }
+    }
+  ]
+}

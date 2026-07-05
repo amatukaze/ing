@@ -18,6 +18,14 @@ public class ApiHandlerGenerator : IIncrementalGenerator
         DiagnosticSeverity.Error,
         isEnabledByDefault: true);
 
+    private static readonly DiagnosticDescriptor MultipleResponseParametersDescriptor = new(
+        "INGPROV002",
+        "Multiple response parameters",
+        "API handler has multiple response parameters",
+        "ApiHandlerGenerator",
+        DiagnosticSeverity.Error,
+        isEnabledByDefault: true);
+
     private record ApiHandlerInfo(ImmutableArray<string> Apis, string MethodName, ImmutableArray<HandlerParameter> Parameters, string ResponseDataTypeName, ImmutableArray<Diagnostic> Diagnostics)
     {
         public IEnumerable<StatementSyntax> GenerateQueryStringParsing()
@@ -152,6 +160,7 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                 var parameters = new HandlerParameter[method.ParameterList.Parameters.Count];
                 var responseDataType = default(ITypeSymbol);
                 var diagnostics = ImmutableArray.CreateBuilder<Diagnostic>();
+                var hasResponseParameter = false;
 
                 for (var i = 0; i < parameters.Length; i++)
                 {
@@ -185,6 +194,13 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                         continue;
                     }
 
+                    if (hasResponseParameter)
+                    {
+                        diagnostics.Add(Diagnostic.Create(MultipleResponseParametersDescriptor, parameterNode.GetLocation()));
+                        continue;
+                    }
+
+                    hasResponseParameter = true;
                     responseDataType = parameterType;
                     parameters[i] = new ResponseParameter();
                 }

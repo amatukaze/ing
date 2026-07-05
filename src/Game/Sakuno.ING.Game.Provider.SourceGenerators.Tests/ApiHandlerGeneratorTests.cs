@@ -88,4 +88,20 @@ public class ApiHandlerGeneratorTests
 
         return Util.Verify<ApiHandlerGenerator>(source);
     }
+
+    [Fact]
+    public Task MultipleResponseParameters()
+    {
+        var source = """
+                     namespace Sakuno.ING.Game.Provider;
+
+                     public partial class EventDispatcher
+                     {
+                         [Api("api1")]
+                         private void HandleApi1(Api1Json response1, Api2Json response2) { }
+                     }
+                     """;
+
+        return Util.Verify<ApiHandlerGenerator>(source);
+    }
 }

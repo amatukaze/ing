@@ -93,4 +93,120 @@ public class GameModelGeneratorTests
 
         return Util.VerifyGameModel(name, description, source);
     }
+
+    [Fact]
+    public Task MissingId()
+    {
+        var name = "ProjectRoot/Models/Metadata/Test.modeldesc";
+        var description = """
+                          @using TestNamespace
+                          @raw ITestUpdated
+
+                          int A
+                          """;
+        var source = """
+                     namespace TestNamespace;
+
+                     interface ITestUpdated
+                     {
+                         int A { get; }
+                     }
+                     """;
+
+        return Util.VerifyGameModel(name, description, source);
+    }
+
+    [Fact]
+    public Task MissingRaw()
+    {
+        var name = "ProjectRoot/Models/Metadata/Test.modeldesc";
+        var description = """
+                          @using TestNamespace
+                          @id TestId
+
+                          int A
+                          """;
+        var source = """
+                     namespace TestNamespace;
+
+                     interface ITestUpdated
+                     {
+                         int A { get; }
+                     }
+                     """;
+
+        return Util.VerifyGameModel(name, description, source);
+    }
+
+    [Fact]
+    public Task UnknownDirective()
+    {
+        var name = "ProjectRoot/Models/Metadata/Test.modeldesc";
+        var description = """
+                          @using TestNamespace
+                          @id TestId
+                          @raw ITestUpdated
+                          @unknown value
+
+                          int A
+                          """;
+        var source = """
+                     namespace TestNamespace;
+
+                     interface ITestUpdated
+                     {
+                         int A { get; }
+                     }
+                     """;
+
+        return Util.VerifyGameModel(name, description, source);
+    }
+
+    [Fact]
+    public Task PropertyWithoutName()
+    {
+        var name = "ProjectRoot/Models/Metadata/Test.modeldesc";
+        var description = """
+                          @using TestNamespace
+                          @id TestId
+                          @raw ITestUpdated
+
+                          int
+                          """;
+        var source = """
+                     namespace TestNamespace;
+
+                     interface ITestUpdated
+                     {
+                         int A { get; }
+                     }
+                     """;
+
+        return Util.VerifyGameModel(name, description, source);
+    }
+
+    [Fact]
+    public Task PatchWithoutPatchBase()
+    {
+        var name = "ProjectRoot/Models/Metadata/Test.modeldesc";
+        var description = """
+                          @using TestNamespace
+                          @id TestId
+                          @raw ITestUpdated
+
+                          int A
+
+                          @patch TestPatch A
+                          """;
+        var source = """
+                     namespace TestNamespace;
+
+                     interface ITestUpdated
+                     {
+                         int A { get; }
+                     }
+                     """;
+
+        return Util.VerifyGameModel(name, description, source);
+    }
 }

@@ -1,0 +1,17 @@
+﻿{
+  Diagnostics: [
+    {
+      Location: ProjectRoot\Models\Metadata\Test.modeldesc: (0,0)-(0,0),
+      Message: Failed to parse model description: @raw is missing,
+      Severity: Error,
+      Descriptor: {
+        Id: INGGC001,
+        Title: Model description parse error,
+        MessageFormat: Failed to parse model description: {0},
+        Category: GameModelGenerator,
+        DefaultSeverity: Error,
+        IsEnabledByDefault: true
+      }
+    }
+  ]
+}
