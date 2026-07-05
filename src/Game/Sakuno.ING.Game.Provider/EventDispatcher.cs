@@ -40,14 +40,6 @@ internal partial class EventDispatcher : IServiceInitializable
             throw new Exception();
     }
 
-    private void Mutate(Action<IPlayerDataSnapshotService> action)
-    {
-        action(_playerDataSnapshotService);
-    }
-    private void Mutate(Action<IMasterDataSnapshotService, IPlayerDataSnapshotService> action)
-    {
-        action(_masterDataSnapshotService, _playerDataSnapshotService);
-    }
 
     Task IServiceInitializable.InitializeAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 }
