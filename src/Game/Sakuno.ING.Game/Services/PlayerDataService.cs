@@ -34,13 +34,24 @@ internal class PlayerDataService : IPlayerDataService
     {
         var removeShipsSubject = new Subject<ShipId[]>();
 
-        Ships = new Table<Ship, ShipId, IShipUpdated>(gameProvider.ShipsUpdated, gameProvider.PartialShipsUpdated, removeShipsSubject, gameProvider.Committed);
+        Ships = new Table<Ship, ShipId, IShipUpdated, IShipPatched>(gameProvider.ShipsUpdated,
+            partialUpdateSource: gameProvider.PartialShipsUpdated,
+            removeSource: removeShipsSubject,
+            patchSource: gameProvider.ShipPatched,
+            committingSource: gameProvider.Committed);
 
         var removeSlotItemsSubject = new Subject<SlotItemId[]>();
 
-        SlotItems = new Table<SlotItem, SlotItemId, ISlotItemUpdated>(gameProvider.SlotItemsUpdated, gameProvider.PartialSlotItemsUpdated, removeSlotItemsSubject, gameProvider.Committed);
+        SlotItems = new Table<SlotItem, SlotItemId, ISlotItemUpdated, ISlotItemPatched>(gameProvider.SlotItemsUpdated,
+            partialUpdateSource: gameProvider.PartialSlotItemsUpdated,
+            removeSource: removeSlotItemsSubject,
+            patchSource: gameProvider.SlotItemPatched,
+            committingSource: gameProvider.Committed);
 
-        Fleets = new Table<Fleet, FleetId, IFleetUpdated>(gameProvider.FleetsUpdated, gameProvider.PartialFleetsUpdated, committingSource: gameProvider.Committed);
+        Fleets = new Table<Fleet, FleetId, IFleetUpdated, IFleetPatched>(gameProvider.FleetsUpdated,
+            partialUpdateSource: gameProvider.PartialFleetsUpdated,
+            patchSource: gameProvider.FleetPatched,
+            committingSource: gameProvider.Committed);
 
         ConstructionDocks = new Table<ConstructionDock, ConstructionDockId, IConstructionDockUpdated>(gameProvider.ConstructionDocksUpdated, committingSource: gameProvider.Committed);
         RepairDocks = new Table<RepairDock, RepairDockId, IRepairDockUpdated>(gameProvider.RepairDocksUpdated);

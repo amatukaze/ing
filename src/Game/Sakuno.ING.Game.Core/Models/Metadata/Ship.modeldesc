@@ -24,3 +24,7 @@ int Morale
 IReadOnlyList<int> ImprovedStatuses
 
 bool IsLocked
+
+@patchbase IShipPatched
+@patch ShipSupplyPatch Fuel Bullet PlaneCount
+@patch ShipIsLockedPatch IsLocked

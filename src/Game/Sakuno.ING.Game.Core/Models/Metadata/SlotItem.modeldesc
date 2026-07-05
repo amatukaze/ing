@@ -9,3 +9,6 @@ bool IsLocked
 
 int ImprovementLevel
 int AerialProficiency
+
+@patchbase ISlotItemPatched
+@patch SlotItemIsLockedPatch IsLocked

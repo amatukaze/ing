@@ -78,4 +78,8 @@ partial class EventDispatcher
     [Api("api_req_hensei/preset_select")]
     private void HandleFleetPresetApplied(RawFleet response) =>
         _provider.OnPartialFleetsUpdated([response]);
+
+    [Api("api_req_hensei/lock")]
+    private void HandleShipLockingUpdated([FromRequest("ship_id")] ShipId shipId, LockingJson response) =>
+        _provider.OnShipPatched(new ShipIsLockedPatch(shipId, response.api_locked));
 }

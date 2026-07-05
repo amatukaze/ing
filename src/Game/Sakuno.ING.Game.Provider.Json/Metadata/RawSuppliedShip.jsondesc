@@ -1,0 +1,4 @@
+﻿ShipId id
+int fuel
+int bull
+int[] onslot
