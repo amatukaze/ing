@@ -113,17 +113,14 @@ internal record GameModelInfo(string ClassName, string Subnamespace, IReadOnlyLi
 
     private static (string Type, string Name) ParseProperty(ReadOnlySpan<char> line)
     {
-        var separatorIndex = line.IndexOf(' ');
+        var tokens = line.ToString().Split([' '], StringSplitOptions.RemoveEmptyEntries);
 
-        if (separatorIndex is -1)
+        if (tokens.Length < 2)
             throw new InvalidOperationException($"Property declaration must have a type and a name: '{line.ToString()}'");
 
-        var type = line.Slice(0, separatorIndex);
-        var name = line.Slice(separatorIndex + 1).TrimStart();
+        var type = tokens[0];
+        var name = tokens[1];
 
-        if (type.IsEmpty || name.IsEmpty)
-            throw new InvalidOperationException($"Property declaration must have a type and a name: '{line.ToString()}'");
-
-        return (type.ToString(), name.ToString());
+        return (type, name);
     }
 }

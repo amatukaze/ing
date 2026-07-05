@@ -209,4 +209,53 @@ public class GameModelGeneratorTests
 
         return Util.VerifyGameModel(name, description, source);
     }
+
+    [Fact]
+    public Task DuplicateDirectives()
+    {
+        var name = "ProjectRoot/Models/Metadata/Test.modeldesc";
+        var description = """
+                          @using TestNamespace
+                          @id TestId
+                          @id TestId2
+                          @raw ITestUpdated
+
+                          int A
+                          """;
+        var source = """
+                     namespace TestNamespace;
+
+                     interface ITestUpdated
+                     {
+                         int A { get; }
+                     }
+                     """;
+
+        return Util.VerifyGameModel(name, description, source);
+    }
+
+    [Fact]
+    public Task PropertyWithExtraSpaces()
+    {
+        var name = "ProjectRoot/Models/Metadata/Test.modeldesc";
+        var description = """
+                          @using TestNamespace
+                          @id TestId
+                          @raw ITestUpdated
+
+                          int    A
+                          int    B
+                          """;
+        var source = """
+                     namespace TestNamespace;
+
+                     interface ITestUpdated
+                     {
+                         int A { get; }
+                         int B { get; }
+                     }
+                     """;
+
+        return Util.VerifyGameModel(name, description, source);
+    }
 }
