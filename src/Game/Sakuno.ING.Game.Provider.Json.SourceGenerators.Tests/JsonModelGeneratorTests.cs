@@ -70,4 +70,25 @@ public class JsonModelGeneratorTests
 
         return Util.VerifyJsonModel(name, description, source);
     }
+
+    [Fact]
+    public Task ParseError()
+    {
+        var name = "ProjectRoot/Metadata/Test.jsondesc";
+        var description = """
+                          @using
+
+                          int
+                          """;
+        var source = """
+                     namespace TestNamespace;
+
+                     public interface ITestUpdated
+                     {
+                         int A { get; }
+                     }
+                     """;
+
+        return Util.VerifyJsonModel(name, description, source);
+    }
 }

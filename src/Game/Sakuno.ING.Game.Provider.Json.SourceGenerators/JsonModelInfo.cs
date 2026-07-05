@@ -14,19 +14,27 @@ internal record JsonModelInfo(string ClassName, string Subnamespace, IReadOnlyLi
 
         foreach (var lineInfo in file.GetText(cancellationToken)!.Lines)
         {
-            if (lineInfo.Span.IsEmpty)
+            var line = lineInfo.ToString().Trim();
+
+            if (string.IsNullOrWhiteSpace(line))
                 continue;
 
-            var parts = lineInfo.ToString().Split(' ');
+            var parts = line.Split([' '], StringSplitOptions.RemoveEmptyEntries);
 
             if (parts[0] is "@using")
             {
+                if (parts.Length < 2)
+                    throw new InvalidOperationException("@using requires a namespace");
+
                 usings.Add(parts[1]);
                 continue;
             }
 
             if (parts[0] is "@id")
             {
+                if (parts.Length < 2)
+                    throw new InvalidOperationException("@id requires a type");
+
                 idType = parts[1];
                 properties.Add((idType, "id"));
                 continue;
@@ -34,17 +42,31 @@ internal record JsonModelInfo(string ClassName, string Subnamespace, IReadOnlyLi
 
             if (parts[0] is "@implements")
             {
+                if (parts.Length < 2)
+                    throw new InvalidOperationException("@implements requires a type name");
+
                 implementations.Add(parts[1]);
                 continue;
             }
 
-            properties.Add((parts[0], parts[1]));
+            if (parts[0].StartsWith("@"))
+                throw new InvalidOperationException($"Unknown directive: {parts[0]}");
+
+            if (parts.Length < 2)
+                throw new InvalidOperationException($"Property declaration must have a type and a name: '{line}'");
+
+            var propertyType = parts[0];
+            var propertyName = parts[1];
+            properties.Add((propertyType, propertyName));
 
             for (var i = 2; i < parts.Length; i++)
             {
                 var implParts = parts[i].Split('.');
 
-                mappings.Add((implParts[0], implParts[1], parts[1]));
+                if (implParts.Length != 2)
+                    throw new InvalidOperationException($"Mapping must be in the format 'Implementation.Property': '{parts[i]}'");
+
+                mappings.Add((implParts[0], implParts[1], propertyName));
             }
         }
 
