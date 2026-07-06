@@ -23,6 +23,24 @@ internal class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
 
     public int Count => _list.Count;
 
+    protected readonly Subject<T> _itemSubject = new();
+
+    public IObservable<T> Watch(TId id) => this[id];
+
+    public IObservable<T> this[TId id]
+    {
+        get
+        {
+            var result = _itemSubject.Where(item => item.Id.Equals(id));
+
+            var index = BinarySearch(id);
+            if (index >= 0)
+                result = result.Prepend(_list[index]);
+
+            return result;
+        }
+    }
+
     public ITableSnapshot<T, TId> Snapshot => field ??= new SnapshotView(this);
 
     private readonly Subject<ITable<T, TId>>? _committed;
@@ -55,7 +73,7 @@ internal class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
                     RemoveItem(i);
 
                 if (i < _list.Count && _list[i].Id.Equals(item.Id))
-                    _list[i++].Update(item);
+                    UpdateItem(i++, item);
                 else
                     CreateItem(i++, item);
             }
@@ -76,7 +94,7 @@ internal class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
                 var index = BinarySearch(item.Id);
                 if (index >= 0)
                 {
-                    _list[index].Update(item);
+                    UpdateItem(index, item);
                     continue;
                 }
 
@@ -111,6 +129,7 @@ internal class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
 
         _changes = changes.AsObservable();
         _disposables.Add(changes.Connect());
+        _disposables.Add(_itemSubject);
     }
 
     protected void Commit() => _committed!.OnNext(this);
@@ -147,6 +166,8 @@ internal class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
 
         _list.Insert(index, newItem);
         CollectionChanged?.Invoke(this, new(NotifyCollectionChangedAction.Add, newItem, index));
+
+        _itemSubject.OnNext(newItem);
     }
     private void RemoveItem(int index)
     {
@@ -154,6 +175,15 @@ internal class Table<T, TId, TRaw> : ITable<T, TId>, IDisposable
 
         _list.RemoveAt(index);
         CollectionChanged?.Invoke(this, new(NotifyCollectionChangedAction.Remove, item, index));
+    }
+
+    private void UpdateItem(int index, TRaw raw)
+    {
+        var item = _list[index];
+
+        item.Update(raw);
+
+        _itemSubject.OnNext(item);
     }
 
     public void Dispose() => _disposables.Dispose();
@@ -217,6 +247,7 @@ internal sealed class Table<T, TId, TRaw, TPatch> : Table<T, TId, TRaw>
                     continue;
 
                 _list[index].Patch(patch);
+                _itemSubject.OnNext(_list[index]);
             }
 
             Commit();

@@ -1,4 +1,5 @@
-﻿using System.Reactive;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
 namespace Sakuno.ING.Game.Tests;
@@ -161,6 +162,82 @@ public class TableTests
             (9, 5),
             (10, 6),
         ], table);
+    }
+
+    [Fact]
+    public void Watch_PrependCurrentValue()
+    {
+        var fullUpdateSubject = new Subject<RawTestItem[]>();
+
+        var table = new Table<TestItem, int, RawTestItem>(fullUpdateSubject);
+
+        fullUpdateSubject.OnNext([
+            (1, 2),
+            (2, 3),
+        ]);
+
+        var values = new List<int>();
+        using var source = table.Watch(2).Select((TestItem item) => item.Value).Subscribe(values.Add);
+
+        Assert.Equal([3], values);
+
+        Assert.Equal([3], values);
+    }
+
+    [Fact]
+    public void Watch_EmitsOnUpdate()
+    {
+        var fullUpdateSubject = new Subject<RawTestItem[]>();
+        var partialUpdateSubject = new Subject<RawTestItem[]>();
+        var committingSubject = new Subject<Unit>();
+
+        var table = new Table<TestItem, int, RawTestItem>(fullUpdateSubject, partialUpdateSubject, committingSource: committingSubject);
+
+        fullUpdateSubject.OnNext([
+            (1, 2),
+            (2, 3),
+        ]);
+
+        var values = new List<int>();
+        using var source = table.Watch(2).Select((TestItem item) => item.Value).Subscribe(values.Add);
+
+        Assert.Equal([3], values);
+
+        fullUpdateSubject.OnNext([
+            (1, 2),
+            (2, 30),
+        ]);
+
+        partialUpdateSubject.OnNext([(2, 300)]);
+        committingSubject.OnNext(Unit.Default);
+
+        Assert.Equal(3, values.Count);
+        Assert.Equal([3, 30, 300], values);
+    }
+
+    [Fact]
+    public void Watch_EmitsOnPatch()
+    {
+        var fullUpdateSubject = new Subject<RawTestItem[]>();
+        var patchSubject = new Subject<TestItemPatch>();
+        var committingSubject = new Subject<Unit>();
+
+        var table = new Table<TestItem, int, RawTestItem, TestItemPatch>(fullUpdateSubject, patchSubject, committingSubject);
+
+        fullUpdateSubject.OnNext([
+            (1, 2),
+            (2, 3),
+        ]);
+
+        var values = new List<int>();
+        using var source = table.Watch(2).Select((TestItem item) => item.Value).Subscribe(values.Add);
+
+        Assert.Equal([3], values);
+
+        patchSubject.OnNext(new(2, 30));
+        committingSubject.OnNext(Unit.Default);
+
+        Assert.Equal([3, 30], values);
     }
 
     [Fact]
