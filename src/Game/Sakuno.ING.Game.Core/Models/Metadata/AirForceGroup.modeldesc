@@ -7,3 +7,6 @@ string Name
 int BaseCombatRadius
 int ExtraCombatRadius
 AirForceGroupAction Action
+
+@patchbase IAirForceGroupPatched
+@patch AirForceGroupActionPatch Action

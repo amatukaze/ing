@@ -53,12 +53,18 @@ internal class PlayerDataService : IPlayerDataService
             patchSource: gameProvider.FleetPatched,
             committingSource: gameProvider.Committed);
 
-        ConstructionDocks = new Table<ConstructionDock, ConstructionDockId, IConstructionDockUpdated>(gameProvider.ConstructionDocksUpdated, committingSource: gameProvider.Committed);
-        RepairDocks = new Table<RepairDock, RepairDockId, IRepairDockUpdated>(gameProvider.RepairDocksUpdated);
+        ConstructionDocks = new Table<ConstructionDock, ConstructionDockId, IConstructionDockUpdated, IConstructionDockPatched>(gameProvider.ConstructionDocksUpdated,
+            patchSource: gameProvider.ConstructionDockPatched,
+            committingSource: gameProvider.Committed);
+        RepairDocks = new Table<RepairDock, RepairDockId, IRepairDockUpdated, IRepairDockPatched>(gameProvider.RepairDocksUpdated,
+            patchSource: gameProvider.RepairDockPatched,
+            committingSource: gameProvider.Committed);
 
         UseItems = new Table<UseItem, UseItemId, IUseItemUpdated>(gameProvider.UseItemsUpdated);
 
-        AirForceGroups = new Table<AirForceGroup, AirForceGroupId, IAirForceGroupUpdated>(gameProvider.AirForceGroupsUpdated);
+        AirForceGroups = new Table<AirForceGroup, AirForceGroupId, IAirForceGroupUpdated, IAirForceGroupPatched>(gameProvider.AirForceGroupsUpdated,
+            patchSource: gameProvider.AirForceGroupPatched,
+            committingSource: gameProvider.Committed);
 
         _admiral = new(null);
         Admiral = _admiral.Where(m => m is not null).AsObservable()!;

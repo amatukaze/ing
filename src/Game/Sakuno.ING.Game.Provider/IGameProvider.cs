@@ -29,13 +29,16 @@ public interface IGameProvider
     IObservable<IFleetPatched> FleetPatched { get; }
 
     IObservable<IReadOnlyList<IConstructionDockUpdated>> ConstructionDocksUpdated { get; }
+    IObservable<IConstructionDockPatched> ConstructionDockPatched { get; }
     IObservable<IReadOnlyList<IRepairDockUpdated>> RepairDocksUpdated { get; }
+    IObservable<IRepairDockPatched> RepairDockPatched { get; }
 
     IObservable<IReadOnlyList<IUseItemUpdated>> UseItemsUpdated { get; }
 
     IObservable<IReadOnlyList<IUnequippedSlotItemsUpdated>> UnequippedSlotItemsUpdated { get; }
 
     IObservable<IReadOnlyList<IAirForceGroupUpdated>> AirForceGroupsUpdated { get; }
+    IObservable<IAirForceGroupPatched> AirForceGroupPatched { get; }
 
     IObservable<IReadOnlyList<IQuestUpdated>> PartialQuestsUpdated { get; }
 }

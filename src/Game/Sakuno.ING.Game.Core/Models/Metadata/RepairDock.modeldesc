@@ -7,3 +7,6 @@ RepairDockState State
 Materials Consumption
 DateTimeOffset CompletionTime
 ShipId ShipId
+
+@patchbase IRepairDockPatched
+@patch RepairDockStatePatch State

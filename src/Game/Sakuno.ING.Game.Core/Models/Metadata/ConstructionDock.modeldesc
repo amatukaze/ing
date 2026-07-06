@@ -7,3 +7,6 @@ ConstructionDockState State
 Materials Consumption
 DateTimeOffset CompletionTime
 ShipInfoId ResultShipId
+
+@patchbase IConstructionDockPatched
+@patch ConstructionDockStatePatch State
