@@ -4,8 +4,13 @@
                           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                           xmlns:rxui="http://reactiveui.net"
                           xmlns:vm="clr-namespace:Sakuno.ING.ViewModels.Homeport.Overall;assembly=Sakuno.ING.ViewModels"
+                          xmlns:controls="clr-namespace:Sakuno.ING.Shell.Controls;assembly=Sakuno.ING.Shell.Common"
+                          xmlns:overall="clr-namespace:Sakuno.ING.Shell.Views.Overall"
                           mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
                           x:Class="Sakuno.ING.Shell.Views.Overall.Ship"
                           x:TypeArguments="vm:ShipViewModel"
                           x:DataType="vm:ShipViewModel">
+    <StackPanel Orientation="Horizontal">
+        <controls:ShipName Ship="{Binding MasterId^}" />
+    </StackPanel>
 </rxui:ReactiveUserControl>

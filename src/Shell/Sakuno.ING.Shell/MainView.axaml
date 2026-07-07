@@ -4,8 +4,12 @@
                           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                           xmlns:rxui="http://reactiveui.net"
                           xmlns:vm="clr-namespace:Sakuno.ING.ViewModels;assembly=Sakuno.ING.ViewModels"
+                          xmlns:overall="clr-namespace:Sakuno.ING.Shell.Views.Overall;assembly=Sakuno.ING.Shell.Views.Overall"
                           mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
                           x:Class="Sakuno.ING.Shell.MainView"
                           x:TypeArguments="vm:MainWindowViewModel"
                           x:DataType="vm:MainWindowViewModel">
+    <StackPanel>
+        <overall:OverallView />
+    </StackPanel>
 </rxui:ReactiveUserControl>

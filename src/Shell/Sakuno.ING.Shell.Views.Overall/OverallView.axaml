@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:overall="clr-namespace:Sakuno.ING.Shell.Views.Overall"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Sakuno.ING.Shell.Views.Overall.OverallView">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel>
+                <overall:ShipCount />
+                <overall:SlotItemCount />
+            </StackPanel>
+            <overall:Materials />
+        </StackPanel>
+        <overall:Tabs />
+        <overall:Ships />
+        <StackPanel Orientation="Horizontal" Spacing="4">
+            <overall:Fleets />
+            <overall:RepairDocks />
+            <overall:ConstructionDocks />
+        </StackPanel>
+    </StackPanel>
+</UserControl>
