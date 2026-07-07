@@ -13,6 +13,18 @@ partial class EventDispatcher
         _provider.OnPartialFleetsUpdated(response.api_deck_data);
     }
 
+    [Api("api_req_kaisou/slot_exchange_index")]
+    private void HandleSlotItemReordered(SlotItemExchangeJson response)
+    {
+        _provider.OnPartialShipsUpdated([response.api_ship_data]);
+    }
+
+    [Api("api_req_kaisou/slot_deprive")]
+    private void HandleSlotItemDeprived(SlotItemDeprivedJson response)
+    {
+        _provider.OnPartialShipsUpdated([response.api_ship_data.api_set_ship, response.api_ship_data.api_unset_ship]);
+    }
+
     [Api("api_req_kaisou/lock")]
     private void HandleSlotItemLockingUpdated([FromRequest("slotitem_id")] SlotItemId shipId, LockingJson response) =>
         _provider.OnSlotItemPatched(new SlotItemIsLockedPatch(shipId, response.api_locked));
