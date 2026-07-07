@@ -20,8 +20,6 @@ internal sealed class SseDataSource(
     IHostApplicationLifetime applicationLifetime,
     DiagnosticsOptions options,
     HttpClient httpClient,
-    IMasterDataService masterDataService,
-    IPlayerDataService playerDataService,
     ILogger<SseDataSource> logger) : BackgroundService, IApiMessageProvider
 {
     private readonly Subject<ApiMessage> _apiMessages = new();
