@@ -19,10 +19,12 @@ public interface IGameProvider
     IObservable<IReadOnlyList<IShipUpdated>> ShipsUpdated { get; }
     IObservable<IReadOnlyList<IShipUpdated>> PartialShipsUpdated { get; }
     IObservable<IShipPatched> ShipPatched { get; }
+    IObservable<IReadOnlyList<ShipId>> ShipsRemoved { get; }
 
     IObservable<IReadOnlyList<ISlotItemUpdated>> SlotItemsUpdated { get; }
     IObservable<IReadOnlyList<ISlotItemUpdated>> PartialSlotItemsUpdated { get; }
     IObservable<ISlotItemPatched> SlotItemPatched { get; }
+    IObservable<IReadOnlyList<SlotItemId>> SlotItemsRemoved { get; }
 
     IObservable<IReadOnlyList<IFleetUpdated>> FleetsUpdated { get; }
     IObservable<IReadOnlyList<IFleetUpdated>> PartialFleetsUpdated { get; }

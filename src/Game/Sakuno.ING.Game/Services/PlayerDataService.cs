@@ -1,5 +1,4 @@
 ﻿using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
@@ -32,19 +31,15 @@ internal class PlayerDataService : IPlayerDataService
 
     public PlayerDataService(IGameProvider gameProvider)
     {
-        var removeShipsSubject = new Subject<ShipId[]>();
-
         Ships = new Table<Ship, ShipId, IShipUpdated, IShipPatched>(gameProvider.ShipsUpdated,
             partialUpdateSource: gameProvider.PartialShipsUpdated,
-            removeSource: removeShipsSubject,
+            removeSource: gameProvider.ShipsRemoved,
             patchSource: gameProvider.ShipPatched,
             committingSource: gameProvider.Committed);
 
-        var removeSlotItemsSubject = new Subject<SlotItemId[]>();
-
         SlotItems = new Table<SlotItem, SlotItemId, ISlotItemUpdated, ISlotItemPatched>(gameProvider.SlotItemsUpdated,
             partialUpdateSource: gameProvider.PartialSlotItemsUpdated,
-            removeSource: removeSlotItemsSubject,
+            removeSource: gameProvider.SlotItemsRemoved,
             patchSource: gameProvider.SlotItemPatched,
             committingSource: gameProvider.Committed);
 
