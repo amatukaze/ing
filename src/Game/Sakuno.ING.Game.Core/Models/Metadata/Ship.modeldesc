@@ -27,4 +27,5 @@ bool IsLocked
 
 @patchbase IShipPatched
 @patch ShipSupplyPatch Fuel Bullet PlaneCount
+@patch ShipInstantRepairPatch HP Morale
 @patch ShipIsLockedPatch IsLocked

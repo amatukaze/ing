@@ -10,3 +10,4 @@ ShipId ShipId
 
 @patchbase IRepairDockPatched
 @patch RepairDockStatePatch State
+@patch RepairDockInstantRepairPatch State CompletionTime Consumption ShipId
