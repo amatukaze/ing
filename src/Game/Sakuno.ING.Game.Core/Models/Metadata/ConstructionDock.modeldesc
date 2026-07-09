@@ -10,3 +10,4 @@ ShipInfoId ResultShipId
 
 @patchbase IConstructionDockPatched
 @patch ConstructionDockStatePatch State
+@patch ConstructionDockCompletedPatch State CompletionTime

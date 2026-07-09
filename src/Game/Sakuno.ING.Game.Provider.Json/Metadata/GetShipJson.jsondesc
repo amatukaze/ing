@@ -1,0 +1,3 @@
+RawShip ship
+RawConstructionDock[] kdock
+RawSlotItem[] slotitem
