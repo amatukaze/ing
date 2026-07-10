@@ -21,13 +21,9 @@ internal class PlayerDataService : IPlayerDataService
 
     public ITable<AirForceGroup, AirForceGroupId> AirForceGroups { get; }
 
-    private readonly BehaviorSubject<Admiral?> _admiral;
     public IObservable<Admiral> Admiral { get; }
-    public Admiral AdmiralSnapshot => _admiral.Value ?? throw new InvalidOperationException("Game not initialized");
 
-    private readonly BehaviorSubject<Materials> _materials;
     public IObservable<Materials> Materials { get; }
-    public Materials MaterialsSnapshot => _materials.Value;
 
     public PlayerDataService(IGameProvider gameProvider)
     {
@@ -61,26 +57,23 @@ internal class PlayerDataService : IPlayerDataService
             patchSource: gameProvider.AirForceGroupPatched,
             committingSource: gameProvider.Committed);
 
-        _admiral = new(null);
-        Admiral = _admiral.Where(m => m is not null).AsObservable()!;
-
-        gameProvider.AdmiralUpdated.Scan((Admiral?)null, (admiral, raw) =>
+        Admiral = new GameData<Admiral>(gameProvider.AdmiralIdUpdated.DistinctUntilChanged().Select(id =>
         {
-            if (admiral is null)
-                return new Admiral(raw);
+            var initial = new Admiral(id);
 
-            admiral.Update(raw);
-            return admiral;
-        }).Subscribe(_admiral);
+            return gameProvider.AdmiralUpdated.Scan(initial, (admiral, updated) =>
+            {
+                admiral.Update(updated);
 
-        _materials = new(default);
-        Materials = _materials.AsObservable();
+                return admiral;
+            });
+        }).Switch());
 
-        gameProvider.MaterialsUpdated.Scan(new Materials(), (materials, updated) =>
+        Materials = new GameData<Materials>(gameProvider.MaterialsUpdated.Scan(new Materials(), (materials, updated) =>
         {
             updated.Apply(ref materials);
 
             return materials;
-        }).Subscribe(_materials);
+        }));
     }
 }
