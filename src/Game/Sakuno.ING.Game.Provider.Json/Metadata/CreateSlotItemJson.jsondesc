@@ -1,0 +1,3 @@
+bool create_flag
+RawMaterial[] material
+RawSlotItem[] get_items

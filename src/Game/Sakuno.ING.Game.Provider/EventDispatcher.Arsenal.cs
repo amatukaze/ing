@@ -1,11 +1,26 @@
 using System.Runtime.InteropServices;
+using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Patches;
+using Sakuno.ING.Game.Provider.Event;
+using Sakuno.ING.Game.Provider.Json;
 
 namespace Sakuno.ING.Game.Provider;
 
 partial class EventDispatcher
 {
+    [Api("api_req_kousyou/createitem")]
+    private void HandleCreateItem(CreateSlotItemJson response)
+    {
+        _provider.OnMaterialsUpdated(new HomeportMaterialsUpdate(response.api_material));
+
+        if (!response.api_create_flag)
+            return;
+
+        var slotItems = response.api_get_items.Where(item => item.api_id.IsValid).ToArray();
+        _provider.OnPartialSlotItemsUpdated(slotItems);
+    }
+
     [Api("api_req_kousyou/destroyship")]
     internal void HandleShipDestroyed([FromRequest("ship_id")] ShipId[] shipIds, [FromRequest("slot_dest_flag")] bool removeSlotItems)
     {
