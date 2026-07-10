@@ -32,4 +32,16 @@ partial class EventDispatcher
     [Api("api_req_kaisou/marriage")]
     private void HandleShipMarried(RawShip response) =>
         _provider.OnPartialShipsUpdated([response]);
+
+    [Api("api_req_kaisou/powerup")]
+    private void HandleShipPowerup(
+        [FromRequest("id_items")] ShipId[] feedShipIds,
+        [FromRequest("slot_dest_flag")] bool removeSlotItems,
+        PowerupJson response)
+    {
+        _provider.OnFleetsUpdated(response.api_deck);
+        _provider.OnPartialShipsUpdated([response.api_ship]);
+
+        HandleShipDestroyed(feedShipIds, removeSlotItems);
+    }
 }

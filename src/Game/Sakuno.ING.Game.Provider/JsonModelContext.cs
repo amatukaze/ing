@@ -18,6 +18,7 @@ namespace Sakuno.ING.Game.Provider;
 [JsonSerializable(typeof(SvData<SlotItemDeprivedJson>))]
 [JsonSerializable(typeof(SvData<GetShipJson>))]
 [JsonSerializable(typeof(SvData<CreateSlotItemJson>))]
+[JsonSerializable(typeof(SvData<PowerupJson>))]
 [JsonSerializable(typeof(SvData<ExpeditionRecallJson>))]
 [JsonSerializable(typeof(SvData<MapJson>))]
 [JsonSerializable(typeof(SvData<RawAdmiral>))]
