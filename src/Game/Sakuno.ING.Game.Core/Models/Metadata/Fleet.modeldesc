@@ -12,3 +12,4 @@ DateTimeOffset ExpeditionCompletionTime
 
 @patchbase IFleetPatched
 @patch FleetShipsPatch Ships
+@patch FleetExpeditionPatch ExpeditionId ExpeditionState ExpeditionCompletionTime
