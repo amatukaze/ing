@@ -1,6 +1,7 @@
 ﻿global using System.Reactive;
 global using System.Reactive.Subjects;
 global using NSubstitute;
+global using ReactiveUI.Reactive;
 global using Sakuno.ING.Game.Events;
 global using Sakuno.ING.Game.Models;
 global using Sakuno.ING.Game.Provider;

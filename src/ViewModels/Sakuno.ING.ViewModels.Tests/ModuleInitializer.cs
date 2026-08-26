@@ -1,7 +1,7 @@
 ﻿using System.Reactive.Concurrency;
 using System.Runtime.CompilerServices;
 using ReactiveUI;
-using ReactiveUI.Builder;
+using ReactiveUI.Reactive.Builder;
 
 namespace Sakuno.ING.ViewModels.Tests;
 

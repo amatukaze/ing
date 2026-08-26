@@ -3,5 +3,6 @@ global using Injectio.Attributes;
 global using Microsoft.Extensions.DependencyInjection;
 global using ReactiveUI;
 global using ReactiveUI.Avalonia;
+global using ReactiveUI.Avalonia.Reactive;
 global using Sakuno.ING.Game.Models;
 global using Sakuno.ING.ViewModels.Homeport;

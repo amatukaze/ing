@@ -5,3 +5,4 @@ global using Avalonia.Controls.Primitives;
 global using Avalonia.Controls.Templates;
 global using Avalonia.Layout;
 global using ReactiveUI;
+global using ReactiveUI.Reactive;

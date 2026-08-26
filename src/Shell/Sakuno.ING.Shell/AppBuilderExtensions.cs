@@ -2,7 +2,7 @@
 using DryIoc.Microsoft.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ReactiveUI.Builder;
+using ReactiveUI.Reactive.Builder;
 using Splat;
 using Splat.Builder;
 using AppBuilder = Avalonia.AppBuilder;
