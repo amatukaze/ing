@@ -4,12 +4,14 @@ on:
   push:
     branches: [master]
     paths:
+    - '**.slnx'
     - '**.cs'
     - '**.csproj'
     - 'Directory.Build.*'
     - 'Directory.Packages.props'
     - '**.jsondesc'
     - '**.modeldesc'
+    - '.github/workflows/build-and-test.yml'
 
 jobs:
   build-and-test:
