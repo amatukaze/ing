@@ -2,7 +2,7 @@
 
 A flexible, powerful and lightweight KanColle tool/browser.
 
-### Screenshots (Legacy Version)
+## Screenshots (Legacy Version)
 ![Overview](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/ing/001.jpg)
 ![Battle Information](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/ing/002.jpg)
 
