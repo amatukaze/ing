@@ -21,7 +21,6 @@ jobs:
     - uses: actions/setup-dotnet@v6
       with:
         dotnet-version: '10.0.x'
-        cache: true
 
     - name: Install dependencies
       run: dotnet restore
