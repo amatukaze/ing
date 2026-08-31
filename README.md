@@ -1,5 +1,7 @@
 # ING
 
+[![build and test](https://github.com/amatukaze/ing/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/amatukaze/ing/actions/workflows/build-and-test.yml)
+
 A flexible, powerful and lightweight KanColle tool/browser.
 
 ## Screenshots (Legacy Version)
