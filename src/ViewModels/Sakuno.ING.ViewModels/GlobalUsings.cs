@@ -1,4 +1,5 @@
 ﻿global using System.Collections.ObjectModel;
+global using System.Reactive;
 global using System.Reactive.Disposables;
 global using System.Reactive.Disposables.Fluent;
 global using System.Reactive.Linq;

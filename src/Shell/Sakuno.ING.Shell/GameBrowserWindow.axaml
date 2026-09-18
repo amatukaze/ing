@@ -1,0 +1,9 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:Sakuno.ING.Shell"
+        x:Class="Sakuno.ING.Shell.GameBrowserWindow"
+        Title="KanColle"
+        Width="1280" Height="800"
+        MinWidth="800" MinHeight="600">
+    <shell:GameBrowserView />
+</Window>

@@ -37,6 +37,9 @@ public partial class App : Application
 
         desktop.MainWindow = new MainWindow();
 
+        var browserWindow = new GameBrowserWindow();
+        browserWindow.Show();
+
         DependencyInjection.SetContainer(desktop.MainWindow, host.Services.GetRequiredService<IContainer>());
     }
 }
