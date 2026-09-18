@@ -16,7 +16,8 @@ partial class EventDispatcher
             {
                 var reader = new Utf8JsonReader(message.Response);
                 var response = JsonSerializer.Deserialize(ref reader, JsonModelContext.Default.SvData)!;
-                CheckResultCode(response.api_result);
+                if (!ValidateResultCode(response.api_result))
+                    return true;
                 HandleApi1(ParseRequest(message.Request));
                 return true;
             }

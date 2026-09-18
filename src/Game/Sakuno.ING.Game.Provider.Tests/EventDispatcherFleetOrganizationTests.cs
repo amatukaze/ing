@@ -1,4 +1,5 @@
 ﻿using System.Reactive.Subjects;
+using Microsoft.Extensions.Logging.Abstractions;
 using NSubstitute;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models;
@@ -206,7 +207,7 @@ public class EventDispatcherFleetOrganizationTests
         var apiMessageProvider = Substitute.For<IApiMessageProvider>();
         apiMessageProvider.ApiMessages.Returns(new Subject<ApiMessage>());
 
-        var dispatcher = new EventDispatcher(providerSource, Substitute.For<IMasterDataSnapshotService>(), playerDataSnapshotService, apiMessageProvider);
+        var dispatcher = new EventDispatcher(providerSource, Substitute.For<IMasterDataSnapshotService>(), playerDataSnapshotService, apiMessageProvider, NullLogger<EventDispatcher>.Instance);
 
         return (providerSource, dispatcher);
     }

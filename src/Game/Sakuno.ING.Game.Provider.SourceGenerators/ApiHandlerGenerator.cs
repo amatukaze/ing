@@ -272,12 +272,15 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                         SyntaxFactory.IdentifierName("var"),
                         SyntaxFactory.SingletonSeparatedList(SyntaxFactory.VariableDeclarator("response")
                             .WithInitializer(SyntaxFactory.EqualsValueClause(info.GenerateInitializer()))))),
-                    SyntaxFactory.ExpressionStatement(SyntaxFactory.InvocationExpression(
-                        SyntaxFactory.IdentifierName("CheckResultCode"),
-                        SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(
-                            SyntaxFactory.Argument(SyntaxFactory.MemberAccessExpression(
-                                SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("response"),
-                                SyntaxFactory.IdentifierName("api_result"))))))),
+                    SyntaxFactory.IfStatement(
+                        SyntaxFactory.PrefixUnaryExpression(SyntaxKind.LogicalNotExpression,
+                            SyntaxFactory.InvocationExpression(
+                                SyntaxFactory.IdentifierName("ValidateResultCode"),
+                                SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(
+                                    SyntaxFactory.Argument(SyntaxFactory.MemberAccessExpression(
+                                        SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("response"),
+                                        SyntaxFactory.IdentifierName("api_result"))))))),
+                        SyntaxFactory.ReturnStatement(SyntaxFactory.LiteralExpression(SyntaxKind.TrueLiteralExpression))),
                     SyntaxFactory.ExpressionStatement(SyntaxFactory.InvocationExpression(
                         SyntaxFactory.IdentifierName(info.MethodName),
                         SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(info.GenerateHandlerArguments())))),
