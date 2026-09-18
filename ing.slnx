@@ -1,4 +1,7 @@
-<Solution>
+﻿<Solution>
+  <Folder Name="/Browser/">
+    <Project Path="src/Browser/Sakuno.ING.Browser/Sakuno.ING.Browser.csproj" />
+  </Folder>
   <Folder Name="/Game/">
     <Project Path="src/Game/Sakuno.ING.Game.Core.SourceGenerators.Tests/Sakuno.ING.Game.Core.SourceGenerators.Tests.csproj" />
     <Project Path="src/Game/Sakuno.ING.Game.Core.SourceGenerators/Sakuno.ING.Game.Core.SourceGenerators.csproj" />

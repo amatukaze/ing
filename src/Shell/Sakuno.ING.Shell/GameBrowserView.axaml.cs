@@ -1,6 +1,7 @@
 ﻿using System.Reactive.Disposables.Fluent;
 using Avalonia.Interactivity;
 using Microsoft.Extensions.DependencyInjection;
+using Sakuno.ING.Browser;
 using Sakuno.ING.ViewModels;
 
 namespace Sakuno.ING.Shell;
@@ -8,6 +9,7 @@ namespace Sakuno.ING.Shell;
 public partial class GameBrowserView : ReactiveUserControl<BrowserViewModel>
 {
     private IServiceScope? _serviceScope;
+    private IBrowserService? _browserService;
     private readonly CompositeDisposable _disposables = [];
 
     public GameBrowserView()
@@ -23,23 +25,29 @@ public partial class GameBrowserView : ReactiveUserControl<BrowserViewModel>
 
         ViewModel = _serviceScope.ServiceProvider.GetRequiredService<BrowserViewModel>();
 
-        GameWebView.NavigationStarted += OnNavigationStarted;
-        _disposables.Add(Disposable.Create(() => GameWebView.NavigationStarted -= OnNavigationStarted));
+        var browserService = new WebViewBrowserService(GameWebView);
+        _browserService = browserService;
 
-        GameWebView.NavigationCompleted += OnNavigationCompleted;
-        _disposables.Add(Disposable.Create(() => GameWebView.NavigationCompleted -= OnNavigationCompleted));
+        browserService.NavigationStarted += OnNavigationStarted;
+        _disposables.Add(Disposable.Create(() => browserService.NavigationStarted -= OnNavigationStarted));
 
-        ViewModel.Refresh.Subscribe(_ => GameWebView.Refresh()).DisposeWith(_disposables);
-        ViewModel.Stop.Subscribe(_ => GameWebView.Stop()).DisposeWith(_disposables);
-        ViewModel.GoBack.Subscribe(_ => GameWebView.GoBack()).DisposeWith(_disposables);
-        ViewModel.GoForward.Subscribe(_ => GameWebView.GoForward()).DisposeWith(_disposables);
+        browserService.NavigationCompleted += OnNavigationCompleted;
+        _disposables.Add(Disposable.Create(() => browserService.NavigationCompleted -= OnNavigationCompleted));
+
+        ViewModel.Refresh.Subscribe(_ => browserService.RefreshAsync()).DisposeWith(_disposables);
+        ViewModel.Stop.Subscribe(_ => browserService.StopAsync()).DisposeWith(_disposables);
+        ViewModel.GoBack.Subscribe(_ => browserService.GoBackAsync()).DisposeWith(_disposables);
+        ViewModel.GoForward.Subscribe(_ => browserService.GoForwardAsync()).DisposeWith(_disposables);
     }
 
     private void OnNavigationStarted(object? sender, WebViewNavigationStartingEventArgs e) =>
         ViewModel?.OnNavigationStarted();
 
-    private void OnNavigationCompleted(object? sender, WebViewNavigationCompletedEventArgs e) =>
-        ViewModel?.OnNavigationCompleted(e.Request, GameWebView.CanGoBack, GameWebView.CanGoForward, e.IsSuccess);
+    private void OnNavigationCompleted(object? sender, WebViewNavigationCompletedEventArgs e)
+    {
+        if (_browserService is { } browserService)
+            ViewModel?.OnNavigationCompleted(e.Request, browserService.CanGoBack, browserService.CanGoForward, e.IsSuccess);
+    }
 
     protected override void OnUnloaded(RoutedEventArgs e)
     {
