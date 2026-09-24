@@ -480,3 +480,7 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Verify snapshot test output
+*.received.*
+*.received/
