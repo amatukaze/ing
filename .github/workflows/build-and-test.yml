@@ -16,6 +16,8 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    env:
+      DiffEngine_Disabled: true
     steps:
     - uses: actions/checkout@v7
     - uses: actions/setup-dotnet@v6
