@@ -1,0 +1,13 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:shell="clr-namespace:Sakuno.ING.Shell"
+        xmlns:bootstrap="clr-namespace:Sakuno.ING.Shell.Bootstrap"
+        mc:Ignorable="d"
+        x:Class="Sakuno.ING.Shell.BootstrapWindow"
+        Title="ING"
+        SizeToContent="WidthAndHeight"
+        CanResize="False">
+  <bootstrap:BootstrapView />
+</Window>

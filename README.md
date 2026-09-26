@@ -20,6 +20,8 @@ A flexible, powerful and lightweight KanColle tool/browser.
 ```mermaid
 graph TD
     Launcher["Shell.Launcher<br/>(entry point)"] --> Shell["Shell<br/>Avalonia views & app composition"]
+    Shell --> Bootstrap["Bootstrapper<br/>pre-main-UI startup steps (pluggable)"]
+    Bootstrap --> Shell
     Shell --> VM["ViewModels<br/>MVVM · ReactiveUI"]
     VM --> Game["Game / Game.Core<br/>domain models & state"]
     Game --> Provider["Game.Provider (.Json)<br/>data ingestion & API event dispatch"]
@@ -28,6 +30,8 @@ graph TD
     SG["Source Generators<br/>(Game.Core / Game.Provider / Game.Provider.Json)"] -. "compile-time codegen" .-> Game
     SG -.-> Provider
 ```
+
+Startup runs through a bootstrapper: a bootstrap window executes pluggable `IBootstrapStep`s (progress shown, failures offer retry/skip/exit) before the main window and the game browser window are created.
 
 ## Build & Run
 
