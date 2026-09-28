@@ -27,7 +27,7 @@ partial class EventDispatcher
                         flag = item.DecodeValueAsBool();
                 }
 
-                var reader = new Utf8JsonReader(message.Response);
+                var reader = new Utf8JsonReader(message.Response.Span);
                 var response = JsonSerializer.Deserialize(ref reader, JsonModelContext.Default.SvData)!;
                 if (!ValidateResultCode(response.api_result))
                     return true;
@@ -50,7 +50,7 @@ partial class EventDispatcher
                         ids = item.DecodeValueAsIdentifierArray<SlotItemId>();
                 }
 
-                var reader = new Utf8JsonReader(message.Response);
+                var reader = new Utf8JsonReader(message.Response.Span);
                 var response = JsonSerializer.Deserialize(ref reader, JsonModelContext.Default.SvData)!;
                 if (!ValidateResultCode(response.api_result))
                     return true;

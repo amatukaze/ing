@@ -1,4 +1,3 @@
-﻿using System.Buffers;
 using System.Reactive;
 using System.Reactive.Subjects;
 using System.Text;
@@ -55,6 +54,6 @@ public class EventDispatcherErrorHandlingTests
     private static ApiMessage CreateMessage(string api, string response)
     {
         var bytes = Encoding.UTF8.GetBytes(response);
-        return new(api, ReadOnlyMemory<byte>.Empty, new ReadOnlySequence<byte>(bytes));
+        return new(api, ReadOnlyMemory<byte>.Empty, bytes);
     }
 }

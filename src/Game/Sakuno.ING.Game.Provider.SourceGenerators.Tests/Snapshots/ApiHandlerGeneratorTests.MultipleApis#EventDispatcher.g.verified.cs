@@ -16,7 +16,7 @@ partial class EventDispatcher
             case "api2":
             case "api3":
             {
-                var reader = new Utf8JsonReader(message.Response);
+                var reader = new Utf8JsonReader(message.Response.Span);
                 var response = JsonSerializer.Deserialize(ref reader, JsonModelContext.Default.SvData)!;
                 if (!ValidateResultCode(response.api_result))
                     return true;

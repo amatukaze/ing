@@ -265,8 +265,11 @@ public class ApiHandlerGenerator : IIncrementalGenerator
                                 SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(
                                     SyntaxFactory.Argument(SyntaxFactory.MemberAccessExpression(
                                         SyntaxKind.SimpleMemberAccessExpression,
-                                        SyntaxFactory.IdentifierName("message"),
-                                        SyntaxFactory.IdentifierName("Response"))))),
+                                        SyntaxFactory.MemberAccessExpression(
+                                            SyntaxKind.SimpleMemberAccessExpression,
+                                            SyntaxFactory.IdentifierName("message"),
+                                            SyntaxFactory.IdentifierName("Response")),
+                                        SyntaxFactory.IdentifierName("Span"))))),
                                 null)))))),
                     SyntaxFactory.LocalDeclarationStatement(SyntaxFactory.VariableDeclaration(
                         SyntaxFactory.IdentifierName("var"),

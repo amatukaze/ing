@@ -58,7 +58,7 @@ internal sealed class SseDataSource(
 
                     logger.LogInformation("Api {Api} received", api);
 
-                    _apiMessages.OnNext(new(api, Encoding.UTF8.GetBytes(rawRequest), new(Encoding.UTF8.GetBytes(rawResponse))));
+                    _apiMessages.OnNext(new(api, Encoding.UTF8.GetBytes(rawRequest), Encoding.UTF8.GetBytes(rawResponse)));
                 }
 
                 logger.LogInformation("SSE connection ended");
