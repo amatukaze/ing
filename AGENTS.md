@@ -2,7 +2,7 @@
 
 ## Project
 
-ING — a KanColle tool/browser, built using Avalonia 12 + ReactiveUI on .NET 10.
+ING — a KanColle tool/browser, built using Avalonia 12 + ReactiveUI on .NET.
 
 ## Commands
 
@@ -29,7 +29,7 @@ Source generators run at compile time only. Startup runs through pluggable
 
 ## Conventions
 
-- `net10.0`; `LangVersion latest`, `ImplicitUsings` and `Nullable` enabled; file-scoped
+- `net11.0`; `LangVersion latest`, `ImplicitUsings` and `Nullable` enabled; file-scoped
   `Sakuno.ING.*` namespaces.
 - Central Package Management: all package versions live in `Directory.Packages.props` —
   never put `Version=` on a `PackageReference`.

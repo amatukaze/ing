@@ -35,7 +35,7 @@ Startup runs through a bootstrapper: a bootstrap window executes pluggable `IBoo
 
 ## Build & Run
 
-Requires the **.NET 10 SDK**.
+Requires the **.NET 11 SDK**.
 
 ```bash
 git clone https://github.com/amatukaze/ing.git
