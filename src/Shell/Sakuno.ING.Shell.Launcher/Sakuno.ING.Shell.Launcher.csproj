@@ -3,7 +3,6 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net11.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>

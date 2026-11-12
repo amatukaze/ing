@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net11.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     <InjectioName>ShellServices</InjectioName>
   </PropertyGroup>

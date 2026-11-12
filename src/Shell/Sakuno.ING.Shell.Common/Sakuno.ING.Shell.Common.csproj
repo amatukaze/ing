@@ -3,8 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net11.0</TargetFramework>
     <RootNamespace>Sakuno.ING.Shell</RootNamespace>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
 

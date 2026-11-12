@@ -4,6 +4,8 @@
   <PropertyGroup>
     <BasePath>$(MSBuildThisFileDirectory)</BasePath>
     <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
 </Project>
