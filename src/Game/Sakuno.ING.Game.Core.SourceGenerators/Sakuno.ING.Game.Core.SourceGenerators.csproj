@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IsExternalInit" />
+    <PackageReference Include="Polyfill">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
   </ItemGroup>
 
