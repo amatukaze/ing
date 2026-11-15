@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <AvaloniaVersion>12.1.1</AvaloniaVersion>
+    <AvaloniaVersion>12.1.6</AvaloniaVersion>
     <MicrosoftExtensionsPackageVersion>11.0.0</MicrosoftExtensionsPackageVersion>
   </PropertyGroup>
   <ItemGroup>
@@ -9,11 +9,11 @@
     <PackageVersion Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
     <PackageVersion Include="Avalonia.Fonts.Inter" Version="$(AvaloniaVersion)" />
     <PackageVersion Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
-    <PackageVersion Include="Avalonia.Controls.WebView" Version="12.1.0" />
+    <PackageVersion Include="Avalonia.Controls.WebView" Version="12.1.2" />
     <PackageVersion Include="DryIoc.dll" Version="6.0.0-preview-09" />
     <PackageVersion Include="DryIoc.Microsoft.DependencyInjection" Version="8.0.0-preview-04" />
     <PackageVersion Include="DynamicData" Version="9.4.31" />
-    <PackageVersion Include="Injectio" Version="6.1.0" />
+    <PackageVersion Include="Injectio" Version="6.3.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.12.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="$(MicrosoftExtensionsPackageVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(MicrosoftExtensionsPackageVersion)" />
