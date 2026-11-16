@@ -29,6 +29,8 @@ Source generators run at compile time only. Startup runs through pluggable
 
 ## Conventions
 
+- Write commit subjects in English, using imperative mood without Conventional Commits
+  prefixes (e.g. `Deduplicate source generator guidance`).
 - `net11.0`; `LangVersion latest`, `ImplicitUsings` and `Nullable` enabled; file-scoped
   `Sakuno.ING.*` namespaces.
 - Central Package Management: all package versions live in `Directory.Packages.props` —
