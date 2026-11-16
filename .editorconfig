@@ -6,7 +6,6 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.cs]
-charset = utf-8-bom
 indent_size = 4
 
 [*.xml]
