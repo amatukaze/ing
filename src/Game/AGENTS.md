@@ -2,9 +2,8 @@
 
 ## Source generator debugging
 
-The `*.SourceGenerators` projects run only at compile time, so their output is
-normally invisible. To inspect the generated code while debugging a generator,
-temporarily enable compiler-generated file emission:
+To inspect generated code while debugging a generator, temporarily enable
+compiler-generated file emission:
 
 ```bash
 dotnet build -p:EmitCompilerGeneratedFiles=true
@@ -20,5 +19,3 @@ and can be read, diffed, or stepped through in the debugger. Two rules:
   remain the source of truth for generator output — compare against them
   rather than eyeballing ad-hoc builds.
 
-Generator behavior changes must still go through the Verify snapshot tests
-(see the root `AGENTS.md`).
