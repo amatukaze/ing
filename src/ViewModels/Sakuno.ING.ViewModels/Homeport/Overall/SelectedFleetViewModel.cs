@@ -10,9 +10,8 @@ public class SelectedFleetViewModel : ViewModelObject
 
     public SelectedFleetViewModel(IPlayerDataService playerDataService, FleetSelectionState fleetSelectionState)
     {
-        ObservableChangeSet.Create<ShipId>(list => fleetSelectionState.SelectedId
-                .Select(id => playerDataService.Fleets.Snapshot[id].WhenAnyValue(f => f.Ships))
-                .Switch()
+        ObservableChangeSet.Create<ShipId>(list => Observable.Switch(fleetSelectionState.SelectedId
+                .Select(id => playerDataService.Fleets.Snapshot[id].WhenAnyValue(f => f.Ships)))
                 .Subscribe(items => list.EditDiff(items.Where(id => id.IsValid))))
             .Transform(id => new ShipViewModel(id, playerDataService))
             .ObserveOn(RxSchedulers.MainThreadScheduler)

@@ -4,6 +4,8 @@ using Splat;
 
 namespace Sakuno.ING.Shell.Controls;
 
+using DefaultViewLocator = ViewLocator;
+
 public sealed class ViewModelViewHost : ContentControl, IViewFor, IEnableLogger
 {
     public static readonly AvaloniaProperty<object?> ViewModelProperty =
@@ -31,13 +33,13 @@ public sealed class ViewModelViewHost : ContentControl, IViewFor, IEnableLogger
     protected override void OnInitialized()
     {
         var viewModelSource = this.GetObservable(ViewModelProperty);
-        var contractSource = viewModelSource.Select(vm =>
+        var contractSource = Observable.Switch(viewModelSource.Select(vm =>
         {
             if (vm is not IViewContractObservable viewContractObservable)
                 return Observable.Return<string?>(null);
 
             return viewContractObservable.ViewContractObservable.ObserveOn(RxSchedulers.MainThreadScheduler);
-        }).Switch();
+        }));
 
         _subscription = viewModelSource
             .CombineLatest(contractSource, (vm, contract) => (ViewModel: vm, Contract: contract))
@@ -60,7 +62,7 @@ public sealed class ViewModelViewHost : ContentControl, IViewFor, IEnableLogger
             return;
         }
 
-        var viewLocator = ViewLocator ?? ReactiveUI.ViewLocator.Current;
+        var viewLocator = ViewLocator ?? DefaultViewLocator.GetCurrent();
         var viewInstance = viewLocator.ResolveView(viewModel, contract);
         if (viewInstance is null)
         {
