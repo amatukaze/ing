@@ -1,32 +1,38 @@
 schema: spec-driven
 
-# Project context (optional)
-# Add only constraints that should guide OpenSpec artifacts and workflows.
-# Include constraints an agent cannot infer by reading the code.
-# Keep general project documentation and discoverable codebase facts out.
-# Example:
-#   context: |
-#     Designs and tasks must cover Windows, macOS, and Linux
-#     Write all artifacts in Spanish
+context: |
+  Write all OpenSpec artifacts in English.
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always state what is out of scope
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+rules:
+  tasks:
+    - Organize work into coherent increments with concrete verification for each increment.
+    - Include snapshots and generated output with the increment that changes them.
 
-# Per-operation guidance (optional)
-# Add advisory guidance for how apply and archive work should be conducted.
-# This is separate from artifact rules above.
-# Example:
-#   operations:
-#     apply:
-#       guidance:
-#         - Keep test summaries concise
-#     archive:
-#       guidance:
-#         - Summarize the archive outcome before finishing
+operations:
+  apply:
+    guidance:
+      - Before implementation, review the increments in tasks.md. If tasks need
+        to be split or combined, update tasks.md before starting the affected
+        increment so that it remains the source of truth
+      - The primary agent coordinates the entire change across all increments
+      - For each increment, use a new implementation subagent by default; a tightly
+        coupled subsequent increment may resume the previous implementation subagent
+      - Run implementation and acceptance sequentially. Use a fresh acceptance
+        subagent for each increment, independent of the implementation subagent,
+        and keep acceptance agents from changing the implementation or task status
+      - The implementation subagent works only on the current increment and runs its
+        relevant tests
+      - The acceptance subagent validates the increment against the change artifacts
+        and its actual behavior; failures return to implementation before commit
+      - After acceptance passes, the primary agent updates task status, reviews the
+        diff and working tree, and commits only the current increment; the next
+        increment starts only after that commit completes
+      - Keep each commit focused and verifiable, with related code, tests, generated
+        output, snapshots, and documentation together; exclude unrelated or
+        pre-existing changes, and explicitly report any known build or test failures
+      - After all increments are committed, use a fresh final acceptance subagent
+        that did not participate in implementation or incremental acceptance to
+        validate the complete change against its artifacts, with
+        `openspec validate --strict`, full tests, and applicable end-to-end scenarios
+      - Treat final acceptance failures as new increments and repeat implementation,
+        incremental acceptance, commit, and final acceptance
