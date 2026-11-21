@@ -24,6 +24,8 @@
   <Folder Name="/Shell/">
     <Project Path="src/Shell/Sakuno.ING.Shell.Common/Sakuno.ING.Shell.Common.csproj" />
     <Project Path="src/Shell/Sakuno.ING.Shell.Launcher/Sakuno.ING.Shell.Launcher.csproj" />
+    <Project Path="src/Shell/Sakuno.ING.Shell.UIComponentAutomation.Tests/Sakuno.ING.Shell.UIComponentAutomation.Tests.csproj" />
+    <Project Path="src/Shell/Sakuno.ING.Shell.UIComponentAutomation/Sakuno.ING.Shell.UIComponentAutomation.csproj" />
     <Project Path="src/Shell/Sakuno.ING.Shell.Views.Overall/Sakuno.ING.Shell.Views.Overall.csproj" />
     <Project Path="src/Shell/Sakuno.ING.Shell/Sakuno.ING.Shell.csproj" />
   </Folder>

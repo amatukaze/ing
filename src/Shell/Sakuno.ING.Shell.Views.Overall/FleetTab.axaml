@@ -8,7 +8,9 @@
                           x:Class="Sakuno.ING.Shell.Views.Overall.FleetTab"
                           x:TypeArguments="vm:FleetTabViewModel"
                           x:DataType="vm:FleetTabViewModel">
-    <Button Width="32" Command="{Binding SelectCommand}">
+    <Button Width="32"
+            AutomationProperties.AutomationId="{Binding Id, StringFormat='FleetTab_{0}'}"
+            Command="{Binding SelectCommand}">
         <TextBlock Text="{Binding Id}" />
     </Button>
 </rxui:ReactiveUserControl>

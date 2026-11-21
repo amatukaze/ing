@@ -2,11 +2,11 @@
 
 ## 1. Headless FleetTab vertical slice
 
-- [ ] 1.1 Scaffold `Sakuno.ING.Shell.UIComponentAutomation` and its xunit v3 test project, add them to `ing.slnx`, centralize the local MCP, Avalonia.Headless, and required Skia dependencies, and verify both projects build with `dotnet build` without changing production project references.
-- [ ] 1.2 Implement the minimal headless Application and Window with an Avalonia `Control` scenario root, FluentTheme, Shell Common themes, Inter font, required view-location setup, dispatcher/layout settling, and Skia frame capture; verify with a test that a real Overall View renders to a non-empty image with the expected viewport dimensions.
-- [ ] 1.3 Implement the explicit UI Component Scenario catalog, owned DryIoc scenario scopes, and `Overall/FleetTab/WithFleets` using real selection state and an unselected FleetTab; add a fleet-derived stable automation identifier and verify with tests that catalog metadata is unique and the scenario opens without full App bootstrap or real player services.
-- [ ] 1.4 Implement bounded visual-tree inspection, scenario-defined read-only state snapshots, unique `AutomationId`/`Name` resolution, and real headless clicking; verify with tests that inspecting FleetTab returns its actionable state, clicking changes the selected fleet ID reported from real selection state, and missing or ambiguous identifiers perform no interaction.
-- [ ] 1.5 Expose in-process screenshot capture with scenario and dimension metadata and verify the complete FleetTab open-inspect-click-inspect-capture path through the new test project, including an assertion on the selected fleet ID and visual review of the produced PNG.
+- [x] 1.1 Scaffold `Sakuno.ING.Shell.UIComponentAutomation` and its xunit v3 test project, add them to `ing.slnx`, centralize the local MCP, Avalonia.Headless, and required Skia dependencies, and verify both projects build with `dotnet build` without changing production project references.
+- [x] 1.2 Implement the minimal headless Application and Window with an Avalonia `Control` scenario root, FluentTheme, Shell Common themes, Inter font, required view-location setup, dispatcher/layout settling, and Skia frame capture; verify with a test that a real Overall View renders to a non-empty image with the expected viewport dimensions.
+- [x] 1.3 Implement the explicit UI Component Scenario catalog, owned DryIoc scenario scopes, and `Overall/FleetTab/WithFleets` using real selection state and an unselected FleetTab; add a fleet-derived stable automation identifier and verify with tests that catalog metadata is unique and the scenario opens without full App bootstrap or real player services.
+- [x] 1.4 Implement bounded visual-tree inspection, scenario-defined read-only state snapshots, unique `AutomationId`/`Name` resolution, and real headless clicking; verify with tests that inspecting FleetTab returns its actionable state, clicking changes the selected fleet ID reported from real selection state, and missing or ambiguous identifiers perform no interaction.
+- [x] 1.5 Expose in-process screenshot capture with scenario and dimension metadata and verify the complete FleetTab open-inspect-click-inspect-capture path through the new test project, including an assertion on the selected fleet ID and visual review of the produced PNG.
 
 ## 2. Session lifecycle
 
