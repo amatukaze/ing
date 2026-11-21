@@ -41,12 +41,14 @@ public sealed class UiComponentSession : IDisposable
     internal static UiComponentSession Open(ScenarioDefinition definition) =>
         UiComponentHost.Dispatch(() =>
         {
-            var container = definition.CreateContainer();
+            IContainer? container = null;
             IResolverContext? scope = null;
             Window? window = null;
+            ScenarioContent? content = null;
 
             try
             {
+                container = definition.CreateContainer();
                 scope = container.OpenScope();
                 window = new Window
                 {
@@ -57,7 +59,7 @@ public sealed class UiComponentSession : IDisposable
                 };
                 DependencyInjection.SetContainer(window, scope);
 
-                var content = definition.CreateContent(scope);
+                content = definition.CreateContent(scope);
                 window.Content = content.Root;
                 window.Show();
                 UiComponentHost.Settle(window);
@@ -66,9 +68,15 @@ public sealed class UiComponentSession : IDisposable
             }
             catch
             {
-                window?.Close();
+                if (window is not null)
+                {
+                    window.Content = null;
+                    window.ClearValue(DependencyInjection.ContainerProperty);
+                    window.Close();
+                }
+                content?.OwnedState?.Dispose();
                 scope?.Dispose();
-                container.Dispose();
+                container?.Dispose();
                 throw;
             }
         });
@@ -85,7 +93,18 @@ public sealed class UiComponentSession : IDisposable
             ThrowIfDisposed();
             UiComponentHost.Settle(_window);
 
-            var root = rootIdentifier is null ? Root : Resolve(rootIdentifier).Single();
+            var root = Root;
+            if (rootIdentifier is not null)
+            {
+                var matches = Resolve(rootIdentifier);
+                root = matches.Count switch
+                {
+                    0 => throw UiComponentAutomationErrors.ControlNotFound(ScenarioId, rootIdentifier),
+                    1 => matches[0],
+                    _ => throw UiComponentAutomationErrors.AmbiguousControl(ScenarioId, rootIdentifier),
+                };
+            }
+
             var controls = new List<ControlInspection>();
             var truncated = false;
 
@@ -195,6 +214,8 @@ public sealed class UiComponentSession : IDisposable
         UiComponentHost.Dispatch(() =>
         {
             _window.Close();
+            _window.Content = null;
+            _window.ClearValue(DependencyInjection.ContainerProperty);
             _content.OwnedState?.Dispose();
             _scope.Dispose();
             _container.Dispose();

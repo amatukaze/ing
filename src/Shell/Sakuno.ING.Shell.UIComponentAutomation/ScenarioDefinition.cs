@@ -29,8 +29,16 @@ public sealed class ScenarioDefinition
     internal IContainer CreateContainer()
     {
         var container = new Container();
-        _registerServices(container);
-        return container;
+        try
+        {
+            _registerServices(container);
+            return container;
+        }
+        catch
+        {
+            container.Dispose();
+            throw;
+        }
     }
 
     internal ScenarioContent CreateContent(IResolverContext scope) => _createContent(scope);

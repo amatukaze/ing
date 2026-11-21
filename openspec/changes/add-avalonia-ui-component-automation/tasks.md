@@ -10,8 +10,8 @@
 
 ## 2. Session lifecycle
 
-- [ ] 2.1 Add the single-active-session coordinator with serialized UI-thread execution and structured core errors; verify with tests that concurrent operations execute in order, operations without an active scenario fail cleanly, and an unknown scenario does not replace the active session.
-- [ ] 2.2 Implement candidate-and-swap scenario opening and reset plus close and process-shutdown disposal; verify with tests that successful reset creates fresh presentation state, replacement shares no mutable state, failed opening or reset preserves the previous active session, close releases owned resources, and recoverable operation failures preserve the active UI Component for inspection and capture.
+- [x] 2.1 Add the single-active-session coordinator with serialized UI-thread execution and structured core errors; verify with tests that concurrent operations execute in order, operations without an active scenario fail cleanly, and an unknown scenario does not replace the active session.
+- [x] 2.2 Implement candidate-and-swap scenario opening and reset plus close and process-shutdown disposal; verify with tests that successful reset creates fresh presentation state, replacement shares no mutable state, failed opening or reset preserves the previous active session, close releases owned resources, and recoverable operation failures preserve the active UI Component for inspection and capture.
 
 ## 3. Materials and reusable Control coverage
 

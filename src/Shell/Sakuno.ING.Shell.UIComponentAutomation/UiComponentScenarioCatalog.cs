@@ -7,6 +7,15 @@ public sealed class UiComponentScenarioCatalog
 {
     public const string FleetTabWithFleets = "Overall/FleetTab/WithFleets";
 
+    public UiComponentScenarioCatalog()
+    {
+    }
+
+    internal UiComponentScenarioCatalog(params ScenarioDefinition[] scenarios)
+    {
+        Scenarios = scenarios.ToArray();
+    }
+
     public IReadOnlyList<ScenarioDefinition> Scenarios { get; } =
     [
         new(
