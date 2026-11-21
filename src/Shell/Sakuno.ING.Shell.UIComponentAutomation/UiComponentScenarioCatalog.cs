@@ -1,4 +1,6 @@
+using Sakuno.ING.Game;
 using Sakuno.ING.Game.Provider;
+using Sakuno.ING.ViewModels.Homeport;
 using Sakuno.ING.ViewModels.Homeport.Overall;
 
 namespace Sakuno.ING.Shell.UIComponentAutomation;
@@ -6,6 +8,7 @@ namespace Sakuno.ING.Shell.UIComponentAutomation;
 public sealed class UiComponentScenarioCatalog
 {
     public const string FleetTabWithFleets = "Overall/FleetTab/WithFleets";
+    public const string MaterialsWithData = "Overall/Materials/WithData";
 
     public UiComponentScenarioCatalog()
     {
@@ -32,6 +35,23 @@ public sealed class UiComponentScenarioCatalog
                 var state = new FleetScenarioState(selectionState);
                 var viewModel = new FleetTabViewModel(FleetId.From(2), selectionState);
                 var view = new Views.Overall.FleetTab { ViewModel = viewModel };
+
+                return new(view, state.Capture, state);
+            }),
+        new(
+            MaterialsWithData,
+            "Materials",
+            registerServices: container =>
+            {
+                container.RegisterInstance<IPlayerDataService>(new ScenarioPlayerDataService());
+                container.Register<MaterialsViewModel>(Reuse.Scoped);
+            },
+            createContent: _ =>
+            {
+                var state = new MaterialsScenarioState();
+                var view = new Views.Overall.Materials();
+                view.Initialized += (_, _) => state.Attach(
+                    view.ViewModel ?? throw new InvalidOperationException("Materials did not resolve its ViewModel."));
 
                 return new(view, state.Capture, state);
             }),

@@ -138,13 +138,15 @@ public sealed class UiComponentSession : IDisposable
 
             var matches = Resolve(identifier);
             if (matches.Count == 0)
-                return new(ControlInteractionStatus.NotFound);
+                return new(ControlInteractionStatus.NotFound, new("control_not_found", MatchCount: 0));
             if (matches.Count > 1)
-                return new(ControlInteractionStatus.Ambiguous);
+                return new(ControlInteractionStatus.Ambiguous, new("ambiguous_control", MatchCount: matches.Count));
 
             var control = matches[0];
-            if (!IsVisibleInTree(control) || !control.IsEffectivelyEnabled)
-                return new(ControlInteractionStatus.Inoperable);
+            if (!IsVisibleInTree(control))
+                return new(ControlInteractionStatus.Invisible, DescribeInteraction(control, "control_invisible"));
+            if (!control.IsEffectivelyEnabled)
+                return new(ControlInteractionStatus.Disabled, DescribeInteraction(control, "control_disabled"));
 
             var origin = control.TranslatePoint(new(), _window)
                 ?? throw new InvalidOperationException("The control is not attached to the scenario window.");
@@ -153,6 +155,39 @@ public sealed class UiComponentSession : IDisposable
             _window.MouseMove(point, RawInputModifiers.None);
             _window.MouseDown(point, MouseButton.Left, RawInputModifiers.None);
             _window.MouseUp(point, MouseButton.Left, RawInputModifiers.None);
+            UiComponentHost.Settle(_window);
+
+            return new(ControlInteractionStatus.Success);
+        });
+
+    public ControlInteractionResult InputText(string identifier, string text) =>
+        UiComponentHost.Dispatch<ControlInteractionResult>(() =>
+        {
+            ThrowIfDisposed();
+            UiComponentHost.Settle(_window);
+
+            var matches = Resolve(identifier);
+            if (matches.Count == 0)
+                return new(ControlInteractionStatus.NotFound, new("control_not_found", MatchCount: 0));
+            if (matches.Count > 1)
+                return new(ControlInteractionStatus.Ambiguous, new("ambiguous_control", MatchCount: matches.Count));
+
+            var control = matches[0];
+            if (!IsVisibleInTree(control))
+                return new(ControlInteractionStatus.Invisible, DescribeInteraction(control, "control_invisible"));
+            if (!control.IsEffectivelyEnabled)
+                return new(ControlInteractionStatus.Disabled, DescribeInteraction(control, "control_disabled"));
+            if (control is not TextBox)
+                return new(ControlInteractionStatus.Inoperable, DescribeInteraction(control, "not_text_input"));
+
+            var origin = control.TranslatePoint(new(), _window)
+                ?? throw new InvalidOperationException("The control is not attached to the scenario window.");
+            var point = origin + new Point(control.Bounds.Width / 2, control.Bounds.Height / 2);
+
+            _window.MouseMove(point, RawInputModifiers.None);
+            _window.MouseDown(point, MouseButton.Left, RawInputModifiers.None);
+            _window.MouseUp(point, MouseButton.Left, RawInputModifiers.None);
+            _window.KeyTextInput(text);
             UiComponentHost.Settle(_window);
 
             return new(ControlInteractionStatus.Success);
@@ -180,6 +215,13 @@ public sealed class UiComponentSession : IDisposable
                 || control.Name == identifier)
             .Distinct()
             .ToArray();
+
+    private static OperationDiagnostics DescribeInteraction(Control control, string reason) =>
+        new(
+            reason,
+            control.GetType().FullName,
+            IsVisible: IsVisibleInTree(control),
+            IsEnabled: control.IsEffectivelyEnabled);
 
     private ControlInspection Describe(Control control, int depth)
     {

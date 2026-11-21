@@ -9,6 +9,7 @@ public class SessionCoordinatorTests
 
         await AssertError(UiComponentAutomationErrorCodes.NoActiveScenario, () => coordinator.InspectAsync());
         await AssertError(UiComponentAutomationErrorCodes.NoActiveScenario, () => coordinator.ClickAsync("FleetTab_2"));
+        await AssertError(UiComponentAutomationErrorCodes.NoActiveScenario, () => coordinator.InputTextAsync("Input", "Text"));
         await AssertError(UiComponentAutomationErrorCodes.NoActiveScenario, () => coordinator.CaptureScreenshotAsync());
         await AssertError(UiComponentAutomationErrorCodes.NoActiveScenario, coordinator.ResetAsync);
         await AssertError(UiComponentAutomationErrorCodes.NoActiveScenario, coordinator.CloseAsync);

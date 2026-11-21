@@ -29,10 +29,21 @@ public enum ControlInteractionStatus
     Success,
     NotFound,
     Ambiguous,
+    Disabled,
+    Invisible,
     Inoperable,
 }
 
-public sealed record ControlInteractionResult(ControlInteractionStatus Status)
+public sealed record OperationDiagnostics(
+    string Reason,
+    string? ControlType = null,
+    int? MatchCount = null,
+    bool? IsVisible = null,
+    bool? IsEnabled = null);
+
+public sealed record ControlInteractionResult(
+    ControlInteractionStatus Status,
+    OperationDiagnostics? Diagnostics = null)
 {
     public bool Succeeded => Status == ControlInteractionStatus.Success;
 }

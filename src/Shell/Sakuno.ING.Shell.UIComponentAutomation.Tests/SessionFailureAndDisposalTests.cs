@@ -159,7 +159,7 @@ public class SessionFailureAndDisposalTests
 
         await AssertError(UiComponentAutomationErrorCodes.ControlNotFound, () => coordinator.ClickAsync("Missing"));
         await AssertError(UiComponentAutomationErrorCodes.AmbiguousControl, () => coordinator.ClickAsync("Duplicate"));
-        await AssertError(UiComponentAutomationErrorCodes.InoperableControl, () => coordinator.ClickAsync("Disabled"));
+        await AssertError(UiComponentAutomationErrorCodes.ControlDisabled, () => coordinator.ClickAsync("Disabled"));
         await AssertError(UiComponentAutomationErrorCodes.ControlNotFound, () => coordinator.InspectAsync("Missing"));
 
         Assert.Equal(0, clicks);

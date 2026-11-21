@@ -15,8 +15,8 @@
 
 ## 3. Materials and reusable Control coverage
 
-- [ ] 3.1 Add `Overall/Materials/WithData` with deterministic services and representative material data; verify with tests and a reviewed PNG that Materials resolves its ViewModel through its normal initialization-time DI path rather than manual `DataContext` assignment, inspection reports the supplied material values from the real ViewModel, and capture renders those values.
-- [ ] 3.2 Complete semantic text input and structured operation diagnostics using a sample reusable Control hosted by a test-only UI Component Scenario; verify with tests that the sample Control supports inspection, text input, read-only state snapshots, and capture through the standard contract, real binding state changes, and disabled/invisible/ambiguous targets return distinct errors.
+- [x] 3.1 Add `Overall/Materials/WithData` with deterministic services and representative material data; verify with tests and a reviewed PNG that Materials resolves its ViewModel through its normal initialization-time DI path rather than manual `DataContext` assignment, inspection reports the supplied material values from the real ViewModel, and capture renders those values.
+- [x] 3.2 Complete semantic text input and structured operation diagnostics using a sample reusable Control hosted by a test-only UI Component Scenario; verify with tests that the sample Control supports inspection, text input, read-only state snapshots, and capture through the standard contract, real binding state changes, and disabled/invisible/ambiguous targets return distinct errors.
 
 ## 4. Stdio MCP integration and developer entry point
 

@@ -45,15 +45,16 @@ public sealed class UiComponentSessionCoordinator : IDisposable
         Enqueue(() => ExecuteActive("click", session =>
         {
             var result = session.Click(identifier);
-            Exception? exception = result.Status switch
-            {
-                ControlInteractionStatus.Success => null,
-                ControlInteractionStatus.NotFound => UiComponentAutomationErrors.ControlNotFound(session.ScenarioId, identifier),
-                ControlInteractionStatus.Ambiguous => UiComponentAutomationErrors.AmbiguousControl(session.ScenarioId, identifier),
-                ControlInteractionStatus.Inoperable => UiComponentAutomationErrors.InoperableControl(session.ScenarioId, identifier),
-                _ => new InvalidOperationException($"Unknown control interaction status '{result.Status}'."),
-            };
+            var exception = InteractionError(session, identifier, result);
+            if (exception is not null)
+                throw exception;
+        }));
 
+    public Task InputTextAsync(string identifier, string text) =>
+        Enqueue(() => ExecuteActive("input_text", session =>
+        {
+            var result = session.InputText(identifier, text);
+            var exception = InteractionError(session, identifier, result);
             if (exception is not null)
                 throw exception;
         }));
@@ -89,6 +90,26 @@ public sealed class UiComponentSessionCoordinator : IDisposable
         _activeDefinition = definition;
         previous?.Dispose();
     }
+
+    private static Exception? InteractionError(
+        UiComponentSession session,
+        string identifier,
+        ControlInteractionResult result) =>
+        result.Status switch
+        {
+            ControlInteractionStatus.Success => null,
+            ControlInteractionStatus.NotFound => UiComponentAutomationErrors.ControlNotFound(
+                session.ScenarioId, identifier, result.Diagnostics),
+            ControlInteractionStatus.Ambiguous => UiComponentAutomationErrors.AmbiguousControl(
+                session.ScenarioId, identifier, result.Diagnostics),
+            ControlInteractionStatus.Disabled => UiComponentAutomationErrors.ControlDisabled(
+                session.ScenarioId, identifier, result.Diagnostics),
+            ControlInteractionStatus.Invisible => UiComponentAutomationErrors.ControlInvisible(
+                session.ScenarioId, identifier, result.Diagnostics),
+            ControlInteractionStatus.Inoperable => UiComponentAutomationErrors.InoperableControl(
+                session.ScenarioId, identifier, result.Diagnostics),
+            _ => new InvalidOperationException($"Unknown control interaction status '{result.Status}'."),
+        };
 
     private void ExecuteLifecycle(string operation, Action action)
     {
