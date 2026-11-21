@@ -27,4 +27,4 @@
 
 ## 5. Complete-change verification
 
-- [ ] 5.1 Run `openspec validate add-avalonia-ui-component-automation --strict`, the full `DiffEngine_Disabled=true dotnet test`, and `dotnet build`; verify all added spec scenarios against the real MCP and in-process behavior and confirm no HotAvalonia, `dotnet watch`, HTTP listener, Native WebView, or full App bootstrap is involved.
+- [x] 5.1 Run `openspec validate add-avalonia-ui-component-automation --strict`, the full `DiffEngine_Disabled=true dotnet test`, and `dotnet build`; verify all added spec scenarios against the real MCP and in-process behavior and confirm no HotAvalonia, `dotnet watch`, HTTP listener, Native WebView, or full App bootstrap is involved.
