@@ -11,6 +11,7 @@
     <PackageReference Include="Avalonia.Skia" />
     <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="DryIoc.dll" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
     <PackageReference Include="ModelContextProtocol" />
     <PackageReference Include="ReactiveUI.Avalonia.Reactive" />
   </ItemGroup>

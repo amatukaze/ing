@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "ing-ui-component-automation": {
+      "command": "/bin/bash",
+      "args": [
+        "src/Shell/Sakuno.ING.Shell.UIComponentAutomation/run-mcp.sh"
+      ],
+      "cwd": ".",
+      "startupTimeoutMs": 120000,
+      "toolTimeoutMs": 30000
+    }
+  }
+}
